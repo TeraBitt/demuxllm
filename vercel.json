@@ -1,0 +1,53 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "npm ci",
+  "regions": ["iad1"],
+  "github": {
+    "silent": true
+  },
+  "redirects": [
+    { "source": "/model", "destination": "/models", "permanent": true },
+    { "source": "/model/:id", "destination": "/models", "permanent": true },
+    { "source": "/price", "destination": "/pricing", "permanent": true },
+    { "source": "/plans", "destination": "/pricing", "permanent": true },
+    { "source": "/documentation", "destination": "/docs", "permanent": true },
+    { "source": "/api", "destination": "/docs", "permanent": true },
+    { "source": "/rankings", "destination": "/benchmark", "permanent": true },
+    { "source": "/why", "destination": "/benchmark", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/icon.svg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}

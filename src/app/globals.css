@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* Theme toggle wins over OS preference; `.dark` is stamped on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* Brand — DemuxLLM cyan */
+  --color-brand-50: #ecfaff;
+  --color-brand-100: #d3f2ff;
+  --color-brand-200: #b0e9ff;
+  --color-brand-300: #79dcff;
+  --color-brand-400: #3ac7f0;
+  --color-brand-500: #17aede;
+  --color-brand-600: #0b8bba;
+  --color-brand-700: #0e6f96;
+  --color-brand-800: #145b7a;
+  --color-brand-900: #164c67;
+
+  /* Semantic surfaces — resolved from the CSS vars below */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+
+  /* Validated chart colours — categorical pair + ordinal tier ramp.
+     Both sets pass scripts/validate_palette.js in light and dark. */
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-tier-1: var(--tier-1);
+  --color-tier-2: var(--tier-2);
+  --color-tier-3: var(--tier-3);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  --animate-trace: trace 2.6s linear infinite;
+}
+
+/* ---- Light (default) ---------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --canvas: #ffffff;
+  --surface: #fafafa;
+  --elevated: #ffffff;
+  --line: #e7e9ec;
+  --line-strong: #d3d7dd;
+  --ink: #0a0c0e;
+  --ink-muted: #565f6a;
+  --ink-faint: #8a939e;
+  --accent: #0b8bba;
+  /* The logo tile is filled with --ink, so its accent must contrast with the
+     opposite surface from the rest of the page: dark tile here, light in dark. */
+  --logo-accent: #3ac7f0;
+  --series-1: #0f9fd0;
+  --series-2: #e0651f;
+  --tier-1: #52bade;
+  --tier-2: #1189b0;
+  --tier-3: #0a4d67;
+  --grid-line: rgb(0 0 0 / 0.045);
+  --glow: rgb(23 174 222 / 0.16);
+}
+
+/* ---- Dark --------------------------------------------------------------- */
+.dark {
+  color-scheme: dark;
+  --canvas: #08090b;
+  --surface: #0e1013;
+  --elevated: #141719;
+  --line: #1e2227;
+  --line-strong: #2b3037;
+  --ink: #f3f5f7;
+  --ink-muted: #98a1ac;
+  --ink-faint: #6a737e;
+  --accent: #3ac7f0;
+  --logo-accent: #0b8bba;
+  --series-1: #1f9fcc;
+  --series-2: #d96e2a;
+  --tier-1: #8fe0f7;
+  --tier-2: #3ac7f0;
+  --tier-3: #17798f;
+  --grid-line: rgb(255 255 255 / 0.045);
+  --glow: rgb(58 199 240 / 0.14);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 28%, transparent);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 9999px;
+    border: 3px solid var(--canvas);
+  }
+}
+
+@layer utilities {
+  /* Faint blueprint grid used behind the hero and section headers. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--ink) 20%,
+      color-mix(in oklab, var(--accent) 85%, var(--ink)) 55%,
+      var(--ink) 85%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Hairline that fades at both ends — used as section separators. */
+  .rule-x {
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--line-strong),
+      transparent
+    );
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes trace {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
