@@ -1,5 +1,7 @@
+import { Agentic } from "@/components/home/agentic";
 import { Difference } from "@/components/home/difference";
 import { Hero } from "@/components/home/hero";
+import { Problem } from "@/components/home/problem";
 import { Savings } from "@/components/home/savings";
 import { Steps } from "@/components/home/steps";
 import { Cta } from "@/components/shared/cta";
@@ -11,7 +13,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Problem />
       <Steps />
+      <Agentic />
       <Difference />
       <Savings />
 

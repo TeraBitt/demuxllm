@@ -24,6 +24,10 @@ const NOTES = [
     title: "New models appear on their own",
     body: "We test every new release the day it lands. If it earns a place, it shows up here — nothing for you to do.",
   },
+  {
+    title: "Some of them can think first",
+    body: "Marked “can think first”. Reasoning is billed like output, so we only buy it where we have measured that it changes the answer.",
+  },
 ];
 
 export default function ModelsPage() {
@@ -40,7 +44,7 @@ export default function ModelsPage() {
       </Section>
 
       <Section className="bg-surface">
-        <Reveal className="grid gap-3 sm:grid-cols-3">
+        <Reveal className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {NOTES.map((n) => (
             <Card key={n.title} className="p-5">
               <h2 className="text-[0.9375rem] font-medium">{n.title}</h2>

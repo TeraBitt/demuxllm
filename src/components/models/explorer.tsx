@@ -69,7 +69,8 @@ export function ModelsExplorer() {
         !q ||
         m.name.toLowerCase().includes(q) ||
         m.vendor.toLowerCase().includes(q) ||
-        m.bestAt.toLowerCase().includes(q);
+        m.bestAt.toLowerCase().includes(q) ||
+        (m.thinks && "reasoning thinking".includes(q));
       return matchesTier && matchesQuery;
     });
 
@@ -234,6 +235,7 @@ function ModelRow({ model: m }: { model: PoolModel }) {
             <Pill tone={m.tier === "open" ? "accent" : "neutral"}>
               {TIER_LABEL[m.tier]}
             </Pill>
+            {m.thinks ? <Pill>Can think first</Pill> : null}
           </div>
           <p className="mt-1 text-[0.8125rem] text-ink-muted">
             {m.vendor} · {m.bestAt}

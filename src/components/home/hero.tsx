@@ -8,17 +8,12 @@ import { HERO_STATS, PROVIDERS } from "@/lib/data";
 export function Hero() {
   return (
     <div className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="bg-grid mask-fade-b pointer-events-none absolute inset-0"
-      />
 
       <div className="relative mx-auto max-w-6xl px-5 pt-14 pb-12 sm:px-8 sm:pt-20 sm:pb-16">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-14">
           <Reveal group className="flex flex-col items-start gap-6">
             <RevealItem>
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated px-3 py-1 text-[0.8125rem] text-ink-muted">
-                <span className="size-1.5 rounded-full bg-accent animate-[pulse-dot_2.4s_ease-in-out_infinite]" />
                 Re-tested against every model, every day
               </span>
             </RevealItem>
@@ -32,9 +27,9 @@ export function Hero() {
 
             <RevealItem>
               <p className="max-w-lg text-[1.0625rem] leading-relaxed text-ink-muted">
-                Most questions do not need the most expensive model. We send each
-                one to the cheapest model that still gets it right — and show you
-                exactly what that saved.
+                Most questions do not need the most expensive model, and most steps
+                of an agent do not need it to think first. We choose both for every
+                call — and show you exactly what that saved.
               </p>
             </RevealItem>
 

@@ -14,10 +14,6 @@ export function Cta({
     <section className="relative overflow-hidden border-t border-line">
       <div
         aria-hidden
-        className="bg-dots pointer-events-none absolute inset-0 opacity-60"
-      />
-      <div
-        aria-hidden
         className="pointer-events-none absolute inset-x-0 -bottom-40 h-80 blur-3xl"
         style={{
           background:

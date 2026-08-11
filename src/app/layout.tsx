@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AppChrome } from "@/components/app-chrome";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { THEME_SCRIPT } from "@/components/theme-toggle";
@@ -19,7 +20,7 @@ const mono = Geist_Mono({
 });
 
 const DESCRIPTION =
-  "One key for every AI model. We send each question to the cheapest model that can answer it properly, and show you what you saved. Change one line of code.";
+  "One key for every AI model. We pick the cheapest model that can answer each call properly and how much thinking it should buy first — every step of an agent, not just the first one. Change one line of code.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://demuxllm.com"),
@@ -56,6 +57,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${sans.variable} ${mono.variable}`}
+      // Opts into the smooth scrolling already set in globals.css while telling
+      // Next to suppress it during route transitions — without this it warns,
+      // and navigations animate the scroll instead of jumping to the top.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
@@ -70,9 +75,9 @@ export default function RootLayout({
           Skip to content
         </a>
         <MotionProvider>
-          <Nav />
-          <main id="main">{children}</main>
-          <Footer />
+          <AppChrome nav={<Nav />} footer={<Footer />}>
+            {children}
+          </AppChrome>
         </MotionProvider>
       </body>
     </html>

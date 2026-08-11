@@ -86,10 +86,7 @@ export function RouterVisual() {
       <div className="overflow-hidden rounded-2xl border border-line bg-elevated shadow-2xl shadow-black/5 dark:shadow-black/40">
         <div className="flex items-center gap-2 border-b border-line bg-surface px-4 py-3">
           <span className="text-[0.8125rem] font-medium">Someone asks…</span>
-          <span className="ml-auto flex items-center gap-1.5 text-[0.75rem] text-ink-faint">
-            <span className="size-1.5 rounded-full bg-accent animate-[pulse-dot_2.4s_ease-in-out_infinite]" />
-            live
-          </span>
+          <span className="ml-auto text-[0.75rem] text-ink-faint">example</span>
         </div>
 
         <div className="p-4 sm:p-5">

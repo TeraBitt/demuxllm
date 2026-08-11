@@ -40,8 +40,6 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --animate-marquee: marquee 42s linear infinite;
-  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
-  --animate-trace: trace 2.6s linear infinite;
 }
 
 /* ---- Light (default) ---------------------------------------------------- */
@@ -56,16 +54,22 @@
   --ink-muted: #565f6a;
   --ink-faint: #8a939e;
   --accent: #0b8bba;
-  /* The logo tile is filled with --ink, so its accent must contrast with the
-     opposite surface from the rest of the page: dark tile here, light in dark. */
-  --logo-accent: #3ac7f0;
   --series-1: #0f9fd0;
   --series-2: #e0651f;
   --tier-1: #52bade;
   --tier-2: #1189b0;
   --tier-3: #0a4d67;
-  --grid-line: rgb(0 0 0 / 0.045);
   --glow: rgb(23 174 222 / 0.16);
+
+  /* Glass. Panels float ON the canvas rather than being cut out of it, so the
+     fills are translucent and the blur is what separates them. On light the
+     glass is white over a near-white canvas, so the hairline does most of the
+     separating and is correspondingly darker than its dark-mode twin. */
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-strong: rgb(255 255 255 / 0.86);
+  --glass-line: rgb(0 0 0 / 0.08);
+  --glass-highlight: rgb(255 255 255 / 0.9);
+  --glass-sunk: rgb(0 0 0 / 0.025);
 }
 
 /* ---- Dark --------------------------------------------------------------- */
@@ -80,14 +84,18 @@
   --ink-muted: #98a1ac;
   --ink-faint: #6a737e;
   --accent: #3ac7f0;
-  --logo-accent: #0b8bba;
   --series-1: #1f9fcc;
   --series-2: #d96e2a;
   --tier-1: #8fe0f7;
   --tier-2: #3ac7f0;
   --tier-3: #17798f;
-  --grid-line: rgb(255 255 255 / 0.045);
   --glow: rgb(58 199 240 / 0.14);
+
+  --glass: rgb(255 255 255 / 0.045);
+  --glass-strong: rgb(255 255 255 / 0.075);
+  --glass-line: rgb(255 255 255 / 0.09);
+  --glass-highlight: rgb(255 255 255 / 0.12);
+  --glass-sunk: rgb(0 0 0 / 0.22);
 }
 
 @layer base {
@@ -126,21 +134,43 @@
 }
 
 @layer utilities {
-  /* Faint blueprint grid used behind the hero and section headers. */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 56px 56px;
+  /* A translucent panel. Needs something behind it worth blurring — see the
+     ambient wash in the dashboard shell — or it reads as flat tinted grey. */
+  .glass {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    backdrop-filter: blur(20px) saturate(1.5);
   }
 
-  .bg-dots {
-    background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
-    background-size: 20px 20px;
+  .glass-strong {
+    background: var(--glass-strong);
+    -webkit-backdrop-filter: blur(28px) saturate(1.7);
+    backdrop-filter: blur(28px) saturate(1.7);
   }
 
-  .mask-fade-b {
-    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  .glass-line {
+    border-color: var(--glass-line);
+  }
+
+  /* Hover for a glass surface. An opaque `hover:bg-*` would punch a solid hole
+     in the translucency; stepping to the next glass tint keeps it material and
+     stays correct in both themes. */
+  .glass-hover {
+    transition: background 150ms ease;
+  }
+  .glass-hover:hover {
+    background: var(--glass-strong);
+  }
+
+  /* One-pixel lit edge along the top. What sells a surface as physical: real
+     glass catches light where it turns away from you. */
+  .edge-lit {
+    box-shadow: inset 0 1px 0 0 var(--glass-highlight);
+  }
+
+  /* The inverse — a recessed well for things sitting *in* a panel. */
+  .edge-sunk {
+    box-shadow: inset 0 1px 2px 0 var(--glass-sunk);
   }
 
   .mask-fade-x {
@@ -179,27 +209,6 @@
 @keyframes marquee {
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.82);
-  }
-}
-
-@keyframes trace {
-  from {
-    stroke-dashoffset: 24;
-  }
-  to {
-    stroke-dashoffset: 0;
   }
 }
 

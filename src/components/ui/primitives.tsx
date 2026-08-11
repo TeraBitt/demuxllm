@@ -95,10 +95,6 @@ export function PageHeader({
 }) {
   return (
     <div className="relative overflow-hidden border-b border-line">
-      <div
-        aria-hidden
-        className="bg-grid mask-fade-b pointer-events-none absolute inset-0"
-      />
       <div className="relative mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
         <Eyebrow>{eyebrow}</Eyebrow>
         <h1 className="mt-4 max-w-3xl text-[2rem] leading-[1.1] font-semibold tracking-[-0.035em] text-balance sm:text-[2.75rem]">

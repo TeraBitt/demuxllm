@@ -9,6 +9,16 @@ const COMMENT = /^(\s*)((?:#|\/\/).*)$/;
 const STRING = /("[^"]*"|'[^']*')/g;
 
 function renderLine(line: string, key: number) {
+  // An empty <span class="block"> collapses to zero height, which silently ate
+  // every blank line in a snippet. A hard space keeps the gap.
+  if (!line.trim()) {
+    return (
+      <span key={key} className="block">
+        {" "}
+      </span>
+    );
+  }
+
   const comment = COMMENT.exec(line);
   if (comment) {
     return (
@@ -36,9 +46,14 @@ function renderLine(line: string, key: number) {
   );
 }
 
+/**
+ * Both comment styles need a leading space, which is also what keeps the `//`
+ * in a URL out of it — those are preceded by a colon, never a space.
+ */
 function splitTrailingComment(line: string): [string, string] {
-  const at = line.indexOf(" #");
-  if (at === -1) return [line, ""];
+  const marks = [line.indexOf(" #"), line.indexOf(" //")].filter((i) => i !== -1);
+  if (marks.length === 0) return [line, ""];
+  const at = Math.min(...marks);
   return [line.slice(0, at), line.slice(at)];
 }
 

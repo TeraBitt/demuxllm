@@ -1,7 +1,9 @@
 # DemuxLLM — frontend
 
-Marketing site for DemuxLLM: one API key for every AI model, with each question
-routed to the cheapest model that can answer it properly.
+Marketing site for DemuxLLM: one API key for every AI model. Each call goes to
+the cheapest model that can answer it properly, with only as much reasoning
+bought as the answer actually needs — every step of an agent, not just the
+first one.
 
 Five independent pages, in the style of [openrouter.ai](https://openrouter.ai) —
 neutral surfaces, hairline borders, dark-first with a light mode that is
@@ -35,11 +37,11 @@ HTML. Nav and footer live in the root layout.
 
 | Route | Job |
 |---|---|
-| `/` | What it is, how it works, what it saves |
+| `/` | The problem, how it works, what it does for agents, what it saves |
 | `/models` | Every model, searchable and filterable, 5 per page |
-| `/benchmark` | Why routers go stale and how we avoid it |
+| `/benchmark` | Why routers go stale, how we avoid it, what we grade |
 | `/pricing` | Three plans and a worked example of a bill |
-| `/docs` | Quickstart in three languages, options, response headers |
+| `/docs` | Drop-in quickstart, the `demuxllm` package, agent runs, options, headers |
 
 ## Structure
 
@@ -62,7 +64,8 @@ src/
 │   ├── router-visual.tsx  live decision panel, cycles four questions [client]
 │   ├── theme-toggle.tsx                                             [client]
 │   ├── copy-field.tsx     copy button + endpoint chip                [client]
-│   ├── home/              hero, steps, difference, savings           [savings: client]
+│   ├── home/              hero, problem, steps, agentic, difference, savings
+│   │                                                                [savings: client]
 │   ├── models/explorer.tsx search, filter, sort, pagination          [client]
 │   ├── benchmark/decay-chart.tsx  chart + table views                [client]
 │   ├── docs/quickstart.tsx language tabs                             [client]
@@ -74,14 +77,19 @@ src/
 
 ## Design notes
 
-**The logo is a solid shape, not an outline.** The first version drew the "D" as
-a 2.6-unit stroke with the demultiplexer inside it at the same weight — below
-about 32px the two merged into a grey smudge. It is now a filled D silhouette
-with the fan knocked out of it, which stays readable at 16px and lets the
-interior detail fade out gracefully when it is too small to matter. The tile
-uses `--ink` and the fan `--canvas`, so it inverts cleanly between themes;
-`--logo-accent` flips separately because it sits on the opposite surface from
-the rest of the page.
+**The logo ships in two cuts, because one cannot do both jobs.** The mark is a
+demultiplexer inside an outlined "D": one signal enters at the flat edge, hits a
+junction and leaves on three traces, with the accent colour only on the trace
+that was chosen. `LogoMark` is the full cut, with ring terminals and the input
+whisker running out past the stem — it needs about 32px, below which the
+1.15-unit ring strokes fall under a pixel and the interior turns to grey haze.
+`LogoMarkCompact` keeps the same silhouette and fan but solidifies the
+terminals, thickens every stroke by roughly 40% and drops the whisker so the D
+can grow into the space; it was checked at 16px and is what the nav and the
+favicon use. Both stroke in `--ink` with `--accent` on the chosen trace, so they
+invert with the theme and sit correctly on canvas, surface or elevated.
+`app/icon.svg` and `app/apple-icon.png` are the same drawing on a dark tile —
+the apple icon is a PNG because that convention does not accept SVG.
 
 **Copy is written for someone who has never heard of a router.** No jargon on
 the home page: no "regret", no "normalized", no token counts. Costs are shown

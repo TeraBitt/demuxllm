@@ -9,6 +9,7 @@
 /* ------------------------------------------------------------------- nav -- */
 
 export const ROUTES = [
+  { label: "Dashboard", href: "/dashboard" },
   { label: "Models", href: "/models" },
   { label: "Why us", href: "/benchmark" },
   { label: "Pricing", href: "/pricing" },
@@ -31,27 +32,209 @@ export const PROVIDERS = [
 /* ------------------------------------------------------------------ home -- */
 
 export const HERO_STATS = [
-  { value: "40%", label: "average bill cut" },
-  { value: "1", label: "line of code to switch" },
+  { value: "40%", label: "cut on everyday traffic" },
+  { value: "3×", label: "cheaper on agent runs" },
+  { value: "8ms", label: "added to a call" },
   { value: "24h", label: "to add a new model" },
-  { value: "8ms", label: "added to a request" },
+] as const;
+
+/* --------------------------------------------------------------- problem -- */
+
+/**
+ * The pitch starts here rather than at the product. Each card is one reason the
+ * bill is bigger than it needs to be, ordered by how recently it became true.
+ */
+export const PROBLEM = [
+  {
+    title: "You pay frontier prices for easy work",
+    body: "Most teams wire up one strong model and send it everything. But over half of what a product actually asks is routine — a summary, a tidy-up, a yes or no. The cheap model gets those right too. You just paid twenty times more to find that out.",
+  },
+  {
+    title: "Agents turned one question into fifty calls",
+    body: "A single user request no longer means a single call. It means planning, tool calls, retries, a check at the end. Your bill stopped scaling with how many people use the product and started scaling with how many steps each task takes.",
+  },
+  {
+    title: "You are billed for thinking you never see",
+    body: "Reasoning models spend tokens working something out before they answer, and those tokens are billed like the answer. On a hard question that is money well spent. On “which tool do I call next” it is pure waste, and nothing in your code says no.",
+  },
+  {
+    title: "The right answer changes every few weeks",
+    body: "Whatever you picked last quarter is already the wrong choice. New models ship, prices get cut, quiet updates land. Keeping up is somebody's full-time job, and it is nobody's.",
+  },
+] as const;
+
+export const WHY_NOW = [
+  {
+    stat: "20×",
+    title: "The spread got wider",
+    body: "The gap between the cheapest model that answers correctly and the default expensive one is larger than it has ever been.",
+  },
+  {
+    stat: "10–50×",
+    title: "Agents multiplied the volume",
+    body: "The same task that used to be one call is now a loop. Spend per task went up by an order of magnitude.",
+  },
+  {
+    stat: "weekly",
+    title: "Nobody can keep up by hand",
+    body: "Models, prices and quality all move on their own schedule. A person cannot re-benchmark that. A system can.",
+  },
 ] as const;
 
 export const STEPS = [
   {
     n: "01",
-    title: "You send a question",
+    title: "You send a call",
     body: "Exactly like you do today. Same code, same format — you just point it at us instead.",
   },
   {
     n: "02",
-    title: "We pick the model",
-    body: "We already know which models are good at what, and what each one charges today. We pick the cheapest one that will get it right.",
+    title: "We make three decisions",
+    body: "Which model can answer this, how much thinking it needs to buy first, and what kind of work it is. Every call, in about eight milliseconds.",
   },
   {
     n: "03",
     title: "You get the answer",
-    body: "Same answer, smaller bill. Your dashboard shows exactly what you saved and how we chose.",
+    body: "Same answer, smaller bill. Every response says which model replied, what it cost, and what it would have cost you before.",
+  },
+] as const;
+
+/* ------------------------------------------------------- what we route on -- */
+
+/**
+ * The three axes are the product. Everyone else routes on the first one only —
+ * saying so plainly is more convincing than a feature list.
+ */
+export const ROUTE_AXES = [
+  {
+    n: "01",
+    title: "Which model answers",
+    body: "The cheapest model in the pool that we expect to get this particular question right — not the cheapest overall, and not the best overall.",
+    detail: "Priced live, scored daily",
+  },
+  {
+    n: "02",
+    title: "How much it thinks first",
+    body: "Reasoning is billed like output and hidden from you. We buy it where it changes the answer and skip it where it does not — which, inside an agent loop, is most of the time.",
+    detail: "off · short · deep",
+  },
+  {
+    n: "03",
+    title: "What kind of step it is",
+    body: "Choosing a tool is not the same job as writing a customer reply. Tell us which it is and we route it as that kind of work — and grade it that way too.",
+    detail: "plan · tool · read · decide · write · check",
+  },
+] as const;
+
+/* --------------------------------------------------------------- agentic -- */
+
+export type AgentStep = {
+  n: string;
+  label: string;
+  detail: string;
+  model: string;
+  tier: PoolModel["tier"];
+  thinking: "off" | "short" | "deep";
+  /** USD for this step, routed. */
+  cost: number;
+  /** USD for this step on one frontier model with reasoning always on. */
+  baseline: number;
+};
+
+/**
+ * One support task, six calls. The point of the table is the shape, not the
+ * numbers: exactly one step is worth the expensive model, and the loop spends
+ * most of its calls on work a small model does identically.
+ */
+export const AGENT_RUN: AgentStep[] = [
+  {
+    n: "01",
+    label: "Plan the task",
+    detail: "Break the request into steps",
+    model: "Sonnet 4",
+    tier: "mid",
+    thinking: "short",
+    cost: 0.0042,
+    baseline: 0.0186,
+  },
+  {
+    n: "02",
+    label: "Pick the next tool",
+    detail: "Choose a function and fill its arguments",
+    model: "Qwen 72B",
+    tier: "open",
+    thinking: "off",
+    cost: 0.0004,
+    baseline: 0.0186,
+  },
+  {
+    n: "03",
+    label: "Read the policy",
+    detail: "Forty pages in, one paragraph out",
+    model: "Gemini Flash",
+    tier: "mid",
+    thinking: "off",
+    cost: 0.0061,
+    baseline: 0.0243,
+  },
+  {
+    n: "04",
+    label: "Decide if it qualifies",
+    detail: "The judgement the whole task rests on",
+    model: "Opus 4",
+    tier: "frontier",
+    thinking: "deep",
+    cost: 0.0243,
+    baseline: 0.0243,
+  },
+  {
+    n: "05",
+    label: "Draft the reply",
+    detail: "Three sentences, house tone",
+    model: "Llama 70B",
+    tier: "open",
+    thinking: "off",
+    cost: 0.0006,
+    baseline: 0.0186,
+  },
+  {
+    n: "06",
+    label: "Check it against policy",
+    detail: "Catch anything the draft got wrong",
+    model: "Sonnet 4",
+    tier: "mid",
+    thinking: "short",
+    cost: 0.0048,
+    baseline: 0.0186,
+  },
+];
+
+export const AGENT_TASK = "Refund order #4181 if our policy allows it.";
+
+export const agentTotals = () => {
+  const cost = AGENT_RUN.reduce((sum, s) => sum + s.cost, 0);
+  const baseline = AGENT_RUN.reduce((sum, s) => sum + s.baseline, 0);
+  return { cost, baseline, saved: 1 - cost / baseline, ratio: baseline / cost };
+};
+
+export const THINKING_MODES = [
+  {
+    key: "off",
+    label: "Off",
+    body: "Answer straight away. Most steps in a loop are this — pick a tool, fill a field, decide whether it is finished.",
+    share: 0.62,
+  },
+  {
+    key: "short",
+    label: "Short",
+    body: "A few hundred tokens of working out. Enough to plan a task or check somebody else's answer.",
+    share: 0.29,
+  },
+  {
+    key: "deep",
+    label: "Deep",
+    body: "The full reasoning budget, for the one step the task actually turns on. Rare, and worth it when it happens.",
+    share: 0.09,
   },
 ] as const;
 
@@ -62,7 +245,15 @@ export const HOME_FAQS = [
   },
   {
     q: "How much work is it to switch?",
-    a: "You change one web address in your settings. That is genuinely the whole thing — no new library, no rewrite. If you ever want to leave, you change it back.",
+    a: "You change one web address in your settings. That is genuinely the whole thing — no new library, no rewrite. If you ever want to leave, you change it back. The demuxllm package is optional, and only worth installing if you are routing an agent step by step.",
+  },
+  {
+    q: "Does this work with agents, or only chat?",
+    a: "Agents are where it pays off most. A task that takes fifty calls only has one or two that genuinely need the expensive model — the rest are picking tools, reading documents and checking work. We route each step on its own and total the whole run for you.",
+  },
+  {
+    q: "What do you do about thinking tokens?",
+    a: "We decide how much reasoning to buy before each answer, the same way we decide the model. Hard step, full budget. Easy step, none. You can cap it yourself or turn the whole thing off, and every response tells you how many thinking tokens it used.",
   },
   {
     q: "What happens when a new model comes out?",
@@ -94,6 +285,8 @@ export type PoolModel = {
   share: number;
   /** 0–1, measured on the live benchmark. */
   quality: number;
+  /** Whether the model can spend tokens reasoning before it answers. */
+  thinks: boolean;
   bestAt: string;
   trend: number[];
 };
@@ -109,6 +302,7 @@ export const POOL: PoolModel[] = [
     p95: 4120,
     share: 0.06,
     quality: 0.94,
+    thinks: true,
     bestAt: "Hard reasoning, long documents",
     trend: [4, 6, 5, 7, 6, 8, 7, 9],
   },
@@ -122,6 +316,7 @@ export const POOL: PoolModel[] = [
     p95: 3480,
     share: 0.08,
     quality: 0.93,
+    thinks: true,
     bestAt: "Maths, planning, tricky edge cases",
     trend: [5, 5, 6, 6, 7, 7, 8, 8],
   },
@@ -135,6 +330,7 @@ export const POOL: PoolModel[] = [
     p95: 1980,
     share: 0.19,
     quality: 0.88,
+    thinks: true,
     bestAt: "Writing code, following instructions",
     trend: [6, 7, 7, 8, 9, 9, 10, 11],
   },
@@ -148,6 +344,7 @@ export const POOL: PoolModel[] = [
     p95: 1640,
     share: 0.14,
     quality: 0.86,
+    thinks: true,
     bestAt: "Long context, other languages",
     trend: [5, 6, 6, 7, 7, 8, 8, 9],
   },
@@ -161,6 +358,7 @@ export const POOL: PoolModel[] = [
     p95: 1210,
     share: 0.11,
     quality: 0.81,
+    thinks: false,
     bestAt: "European languages, summarising",
     trend: [4, 5, 5, 5, 6, 6, 7, 7],
   },
@@ -174,6 +372,7 @@ export const POOL: PoolModel[] = [
     p95: 740,
     share: 0.17,
     quality: 0.76,
+    thinks: false,
     bestAt: "Everyday chat, rewriting",
     trend: [3, 4, 5, 6, 7, 8, 9, 10],
   },
@@ -187,6 +386,7 @@ export const POOL: PoolModel[] = [
     p95: 690,
     share: 0.14,
     quality: 0.74,
+    thinks: false,
     bestAt: "Summarising, classifying, tagging",
     trend: [3, 3, 4, 5, 6, 7, 8, 9],
   },
@@ -200,6 +400,7 @@ export const POOL: PoolModel[] = [
     p95: 820,
     share: 0.11,
     quality: 0.75,
+    thinks: true,
     bestAt: "Code, structured output",
     trend: [4, 4, 5, 5, 6, 7, 7, 8],
   },
@@ -213,6 +414,7 @@ export const POOL: PoolModel[] = [
     p95: 620,
     share: 0.0,
     quality: 0.78,
+    thinks: false,
     bestAt: "Fast replies, simple extraction",
     trend: [2, 3, 4, 5, 6, 7, 8, 9],
   },
@@ -226,6 +428,7 @@ export const POOL: PoolModel[] = [
     p95: 3010,
     share: 0.0,
     quality: 0.91,
+    thinks: true,
     bestAt: "Research, very long inputs",
     trend: [5, 5, 6, 7, 7, 8, 9, 9],
   },
@@ -239,6 +442,7 @@ export const POOL: PoolModel[] = [
     p95: 1890,
     share: 0.0,
     quality: 0.84,
+    thinks: true,
     bestAt: "Current events, conversation",
     trend: [4, 5, 5, 6, 6, 7, 7, 8],
   },
@@ -252,6 +456,7 @@ export const POOL: PoolModel[] = [
     p95: 1520,
     share: 0.0,
     quality: 0.82,
+    thinks: false,
     bestAt: "Search over your own documents",
     trend: [3, 4, 4, 5, 5, 6, 6, 7],
   },
@@ -315,12 +520,36 @@ export const HOW_WE_TEST = [
   {
     n: "03",
     title: "The answers get graded",
-    body: "Most are checked automatically — did the code run, is the number right. Nothing is graded on vibes alone.",
+    body: "Most are checked automatically — did the code run, did the tool call parse, is the number right. Nothing is graded on vibes alone.",
   },
   {
     n: "04",
     title: "The router learns overnight",
     body: "Yesterday's results are in today's routing. No retraining, no waiting, no version to upgrade.",
+  },
+] as const;
+
+/**
+ * The grading rubric is the part that competitors cannot copy off a leaderboard:
+ * public benchmarks score finished prose, and an agent almost never asks for
+ * finished prose.
+ */
+export const GRADING = [
+  {
+    title: "Was the answer right",
+    body: "The ordinary case. Run the code, check the number, compare against a known answer. This is the only thing most benchmarks measure.",
+  },
+  {
+    title: "Did the tool call work",
+    body: "Half the calls in an agent are a function name and some arguments. A model that writes beautiful prose and malformed JSON is useless here, and public leaderboards will never tell you that.",
+  },
+  {
+    title: "Did the plan reach the goal",
+    body: "We score whole runs, not only single replies. A cheap model that takes eleven steps to do what an expensive one does in four is not actually cheap.",
+  },
+  {
+    title: "Did thinking earn its cost",
+    body: "Every question gets asked twice — once with a reasoning budget and once without. If the answer does not improve, we have just learned where not to spend your money.",
   },
 ] as const;
 
@@ -350,7 +579,8 @@ export const PLANS = [
     featured: true,
     features: [
       "Unlimited routed spend",
-      "You set the quality floor and cost ceiling",
+      "Per-step routing and totals for agent runs",
+      "You set the quality floor, cost ceiling and thinking budget",
       "New models added within 24 hours",
       "Monthly invoice reconciliation",
       "Email and Slack support",
@@ -387,6 +617,14 @@ export const PRICING_FAQS = [
     a: "Yes, and at their list price — we do not mark it up. Our fee is separate and only applies to the savings.",
   },
   {
+    q: "Do thinking tokens count towards the saving?",
+    a: "Yes, on both sides of the sum. The comparison is what a frontier model with reasoning left on would have charged you, thinking tokens included, because that is the bill you would really have received. Skipping reasoning on a step that did not need it is one of the largest savings we find.",
+  },
+  {
+    q: "How is an agent run billed?",
+    a: "Exactly like any other traffic — the run is just a convenient way to see it. Each step is priced on its own, the run gives you one total, and the saving is measured against every step having gone to your baseline model.",
+  },
+  {
     q: "Can I cap what I spend?",
     a: "Yes. Set a monthly ceiling, a per-request ceiling, or both. You can also restrict which models are allowed to be picked at all.",
   },
@@ -394,7 +632,13 @@ export const PRICING_FAQS = [
 
 /* ------------------------------------------------------------------ docs -- */
 
-export const DOC_SNIPPETS = {
+/**
+ * Two ways in, deliberately ordered. The drop-in is the honest answer to "how
+ * much work is this" — nothing to install. The package earns its place only
+ * once you are routing an agent, where per-step control and one total per run
+ * are things a base URL cannot give you.
+ */
+export const DROP_IN_SNIPPETS = {
   python: {
     label: "Python",
     code: `from openai import OpenAI
@@ -439,6 +683,139 @@ console.log(answer.choices[0].message.content);`,
   },
 } as const;
 
+/**
+ * The package speaks `chat.completions.create` too. Inventing a second call
+ * shape would mean the drop-in above and the package below teach different
+ * things — so the only difference here is the named options going in and the
+ * routing report coming back.
+ */
+export const SDK_SNIPPETS = {
+  python: {
+    label: "Python",
+    code: `# pip install demuxllm
+from demuxllm import DemuxLLM
+
+demux = DemuxLLM()                        # reads DEMUX_API_KEY
+
+answer = demux.chat.completions.create(   # the call you already write
+    model="auto",
+    messages=[{"role": "user", "content": question}],
+    quality_floor=0.85,                   # never route below this
+    thinking="auto",                      # we buy the reasoning budget
+)
+
+print(answer.choices[0].message.content)
+print(answer.demux.model, answer.demux.cost, answer.demux.saved)`,
+  },
+  typescript: {
+    label: "TypeScript",
+    code: `// npm i demuxllm
+import { DemuxLLM } from "demuxllm";
+
+const demux = new DemuxLLM();                        // reads DEMUX_API_KEY
+
+const answer = await demux.chat.completions.create({ // the call you already write
+  model: "auto",
+  messages: [{ role: "user", content: question }],
+  qualityFloor: 0.85,                                // never route below this
+  thinking: "auto",                                  // we buy the reasoning budget
+});
+
+console.log(answer.choices[0].message.content);
+console.log(answer.demux.model, answer.demux.cost, answer.demux.saved);`,
+  },
+} as const;
+
+/**
+ * Tools are the part people assume a router breaks, so the snippet says the
+ * quiet part out loud: the schema is unchanged, and carrying tools is itself a
+ * routing signal — a model that cannot call them is not a candidate.
+ */
+export const TOOL_SNIPPETS = {
+  python: {
+    label: "Python",
+    code: `# Same tool schema you already send. Carrying tools narrows the pool:
+# a model that cannot call them is never a candidate for this step.
+answer = demux.chat.completions.create(
+    model="auto",
+    messages=messages,
+    tools=[refund_lookup, policy_search],
+    tool_choice="auto",
+)
+
+for call in answer.choices[0].message.tool_calls:
+    messages.append(run_tool(call))       # you still run the tool
+
+# Handing the result back is small work, so it routes low on its own.
+final = demux.chat.completions.create(model="auto", messages=messages)`,
+  },
+  typescript: {
+    label: "TypeScript",
+    code: `// Same tool schema you already send. Carrying tools narrows the pool:
+// a model that cannot call them is never a candidate for this step.
+const answer = await demux.chat.completions.create({
+  model: "auto",
+  messages,
+  tools: [refundLookup, policySearch],
+  tool_choice: "auto",
+});
+
+for (const call of answer.choices[0].message.tool_calls ?? []) {
+  messages.push(await runTool(call));     // you still run the tool
+}
+
+// Handing the result back is small work, so it routes low on its own.
+const final = await demux.chat.completions.create({ model: "auto", messages });`,
+  },
+} as const;
+
+export const AGENT_SNIPPETS = {
+  python: {
+    label: "Python",
+    code: `# pip install demuxllm
+from demuxllm import DemuxLLM
+
+demux = DemuxLLM()
+
+# One run is one user request. Every step inside it is routed on its own.
+with demux.run("refund-check") as run:
+    plan = run.step("plan", task, thinking="short")
+
+    for call in plan.tool_calls:
+        run.step("tool", call, thinking="off")     # trivial, goes cheap
+
+    policy = run.step("read", document, thinking="off")
+    verdict = run.step("decide", policy.text, quality_floor=0.95)
+
+print(run.cost, run.baseline_cost)   # $0.040 vs $0.123`,
+  },
+  typescript: {
+    label: "TypeScript",
+    code: `// npm i demuxllm
+import { DemuxLLM } from "demuxllm";
+
+const demux = new DemuxLLM();
+
+// One run is one user request. Every step inside it is routed on its own.
+const run = demux.run("refund-check");
+
+const plan = await run.step("plan", task, { thinking: "short" });
+for (const call of plan.toolCalls) {
+  await run.step("tool", call, { thinking: "off" });   // trivial, goes cheap
+}
+const policy = await run.step("read", document, { thinking: "off" });
+await run.step("decide", policy.text, { qualityFloor: 0.95 });
+
+await run.end();
+console.log(run.cost, run.baselineCost);   // $0.040 vs $0.123`,
+  },
+} as const;
+
+export const INSTALL = [
+  { label: "Python", code: "pip install demuxllm" },
+  { label: "TypeScript", code: "npm i demuxllm" },
+] as const;
+
 export const DOC_OPTIONS = [
   {
     name: "quality_floor",
@@ -447,9 +824,21 @@ export const DOC_OPTIONS = [
     example: "0.85",
   },
   {
+    name: "thinking",
+    type: "auto · off · short · deep",
+    body: "How much reasoning to buy before answering. Leave it on auto and we decide per call; set it yourself when you already know the step is trivial.",
+    example: '"auto"',
+  },
+  {
+    name: "step",
+    type: "kind of work",
+    body: "What this call is for inside an agent loop. We route and grade a tool call differently from a customer reply.",
+    example: '"tool"',
+  },
+  {
     name: "cost_ceiling",
     type: "dollars",
-    body: "Never spend more than this on a single answer. We pick the best model that fits.",
+    body: "Never spend more than this on a single answer, thinking tokens included. We pick the best model that fits.",
     example: "0.02",
   },
   {
@@ -468,9 +857,17 @@ export const DOC_OPTIONS = [
 
 export const DOC_HEADERS = [
   { name: "x-routed-model", body: "Which model actually answered." },
+  {
+    name: "x-thinking-tokens",
+    body: "How much reasoning we bought before the answer, and what it added.",
+  },
   { name: "x-estimated-cost", body: "What this answer cost you, in dollars." },
   { name: "x-baseline-cost", body: "What it would have cost on your baseline model." },
   { name: "x-quality-score", body: "How well we expected this model to do, 0 to 1." },
+  {
+    name: "x-run-id",
+    body: "Ties every step of one agent run together so the dashboard can total it.",
+  },
 ] as const;
 
 /* ---------------------------------------------------------------- footer -- */

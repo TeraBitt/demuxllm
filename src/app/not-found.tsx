@@ -4,10 +4,6 @@ import { Button } from "@/components/ui/primitives";
 export default function NotFound() {
   return (
     <div className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="bg-grid mask-fade-b pointer-events-none absolute inset-0"
-      />
       <div className="relative mx-auto flex max-w-xl flex-col items-center px-5 py-28 text-center sm:py-36">
         <LogoMark className="h-10 w-10" />
         <p className="mt-6 text-[0.8125rem] font-medium text-accent">404</p>

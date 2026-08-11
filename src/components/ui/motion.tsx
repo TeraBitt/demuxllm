@@ -1,6 +1,6 @@
 "use client";
 
-import { LazyMotion, MotionConfig, domAnimation, m, type Variants } from "motion/react";
+import { LazyMotion, MotionConfig, domAnimation, m } from "motion/react";
 import type { ReactNode } from "react";
 
 /**
@@ -11,7 +11,11 @@ import type { ReactNode } from "react";
  * `reducedMotion="user"` matters more than it looks: these animations are
  * JS-driven inline styles, so the CSS `prefers-reduced-motion` block does not
  * reach them. Without this, a reduced-motion visitor would still get every
- * scroll reveal. With it, elements jump straight to their final state.
+ * animation. With it, elements jump straight to their final state.
+ *
+ * What remains animated is only what carries meaning: the FAQ accordion, the
+ * benchmark chart drawing itself in, the rotating router demo. The decorative
+ * scroll-reveal fade that used to wrap most of the page is gone — see `Reveal`.
  */
 export function MotionProvider({ children }: { children: ReactNode }) {
   return (
@@ -21,49 +25,27 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-export const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.04 } },
-};
-
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  /** Retained so call sites need no edit; no longer does anything. */
   delay?: number;
-  /** Stagger direct children that use the `fadeUp` variant. */
   group?: boolean;
   as?: "div" | "section" | "li" | "tr";
 };
 
-export function Reveal({
-  children,
-  className,
-  delay = 0,
-  group = false,
-  as = "div",
-}: RevealProps) {
-  const Tag = m[as];
-  return (
-    <Tag
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={group ? stagger : fadeUp}
-      transition={delay ? { delay } : undefined}
-    >
-      {children}
-    </Tag>
-  );
+/**
+ * Content appears immediately. This was a fade-up-on-scroll wrapper, which read
+ * as filler and made every page feel slow on the way down — content the reader
+ * has already scrolled to should not still be arriving.
+ *
+ * It stays as a plain element rather than being deleted from ~20 call sites, so
+ * the layout grouping it provides is preserved and reinstating an animation
+ * later is a one-file change.
+ */
+export function Reveal({ children, className, as = "div" }: RevealProps) {
+  const Tag = as;
+  return <Tag className={className}>{children}</Tag>;
 }
 
 export function RevealItem({
@@ -73,11 +55,7 @@ export function RevealItem({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <m.div className={className} variants={fadeUp}>
-      {children}
-    </m.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export { m };
