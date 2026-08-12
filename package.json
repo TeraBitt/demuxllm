@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:catalog": "node scripts/sync-catalog.mjs"
   },
   "dependencies": {
     "@langchain/core": "^1.2.5",

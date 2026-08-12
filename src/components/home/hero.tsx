@@ -74,7 +74,7 @@ export function Hero() {
 
       <div className="border-t border-line py-7">
         <p className="mb-5 text-center text-[0.8125rem] text-ink-faint">
-          Every major provider, one bill
+          Open weights from every lab worth routing to
         </p>
         <div className="mask-fade-x relative flex overflow-hidden">
           <div className="animate-marquee flex shrink-0 items-center gap-12 pr-12">

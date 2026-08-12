@@ -14,46 +14,50 @@ type Scene = {
   candidates: Candidate[];
 };
 
-/** Four questions, four different winners. Same pool every time. */
+/**
+ * Four questions, four different winners. Same pool every time, and every model
+ * in it is one Chutes serves — costs are that model's published price for a
+ * request of roughly this shape, so the gap on screen is the real gap.
+ */
 const SCENES: Scene[] = [
   {
     prompt: "Summarise this email thread in three bullets.",
-    verdict: "31× cheaper",
+    verdict: "75× cheaper",
     candidates: [
-      { name: "Qwen 72B", fit: 0.94, cost: "$0.0004" },
-      { name: "Llama 70B", fit: 0.88, cost: "$0.0006" },
-      { name: "Mistral Large", fit: 0.71, cost: "$0.0031" },
-      { name: "Opus 4", fit: 0.42, cost: "$0.0124" },
+      { name: "Mistral Nemo", fit: 0.92, cost: "$0.0001" },
+      { name: "Qwen3 32B", fit: 0.87, cost: "$0.0002" },
+      { name: "Qwen3.6 27B", fit: 0.74, cost: "$0.0009" },
+      { name: "Kimi K3", fit: 0.41, cost: "$0.0075" },
     ],
   },
   {
     prompt: "Prove this series converges, then bound the error.",
-    verdict: "worth the money",
+    verdict: "12× cheaper",
     candidates: [
-      { name: "Opus 4", fit: 0.91, cost: "$0.0186" },
-      { name: "GPT-5", fit: 0.86, cost: "$0.0141" },
-      { name: "Sonnet 4", fit: 0.63, cost: "$0.0042" },
-      { name: "Qwen 72B", fit: 0.21, cost: "$0.0005" },
+      { name: "Qwen3 235B Thinking", fit: 0.93, cost: "$0.0019" },
+      { name: "Kimi K3", fit: 0.91, cost: "$0.0234" },
+      { name: "GLM 5.2", fit: 0.84, cost: "$0.0063" },
+      { name: "Mistral Nemo", fit: 0.19, cost: "$0.0002" },
     ],
   },
   {
     prompt: "Write a Python function that parses this CSV.",
     verdict: "9× cheaper",
     candidates: [
-      { name: "Sonnet 4", fit: 0.9, cost: "$0.0048" },
-      { name: "DeepSeek V3", fit: 0.83, cost: "$0.0007" },
-      { name: "GPT-5", fit: 0.74, cost: "$0.0155" },
-      { name: "Mistral Large", fit: 0.58, cost: "$0.0029" },
+      { name: "DeepSeek V3.2", fit: 0.9, cost: "$0.0009" },
+      { name: "Qwen3.5 397B", fit: 0.88, cost: "$0.0017" },
+      { name: "GLM 5.2", fit: 0.83, cost: "$0.0025" },
+      { name: "Qwen3 32B", fit: 0.61, cost: "$0.0002" },
     ],
   },
   {
     prompt: "Traduis ce contrat et signale les clauses inhabituelles.",
-    verdict: "4× cheaper",
+    verdict: "2.6× cheaper",
     candidates: [
-      { name: "Gemini Flash", fit: 0.89, cost: "$0.0061" },
-      { name: "Sonnet 4", fit: 0.85, cost: "$0.0094" },
-      { name: "Opus 4", fit: 0.8, cost: "$0.0243" },
-      { name: "Llama 70B", fit: 0.44, cost: "$0.0009" },
+      { name: "GLM 5.2", fit: 0.9, cost: "$0.0178" },
+      { name: "Kimi K2.6", fit: 0.86, cost: "$0.0093" },
+      { name: "DeepSeek V4 Flash", fit: 0.79, cost: "$0.0019" },
+      { name: "Qwen3 32B", fit: 0.52, cost: "$0.0015" },
     ],
   },
 ];

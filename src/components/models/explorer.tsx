@@ -104,7 +104,7 @@ export function ModelsExplorer() {
             type="search"
             value={query}
             onChange={(e) => reset(() => setQuery(e.target.value))}
-            placeholder="Search by name, provider or what it's good at"
+            placeholder="Search by name, lab or what it's good at"
             aria-label="Search models"
             className="h-10 w-full rounded-lg border border-line bg-elevated pr-3 pl-9 text-sm text-ink outline-none placeholder:text-ink-faint focus:border-line-strong"
           />

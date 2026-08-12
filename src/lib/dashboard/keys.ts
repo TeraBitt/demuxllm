@@ -3,23 +3,27 @@
 import { useCallback, useSyncExternalStore } from "react";
 
 /**
- * BYOK, stored in localStorage and never sent anywhere but the provider.
+ * One key, for one provider.
  *
- * This is the one place a real secret touches this app, so the rules are worth
- * stating: the key belongs to the visitor, it stays in their browser, and it is
- * read only to build a request straight to the provider from their machine.
- * There is no DemuxLLM server in this demo's path at all.
+ * Every model in the pool is served by Chutes, so a single Chutes key reaches
+ * all of them. That is the whole reason the pool is Chutes-only: a router that
+ * spans providers needs a credential per provider, and the ones a browser can
+ * hold are the ones a visitor can read.
  *
- * A key of ours could not live here — anything a browser can read, a visitor
- * can read. `NEXT_PUBLIC_GEMINI_API_KEY` exists only so a local demo can run
- * without typing a key, and anything in it is public the moment it ships.
+ * BYOK is the demo's answer to that. The key belongs to the visitor, it stays
+ * in their browser, and it is read only to build a request straight to Chutes
+ * from their machine. Metered credits are the product's answer, and that path
+ * moves the key to a server where a browser can never read it.
+ *
+ * `NEXT_PUBLIC_CHUTES_API_KEY` exists only so a local demo can run without
+ * typing a key, and anything in it is public the moment it ships.
  */
 
 const STORAGE_KEY = "demux.byok";
 
-export type Keys = { gemini: string; chutes: string };
+export type Keys = { chutes: string };
 
-const EMPTY: Keys = { gemini: "", chutes: "" };
+const EMPTY: Keys = { chutes: "" };
 
 /** One shared snapshot, so every subscriber compares by reference. */
 let snapshot: Keys | null = null;
@@ -44,7 +48,7 @@ function write(next: Keys) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   } catch {
-    // Private browsing. The keys still work for this session.
+    // Private browsing. The key still works for this session.
   }
   listeners.forEach((l) => l());
 }
@@ -64,15 +68,13 @@ export function useKeys() {
   const clear = useCallback(() => write(EMPTY), []);
 
   /** The env fallback only exists for local demos; it is bundled and public. */
-  const geminiKey =
-    keys.gemini || process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
+  const chutesKey = keys.chutes || process.env.NEXT_PUBLIC_CHUTES_API_KEY || "";
 
   return {
     keys,
     setKey,
     clear,
-    geminiKey,
-    hasGemini: Boolean(geminiKey),
-    hasChutes: Boolean(keys.chutes),
+    chutesKey,
+    hasChutes: Boolean(chutesKey),
   };
 }

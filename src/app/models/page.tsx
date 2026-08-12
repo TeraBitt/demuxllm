@@ -17,8 +17,8 @@ const NOTES = [
     body: "This list is what we pick from on your behalf. You can restrict it if you want, but most people never touch it.",
   },
   {
-    title: "Prices are the provider's",
-    body: "We pass through whatever each provider charges, with no markup. When they cut a price, your next request is cheaper.",
+    title: "Prices are Chutes's",
+    body: "We pass through whatever Chutes charges, with no markup. When a price is cut, your next request is cheaper.",
   },
   {
     title: "New models appear on their own",
@@ -36,7 +36,7 @@ export default function ModelsPage() {
       <PageHeader
         eyebrow="Models"
         title="Every model, one bill"
-        lede={`${POOL.length} models from ${new Set(POOL.map((m) => m.vendor)).size} providers. Cost shown is for a typical question — roughly ${TYPICAL_IN_TOKENS} words in, ${TYPICAL_OUT_TOKENS} out.`}
+        lede={`${POOL.length} models from ${new Set(POOL.map((m) => m.vendor)).size} labs, every one served by Chutes on confidential hardware. Cost shown is for a typical question — roughly ${TYPICAL_IN_TOKENS} words in, ${TYPICAL_OUT_TOKENS} out.`}
       />
 
       <Section bordered={false} tight>

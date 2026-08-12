@@ -2,7 +2,7 @@
 
 import { Check, Loader2 } from "lucide-react";
 import { cx } from "@/components/ui/primitives";
-import type { StepEvent } from "@/lib/dashboard/graph";
+import type { StepEvent } from "@/lib/dashboard/run";
 import { TIER_VAR, usd } from "@/lib/dashboard/models";
 
 /**

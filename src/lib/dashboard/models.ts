@@ -1,160 +1,265 @@
 /**
- * The routing pool for the demo dashboard.
+ * The routing pool: every LLM Chutes serves, and nothing else.
  *
- * Prices are published list prices in USD per million tokens, recorded by hand
- * and certain to drift — they exist so the cost arithmetic on screen is the
- * right shape and the right order of magnitude, not so it is invoiceable. The
- * dashboard says as much in the footer of the usage panel.
+ * This list is not invented. It mirrors `GET https://llm.chutes.ai/v1/models`
+ * field for field — ids are the exact strings the API expects as `model`, and
+ * prices are the USD figures Chutes publishes per million tokens. Anything a
+ * request cannot actually be sent to does not belong here, because a router
+ * that scores a model it cannot call is scoring a rumour.
  *
- * Two providers, because they demonstrate different halves of the pitch:
- * Gemini is the hosted frontier ladder (real calls, when a key is present) and
- * Chutes is the open-weights floor that makes the saving large.
+ * Prices move. `npm run sync:catalog` diffs this file against the live endpoint
+ * and names what drifted; tier and goodAt are judgements, so it reports rather
+ * than rewrites.
  */
 
 export type Tier = "open" | "mid" | "frontier";
-export type Provider = "gemini" | "chutes";
-export type Thinking = "off" | "short" | "deep";
+
+/** Who trained the weights. Chutes is the only place any of them are served. */
+export type Family = "qwen" | "deepseek" | "moonshot" | "zai" | "google" | "mistral" | "nvidia";
 
 export type CatalogModel = {
+  /** Exactly what goes in the `model` field of a Chutes request. */
   id: string;
   label: string;
-  provider: Provider;
+  family: Family;
   tier: Tier;
   /** USD per 1M tokens. */
   inPer1M: number;
   outPer1M: number;
-  contextK: number;
-  thinking: boolean;
-  tools: boolean;
-  blurb: string;
+  /** USD per 1M tokens read from cache. */
+  cachedInPer1M: number;
+  /** Context window in tokens. null where Chutes does not report one. */
+  ctx: number | null;
+  /** What the model accepts beyond text. */
+  vision: boolean;
+  video: boolean;
+  /** Can be trusted with tool calls and JSON schemas. */
+  structured: boolean;
+  /** Spends tokens thinking before it answers. */
+  thinks: boolean;
+  /** Shown under the answer: why this one was picked. */
+  goodAt: string;
 };
 
 export const CATALOG: readonly CatalogModel[] = [
   {
-    id: "gemini-3.5-flash-lite",
-    label: "Gemini 3.5 Flash Lite",
-    provider: "gemini",
+    id: "Nemotron-3-Nano-Omni-30B-TEE",
+    label: "Nemotron 3 Nano Omni 30B",
+    family: "nvidia",
     tier: "open",
-    inPer1M: 0.1,
-    outPer1M: 0.4,
-    contextK: 1000,
-    thinking: false,
-    tools: true,
-    blurb: "Extraction, routing, tool arguments, anything mechanical.",
+    inPer1M: 0.0245,
+    outPer1M: 0.0978,
+    cachedInPer1M: 0.0025,
+    ctx: null,
+    vision: false,
+    video: false,
+    structured: false,
+    thinks: false,
+    goodAt: "Extraction, tagging and cleanup",
   },
   {
-    id: "gemini-3.6-flash",
-    label: "Gemini 3.6 Flash",
-    provider: "gemini",
-    tier: "mid",
-    inPer1M: 0.5,
-    outPer1M: 3,
-    contextK: 1000,
-    thinking: true,
-    tools: true,
-    blurb: "The default. Handles most real questions without the frontier bill.",
-  },
-  {
-    id: "gemini-3.1-pro-preview",
-    label: "Gemini 3.1 Pro",
-    provider: "gemini",
-    tier: "frontier",
-    inPer1M: 1.4,
-    outPer1M: 11,
-    contextK: 2000,
-    thinking: true,
-    tools: true,
-    blurb: "Held back for genuinely hard reasoning and anything customer-facing.",
-  },
-  {
-    id: "deepseek-ai/DeepSeek-V3",
-    label: "DeepSeek V3",
-    provider: "chutes",
-    tier: "mid",
-    inPer1M: 0.27,
-    outPer1M: 1.1,
-    contextK: 128,
-    thinking: false,
-    tools: true,
-    blurb: "Strong open general model. Good long-form writing per dollar.",
-  },
-  {
-    id: "Qwen/Qwen3-235B-A22B",
-    label: "Qwen3 235B",
-    provider: "chutes",
-    tier: "mid",
-    inPer1M: 0.2,
-    outPer1M: 0.6,
-    contextK: 128,
-    thinking: true,
-    tools: true,
-    blurb: "Cheap reasoning. Often the best value on multi-step work.",
-  },
-  {
-    id: "meta-llama/Llama-3.3-70B-Instruct",
-    label: "Llama 3.3 70B",
-    provider: "chutes",
+    id: "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+    label: "Mistral Nemo Instruct",
+    family: "mistral",
     tier: "open",
-    inPer1M: 0.1,
+    inPer1M: 0.0245,
+    outPer1M: 0.0978,
+    cachedInPer1M: 0.0025,
+    ctx: null,
+    vision: false,
+    video: false,
+    structured: false,
+    thinks: false,
+    goodAt: "Rewriting and short everyday replies",
+  },
+  {
+    id: "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    label: "DeepSeek V4 Flash",
+    family: "deepseek",
+    tier: "open",
+    inPer1M: 0.14,
     outPer1M: 0.28,
-    contextK: 128,
-    thinking: false,
-    tools: false,
-    blurb: "Summarising and classification at the floor price.",
+    cachedInPer1M: 0.014,
+    ctx: 1_048_576,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Very long documents on a budget",
+  },
+  {
+    id: "google/gemma-4-31B-turbo-TEE",
+    label: "Gemma 4 31B Turbo",
+    family: "google",
+    tier: "open",
+    inPer1M: 0.12,
+    outPer1M: 0.37,
+    cachedInPer1M: 0.012,
+    ctx: 131_072,
+    vision: true,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Everyday questions and image input",
+  },
+  {
+    id: "Qwen/Qwen3-32B-TEE",
+    label: "Qwen3 32B",
+    family: "qwen",
+    tier: "open",
+    inPer1M: 0.104,
+    outPer1M: 0.416,
+    cachedInPer1M: 0.0104,
+    ctx: 40_960,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Classifying, routing and structured output",
+  },
+  {
+    id: "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    label: "Qwen3 235B Thinking",
+    family: "qwen",
+    tier: "mid",
+    inPer1M: 0.2989,
+    outPer1M: 1.1957,
+    cachedInPer1M: 0.0299,
+    ctx: 262_144,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Maths and step-by-step analysis",
+  },
+  {
+    id: "deepseek-ai/DeepSeek-V3.2-TEE",
+    label: "DeepSeek V3.2",
+    family: "deepseek",
+    tier: "mid",
+    inPer1M: 1,
+    outPer1M: 1,
+    cachedInPer1M: 0.1,
+    ctx: 131_072,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Code and long answers at a flat rate",
+  },
+  {
+    id: "Qwen/Qwen3.6-27B-TEE",
+    label: "Qwen3.6 27B",
+    family: "qwen",
+    tier: "mid",
+    inPer1M: 0.3,
+    outPer1M: 2,
+    cachedInPer1M: 0.03,
+    ctx: 262_144,
+    vision: true,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Balanced everyday work with images",
+  },
+  {
+    id: "Qwen/Qwen3.5-397B-A17B-TEE",
+    label: "Qwen3.5 397B",
+    family: "qwen",
+    tier: "mid",
+    inPer1M: 0.45,
+    outPer1M: 3,
+    cachedInPer1M: 0.045,
+    ctx: 262_144,
+    vision: true,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Hard reasoning and long code",
+  },
+  {
+    id: "zai-org/GLM-5.1-TEE",
+    label: "GLM 5.1",
+    family: "zai",
+    tier: "mid",
+    inPer1M: 0.98,
+    outPer1M: 3.08,
+    cachedInPer1M: 0.098,
+    ctx: 202_752,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Agent loops and tool calling",
+  },
+  {
+    id: "moonshotai/Kimi-K2.6-TEE",
+    label: "Kimi K2.6",
+    family: "moonshot",
+    tier: "mid",
+    inPer1M: 0.58,
+    outPer1M: 3.4,
+    cachedInPer1M: 0.058,
+    ctx: 262_144,
+    vision: true,
+    video: true,
+    structured: true,
+    thinks: true,
+    goodAt: "Agentic work, image and video input",
+  },
+  {
+    id: "zai-org/GLM-5.2-TEE",
+    label: "GLM 5.2",
+    family: "zai",
+    tier: "frontier",
+    inPer1M: 1.25,
+    outPer1M: 3.95,
+    cachedInPer1M: 0.125,
+    ctx: 1_048_576,
+    vision: false,
+    video: false,
+    structured: true,
+    thinks: true,
+    goodAt: "Long-context reasoning and code review",
+  },
+  {
+    id: "moonshotai/Kimi-K3-TEE",
+    label: "Kimi K3",
+    family: "moonshot",
+    tier: "frontier",
+    inPer1M: 3,
+    outPer1M: 15,
+    cachedInPer1M: 0.3,
+    ctx: 1_048_576,
+    vision: true,
+    video: true,
+    structured: true,
+    thinks: true,
+    goodAt: "The hardest work, when nothing cheaper clears",
   },
 ] as const;
 
-/** What a frontier-only setup would have cost. Every saving is measured here. */
-export const BASELINE_ID = "gemini-3.1-pro-preview";
+/**
+ * The model the orchestrator itself runs on: the cheapest thing on Chutes that
+ * can be held to a JSON schema. Routing is a classification job, not a writing
+ * job — paying reasoning prices to pick a model would undo the point.
+ */
+export const ORCHESTRATOR_ID = "Qwen/Qwen3-32B-TEE";
+
+/** What it would have cost to send everything to the dearest model. */
+export const BASELINE_ID = "moonshotai/Kimi-K3-TEE";
 
 export const byId = (id: string) => CATALOG.find((m) => m.id === id);
-
 export const baseline = () => byId(BASELINE_ID)!;
+export const orchestrator = () => byId(ORCHESTRATOR_ID)!;
 
-export function costOf(model: CatalogModel, inTok: number, outTok: number) {
+export function costOf(model: Pick<CatalogModel, "inPer1M" | "outPer1M">, inTok: number, outTok: number) {
   return (inTok / 1e6) * model.inPer1M + (outTok / 1e6) * model.outPer1M;
 }
 
-/**
- * Thinking is billed at output rates and is invisible in the response, so a
- * routing demo that ignored it would understate the frontier bill it is
- * comparing against. These multipliers stand in for the reasoning tokens a
- * model spends before it answers.
- */
-export const THINKING_MULT: Record<Thinking, number> = {
-  off: 1,
-  short: 1.7,
-  deep: 3.4,
-};
-
-export function stepCost(
-  model: CatalogModel,
-  inTok: number,
-  outTok: number,
-  thinking: Thinking,
-) {
-  const billedOut = outTok * (model.thinking ? THINKING_MULT[thinking] : 1);
-  return costOf(model, inTok, billedOut);
-}
-
-/**
- * The same step priced as if it had gone to the frontier model instead, holding
- * the reasoning budget constant.
- *
- * Holding thinking constant is the load-bearing decision. Price the baseline at
- * a fixed `deep` and every saving on screen roughly doubles — the flattering
- * option, and the one that loses the argument the moment a reader checks it.
- * Price it below what the router bought and a step that legitimately needed
- * deep reasoning reports a NEGATIVE saving, which reads as a bug rather than as
- * the honest statement it is.
- *
- * So the comparison isolates exactly one variable: which model answered. When
- * the router sends a step to the frontier anyway, the saving is 0% and the
- * dashboard says so. A router that claims to save on every single call is not
- * believable, and this one does not.
- */
-export function baselineCost(inTok: number, outTok: number, thinking: Thinking) {
-  return costOf(baseline(), inTok, outTok * THINKING_MULT[thinking]);
+/** The same work, priced on the dearest model instead. */
+export function baselineCost(inTok: number, outTok: number) {
+  return costOf(baseline(), inTok, outTok);
 }
 
 export const usd = (n: number, places = 4) => `$${n.toFixed(places)}`;
@@ -163,9 +268,9 @@ export const usd = (n: number, places = 4) => `$${n.toFixed(places)}`;
 export const estimateTokens = (text: string) => Math.max(1, Math.ceil(text.length / 4));
 
 export const TIER_LABEL: Record<Tier, string> = {
-  open: "Open",
+  open: "Cheap",
   mid: "Mid",
-  frontier: "Frontier",
+  frontier: "Top",
 };
 
 export const TIER_VAR: Record<Tier, string> = {
@@ -173,3 +278,19 @@ export const TIER_VAR: Record<Tier, string> = {
   mid: "var(--tier-2)",
   frontier: "var(--tier-3)",
 };
+
+export const FAMILY_LABEL: Record<Family, string> = {
+  qwen: "Qwen",
+  deepseek: "DeepSeek",
+  moonshot: "Moonshot",
+  zai: "Z.ai",
+  google: "Google",
+  mistral: "Mistral",
+  nvidia: "NVIDIA",
+};
+
+/** 1048576 → "1M". Context windows are read, not calculated. */
+export function formatCtx(ctx: number | null) {
+  if (!ctx) return "—";
+  return ctx >= 1e6 ? `${Math.round(ctx / 1e5) / 10}M` : `${Math.round(ctx / 1024)}K`;
+}

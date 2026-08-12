@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard/shell";
+import { Overview } from "@/components/dashboard/overview";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description:
-    "A working demo of the routing layer: every question classified, routed to the cheapest model that can answer it, and priced against a frontier-only baseline.",
+    "Requests routed, what they cost, and what the same traffic would have cost on one frontier model.",
 };
 
 export default function DashboardPage() {
-  return <DashboardShell />;
+  return <Overview />;
 }

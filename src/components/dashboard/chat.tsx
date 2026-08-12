@@ -5,6 +5,7 @@ import { ArrowUp, Square } from "lucide-react";
 import { LogoMarkCompact } from "@/components/brand";
 import { cx } from "@/components/ui/primitives";
 import { Trace } from "@/components/dashboard/trace";
+import { Scores } from "@/components/dashboard/scores";
 import { TIER_VAR, usd } from "@/lib/dashboard/models";
 import type { Turn } from "@/lib/dashboard/session";
 
@@ -47,43 +48,100 @@ function Inline({ text }: { text: string }) {
   );
 }
 
-function Markdown({ text }: { text: string }) {
-  const blocks = text.split(/\n{2,}/);
+const FENCE = /(```[\s\S]*?(?:```|$))/g;
 
+/** A fenced code block. Split out before paragraphs, since it owns its newlines. */
+function CodeFence({ raw }: { raw: string }) {
+  const body = raw.replace(/^```[a-zA-Z0-9+#-]*\n?/, "").replace(/```$/, "");
+  return (
+    <pre className="glass glass-line overflow-x-auto rounded-xl border p-3.5 font-mono text-[0.8125rem] leading-relaxed text-ink">
+      <code>{body.replace(/\n$/, "")}</code>
+    </pre>
+  );
+}
+
+const HEADING = /^(#{1,4})\s+(.*)$/;
+const BULLET = /^\s*[-*+]\s+(.*)$/;
+const NUMBERED = /^\s*\d+[.)]\s+(.*)$/;
+
+/**
+ * Renders a block line by line rather than matching the block as a whole.
+ * Models freely mix a heading, a sentence and a list inside one paragraph with
+ * single newlines between them; a block-level match drops the markers and the
+ * reader sees a literal "###".
+ */
+function Block({ block }: { block: string }) {
+  const out: React.ReactNode[] = [];
+  let para: string[] = [];
+  let list: string[] = [];
+
+  const flushPara = () => {
+    if (!para.length) return;
+    out.push(
+      <p key={`p${out.length}`} className="leading-relaxed">
+        <Inline text={para.join(" ")} />
+      </p>,
+    );
+    para = [];
+  };
+  const flushList = () => {
+    if (!list.length) return;
+    out.push(
+      <ul key={`u${out.length}`} className="flex flex-col gap-1.5 pl-1">
+        {list.map((item, i) => (
+          <li key={i} className="flex gap-2.5">
+            <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-ink-faint" />
+            <span className="min-w-0">
+              <Inline text={item} />
+            </span>
+          </li>
+        ))}
+      </ul>,
+    );
+    list = [];
+  };
+
+  for (const line of block.split("\n")) {
+    const heading = HEADING.exec(line);
+    if (heading) {
+      flushPara();
+      flushList();
+      out.push(
+        <h3 key={`h${out.length}`} className="text-[0.9375rem] font-semibold text-ink">
+          <Inline text={heading[2]} />
+        </h3>,
+      );
+      continue;
+    }
+
+    const item = BULLET.exec(line) ?? NUMBERED.exec(line);
+    if (item) {
+      flushPara();
+      list.push(item[1]);
+      continue;
+    }
+
+    if (!line.trim()) {
+      flushPara();
+      flushList();
+      continue;
+    }
+    flushList();
+    para.push(line);
+  }
+
+  flushPara();
+  flushList();
+  return <>{out}</>;
+}
+
+function Markdown({ text }: { text: string }) {
   return (
     <div className="flex flex-col gap-3.5">
-      {blocks.map((block, i) => {
-        const lines = block.split("\n");
-
-        if (lines.every((l) => /^\s*[-*]\s+/.test(l))) {
-          return (
-            <ul key={i} className="flex flex-col gap-1.5 pl-1">
-              {lines.map((l, j) => (
-                <li key={j} className="flex gap-2.5">
-                  <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-ink-faint" />
-                  <span className="min-w-0">
-                    <Inline text={l.replace(/^\s*[-*]\s+/, "")} />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          );
-        }
-
-        const heading = /^(#{1,4})\s+(.*)$/.exec(block);
-        if (heading) {
-          return (
-            <h3 key={i} className="text-[0.9375rem] font-semibold">
-              <Inline text={heading[2]} />
-            </h3>
-          );
-        }
-
-        return (
-          <p key={i} className="leading-relaxed">
-            <Inline text={block} />
-          </p>
-        );
+      {text.split(FENCE).map((section, i) => {
+        if (section.startsWith("```")) return <CodeFence key={i} raw={section} />;
+        if (!section.trim()) return null;
+        return <Block key={i} block={section.trim()} />;
       })}
     </div>
   );
@@ -92,63 +150,43 @@ function Markdown({ text }: { text: string }) {
 /* --------------------------------------------------------------- message -- */
 
 function RouteBadge({ turn }: { turn: Turn }) {
-  if (!turn.chosen) return null;
-  const saved =
-    turn.baselineUsd > 0 ? 1 - turn.costUsd / turn.baselineUsd : 0;
+  if (!turn.chosen || !turn.decision) return null;
+
+  const saved = turn.baselineUsd > 0 ? 1 - turn.costUsd / turn.baselineUsd : 0;
+  const score = turn.decision.scores.find((s) => s.modelId === turn.chosen!.id);
+  // The pool spans providers; this demo holds one key. When the routed model
+  // and the endpoint that answered differ, say so here rather than let the
+  // model name imply something untrue.
+  const elsewhere = turn.serving && turn.serving !== turn.chosen.id;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.75rem]">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.8125rem]">
       <span className="flex items-center gap-1.5">
         <span
           aria-hidden
           className="size-1.5 rounded-full"
           style={{ background: TIER_VAR[turn.chosen.tier] }}
         />
-        <span className="text-ink-muted">{turn.chosen.label}</span>
+        <span className="font-medium">{turn.chosen.label}</span>
       </span>
-      {turn.classification ? (
-        <span className="text-ink-faint">
-          {turn.classification.kind} · thinking {turn.classification.thinking}
-        </span>
-      ) : null}
-      <span className="text-ink-faint tabular-nums">
-        {usd(turn.costUsd, 5)} vs {usd(turn.baselineUsd, 5)}
-      </span>
-      {saved > 0 ? (
-        <span className="font-medium text-accent tabular-nums">
-          {Math.round(saved * 100)}% cheaper
-        </span>
-      ) : null}
-      {turn.grade ? (
-        <span className="text-ink-faint tabular-nums">
-          graded {turn.grade.score.toFixed(2)}
-        </span>
-      ) : null}
-    </div>
-  );
-}
 
-function Sources({ turn }: { turn: Turn }) {
-  if (turn.hits.length === 0) return null;
-  return (
-    <div className="glass glass-line flex flex-col gap-1.5 rounded-2xl border p-3.5">
-      <span className="text-[0.6875rem] tracking-[0.06em] text-ink-faint uppercase">
-        Sources
-      </span>
-      {turn.hits.map((h, i) => (
-        <a
-          key={i}
-          href={h.url || undefined}
-          target="_blank"
-          rel="noreferrer noopener"
-          className={cx(
-            "truncate text-[0.8125rem]",
-            h.url ? "text-accent hover:underline" : "text-ink-muted",
-          )}
-        >
-          {h.title}
-        </a>
-      ))}
+      {score ? (
+        <span className="text-ink-faint tabular-nums">
+          scored {score.quality}, needed {turn.decision.bar}
+        </span>
+      ) : null}
+
+      {saved > 0.005 ? (
+        <span className="font-medium text-accent tabular-nums">
+          {Math.round(saved * 100)}% cheaper than the top model
+        </span>
+      ) : (
+        <span className="text-ink-faint tabular-nums">{usd(turn.costUsd, 4)}</span>
+      )}
+
+      {elsewhere ? (
+        <span className="text-ink-faint">answered by {turn.serving}</span>
+      ) : null}
     </div>
   );
 }
@@ -166,8 +204,18 @@ export function Message({ turn }: { turn: Turn }) {
         <LogoMarkCompact className="mt-0.5 h-6 w-6 shrink-0" />
 
         <div className="flex min-w-0 flex-1 flex-col gap-3.5">
-          {turn.steps.length > 0 && turn.status !== "done" ? (
-            <Trace steps={turn.steps} />
+          {turn.status !== "done" ? (
+            <>
+              {turn.steps.length > 0 ? <Trace steps={turn.steps} /> : null}
+              {turn.decision ? <Scores decision={turn.decision} /> : null}
+            </>
+          ) : null}
+
+          {turn.error ? (
+            <div className="glass glass-line rounded-2xl border p-3.5 text-[0.8125rem] text-ink-muted">
+              <span className="font-medium text-ink">That run failed. </span>
+              {turn.error}
+            </div>
           ) : null}
 
           {turn.answer ? (
@@ -178,23 +226,16 @@ export function Message({ turn }: { turn: Turn }) {
             <p className="text-[0.9375rem] text-ink-faint">Routing…</p>
           ) : null}
 
-          {turn.error ? (
-            <div className="glass glass-line rounded-2xl border p-3.5 text-[0.8125rem] text-ink-muted">
-              <span className="font-medium text-ink">That run failed. </span>
-              {turn.error}
-            </div>
-          ) : null}
-
-          <Sources turn={turn} />
 
           {turn.status === "done" ? (
             <>
               <RouteBadge turn={turn} />
               <details className="group">
                 <summary className="cursor-pointer list-none text-[0.75rem] text-ink-faint transition-colors hover:text-ink-muted">
-                  Show the {turn.steps.length}-step run
+                  Show the scores
                 </summary>
-                <div className="mt-2.5">
+                <div className="mt-2.5 flex flex-col gap-2.5">
+                  {turn.decision ? <Scores decision={turn.decision} /> : null}
                   <Trace steps={turn.steps} />
                 </div>
               </details>
@@ -209,9 +250,9 @@ export function Message({ turn }: { turn: Turn }) {
 /* -------------------------------------------------------------- composer -- */
 
 const SUGGESTIONS = [
-  "What does Gemini 3 Flash cost per million tokens right now?",
-  "Summarise why routing beats buying one frontier model.",
-  "Write a three-line changelog entry for a caching fix.",
+  "Fix a race condition in a Go worker pool that drops results",
+  "How should I lay out a dark mode dashboard?",
+  "Draft a three-line changelog entry",
 ];
 
 export function Composer({

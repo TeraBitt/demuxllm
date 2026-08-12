@@ -6,6 +6,8 @@
  * idea itself is the product and the page explains as it goes.
  */
 
+import { CATALOG, FAMILY_LABEL, type CatalogModel } from "@/lib/dashboard/models";
+
 /* ------------------------------------------------------------------- nav -- */
 
 export const ROUTES = [
@@ -16,18 +18,8 @@ export const ROUTES = [
   { label: "Docs", href: "/docs" },
 ] as const;
 
-export const PROVIDERS = [
-  "OpenAI",
-  "Anthropic",
-  "Google",
-  "Meta",
-  "Mistral",
-  "DeepSeek",
-  "Qwen",
-  "xAI",
-  "Cohere",
-  "Groq",
-] as const;
+/** The labs whose weights Chutes serves. Derived, so the marquee cannot drift. */
+export const PROVIDERS = [...new Set(CATALOG.map((m) => FAMILY_LABEL[m.family]))] as const;
 
 /* ------------------------------------------------------------------ home -- */
 
@@ -151,61 +143,61 @@ export const AGENT_RUN: AgentStep[] = [
     n: "01",
     label: "Plan the task",
     detail: "Break the request into steps",
-    model: "Sonnet 4",
+    model: "Qwen3.6 27B",
     tier: "mid",
     thinking: "short",
-    cost: 0.0042,
-    baseline: 0.0186,
+    cost: 0.0008,
+    baseline: 0.0065,
   },
   {
     n: "02",
     label: "Pick the next tool",
     detail: "Choose a function and fill its arguments",
-    model: "Qwen 72B",
+    model: "Qwen3 32B",
     tier: "open",
     thinking: "off",
-    cost: 0.0004,
-    baseline: 0.0186,
+    cost: 0.0002,
+    baseline: 0.0048,
   },
   {
     n: "03",
     label: "Read the policy",
     detail: "Forty pages in, one paragraph out",
-    model: "Gemini Flash",
-    tier: "mid",
+    model: "DeepSeek V4 Flash",
+    tier: "open",
     thinking: "off",
-    cost: 0.0061,
-    baseline: 0.0243,
+    cost: 0.0043,
+    baseline: 0.0927,
   },
   {
     n: "04",
     label: "Decide if it qualifies",
     detail: "The judgement the whole task rests on",
-    model: "Opus 4",
+    model: "Kimi K3",
     tier: "frontier",
     thinking: "deep",
-    cost: 0.0243,
-    baseline: 0.0243,
+    cost: 0.0195,
+    baseline: 0.0195,
   },
   {
     n: "05",
     label: "Draft the reply",
     detail: "Three sentences, house tone",
-    model: "Llama 70B",
+    model: "Mistral Nemo",
     tier: "open",
     thinking: "off",
-    cost: 0.0006,
-    baseline: 0.0186,
+    cost: 0.0001,
+    baseline: 0.0066,
   },
   {
     n: "06",
     label: "Check it against policy",
     detail: "Catch anything the draft got wrong",
-    model: "Sonnet 4",
+    model: "Qwen3.6 27B",
     tier: "mid",
     thinking: "short",
-    cost: 0.0048,
-    baseline: 0.0186,
+    cost: 0.0011,
+    baseline: 0.0099,
   },
 ];
 
@@ -271,196 +263,60 @@ export const HOME_FAQS = [
 
 /* ---------------------------------------------------------------- models -- */
 
-export type PoolModel = {
-  id: string;
+export type PoolModel = CatalogModel & {
+  /** Display name, kept so page copy does not have to know about ids. */
   name: string;
   vendor: string;
-  tier: "frontier" | "mid" | "open";
-  /** USD per million tokens. */
+  /** USD per million tokens, mirrored from the catalog under page-copy names. */
   priceIn: number;
   priceOut: number;
-  /** Measured p95 latency, ms. */
+  /** p95 latency in ms. Illustrative until the live benchmark backfills it. */
   p95: number;
-  /** Share of routed traffic, 0–1. */
+  /** Share of routed traffic, 0-1. Illustrative until real traffic exists. */
   share: number;
-  /** 0–1, measured on the live benchmark. */
+  /** 0-1. Illustrative until the live benchmark backfills it. */
   quality: number;
-  /** Whether the model can spend tokens reasoning before it answers. */
-  thinks: boolean;
   bestAt: string;
   trend: number[];
 };
 
-export const POOL: PoolModel[] = [
-  {
-    id: "opus-4",
-    name: "Opus 4",
-    vendor: "Anthropic",
-    tier: "frontier",
-    priceIn: 15,
-    priceOut: 75,
-    p95: 4120,
-    share: 0.06,
-    quality: 0.94,
-    thinks: true,
-    bestAt: "Hard reasoning, long documents",
-    trend: [4, 6, 5, 7, 6, 8, 7, 9],
-  },
-  {
-    id: "gpt-5",
-    name: "GPT-5",
-    vendor: "OpenAI",
-    tier: "frontier",
-    priceIn: 10,
-    priceOut: 40,
-    p95: 3480,
-    share: 0.08,
-    quality: 0.93,
-    thinks: true,
-    bestAt: "Maths, planning, tricky edge cases",
-    trend: [5, 5, 6, 6, 7, 7, 8, 8],
-  },
-  {
-    id: "sonnet-4",
-    name: "Sonnet 4",
-    vendor: "Anthropic",
-    tier: "mid",
-    priceIn: 3,
-    priceOut: 15,
-    p95: 1980,
-    share: 0.19,
-    quality: 0.88,
-    thinks: true,
-    bestAt: "Writing code, following instructions",
-    trend: [6, 7, 7, 8, 9, 9, 10, 11],
-  },
-  {
-    id: "gemini-flash",
-    name: "Gemini Flash",
-    vendor: "Google",
-    tier: "mid",
-    priceIn: 1.25,
-    priceOut: 10,
-    p95: 1640,
-    share: 0.14,
-    quality: 0.86,
-    thinks: true,
-    bestAt: "Long context, other languages",
-    trend: [5, 6, 6, 7, 7, 8, 8, 9],
-  },
-  {
-    id: "mistral-large",
-    name: "Mistral Large",
-    vendor: "Mistral",
-    tier: "mid",
-    priceIn: 0.9,
-    priceOut: 2.8,
-    p95: 1210,
-    share: 0.11,
-    quality: 0.81,
-    thinks: false,
-    bestAt: "European languages, summarising",
-    trend: [4, 5, 5, 5, 6, 6, 7, 7],
-  },
-  {
-    id: "llama-70b",
-    name: "Llama 70B",
-    vendor: "Meta",
-    tier: "open",
-    priceIn: 0.18,
-    priceOut: 0.6,
-    p95: 740,
-    share: 0.17,
-    quality: 0.76,
-    thinks: false,
-    bestAt: "Everyday chat, rewriting",
-    trend: [3, 4, 5, 6, 7, 8, 9, 10],
-  },
-  {
-    id: "qwen-72b",
-    name: "Qwen 72B",
-    vendor: "Qwen",
-    tier: "open",
-    priceIn: 0.12,
-    priceOut: 0.42,
-    p95: 690,
-    share: 0.14,
-    quality: 0.74,
-    thinks: false,
-    bestAt: "Summarising, classifying, tagging",
-    trend: [3, 3, 4, 5, 6, 7, 8, 9],
-  },
-  {
-    id: "deepseek-v3",
-    name: "DeepSeek V3",
-    vendor: "DeepSeek",
-    tier: "open",
-    priceIn: 0.14,
-    priceOut: 0.28,
-    p95: 820,
-    share: 0.11,
-    quality: 0.75,
-    thinks: true,
-    bestAt: "Code, structured output",
-    trend: [4, 4, 5, 5, 6, 7, 7, 8],
-  },
-  {
-    id: "haiku-4",
-    name: "Haiku 4",
-    vendor: "Anthropic",
-    tier: "open",
-    priceIn: 0.25,
-    priceOut: 1.25,
-    p95: 620,
-    share: 0.0,
-    quality: 0.78,
-    thinks: false,
-    bestAt: "Fast replies, simple extraction",
-    trend: [2, 3, 4, 5, 6, 7, 8, 9],
-  },
-  {
-    id: "gemini-pro",
-    name: "Gemini Pro",
-    vendor: "Google",
-    tier: "frontier",
-    priceIn: 7,
-    priceOut: 21,
-    p95: 3010,
-    share: 0.0,
-    quality: 0.91,
-    thinks: true,
-    bestAt: "Research, very long inputs",
-    trend: [5, 5, 6, 7, 7, 8, 9, 9],
-  },
-  {
-    id: "grok-3",
-    name: "Grok 3",
-    vendor: "xAI",
-    tier: "mid",
-    priceIn: 2,
-    priceOut: 10,
-    p95: 1890,
-    share: 0.0,
-    quality: 0.84,
-    thinks: true,
-    bestAt: "Current events, conversation",
-    trend: [4, 5, 5, 6, 6, 7, 7, 8],
-  },
-  {
-    id: "command-r",
-    name: "Command R+",
-    vendor: "Cohere",
-    tier: "mid",
-    priceIn: 2.5,
-    priceOut: 10,
-    p95: 1520,
-    share: 0.0,
-    quality: 0.82,
-    thinks: false,
-    bestAt: "Search over your own documents",
-    trend: [3, 4, 4, 5, 5, 6, 6, 7],
-  },
-];
+/**
+ * The measured half of the public model list.
+ *
+ * Ids, prices, context windows and capabilities come from the catalog, which
+ * mirrors the Chutes API. Latency, traffic share and quality do not — nothing
+ * has measured them yet, so they are placeholders keyed by id, and they are
+ * the only invented numbers on the page. Replace them from the benchmark run
+ * rather than editing them upward.
+ */
+const OBSERVED: Record<string, Pick<PoolModel, "p95" | "share" | "quality" | "trend">> = {
+  "Nemotron-3-Nano-Omni-30B-TEE": { p95: 520, share: 0.07, quality: 0.68, trend: [2, 3, 4, 5, 6, 7, 8, 9] },
+  "unsloth/Mistral-Nemo-Instruct-2407-TEE": { p95: 560, share: 0.09, quality: 0.66, trend: [3, 3, 4, 4, 5, 6, 7, 8] },
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": { p95: 780, share: 0.16, quality: 0.79, trend: [4, 5, 6, 7, 8, 9, 10, 12] },
+  "google/gemma-4-31B-turbo-TEE": { p95: 690, share: 0.12, quality: 0.77, trend: [3, 4, 5, 6, 7, 8, 9, 10] },
+  "Qwen/Qwen3-32B-TEE": { p95: 640, share: 0.14, quality: 0.75, trend: [4, 4, 5, 6, 7, 8, 9, 10] },
+  "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": { p95: 2980, share: 0.08, quality: 0.88, trend: [4, 5, 5, 6, 7, 7, 8, 9] },
+  "deepseek-ai/DeepSeek-V3.2-TEE": { p95: 1840, share: 0.09, quality: 0.86, trend: [5, 5, 6, 6, 7, 8, 8, 9] },
+  "Qwen/Qwen3.6-27B-TEE": { p95: 1120, share: 0.11, quality: 0.83, trend: [4, 5, 6, 6, 7, 8, 8, 9] },
+  "Qwen/Qwen3.5-397B-A17B-TEE": { p95: 2240, share: 0.06, quality: 0.9, trend: [5, 6, 6, 7, 8, 8, 9, 10] },
+  "zai-org/GLM-5.1-TEE": { p95: 1960, share: 0.04, quality: 0.87, trend: [4, 4, 5, 6, 6, 7, 7, 8] },
+  "moonshotai/Kimi-K2.6-TEE": { p95: 2410, share: 0.02, quality: 0.89, trend: [3, 4, 5, 6, 7, 8, 9, 10] },
+  "zai-org/GLM-5.2-TEE": { p95: 3120, share: 0.01, quality: 0.91, trend: [4, 5, 6, 7, 7, 8, 9, 10] },
+  "moonshotai/Kimi-K3-TEE": { p95: 4260, share: 0.01, quality: 0.94, trend: [5, 6, 6, 7, 8, 8, 9, 9] },
+};
+
+const FALLBACK = { p95: 1500, share: 0, quality: 0.75, trend: [4, 4, 5, 5, 6, 6, 7, 7] };
+
+/** Every model we can route to. One entry per model Chutes serves, no more. */
+export const POOL: PoolModel[] = CATALOG.map((m) => ({
+  ...m,
+  name: m.label,
+  vendor: FAMILY_LABEL[m.family],
+  priceIn: m.inPer1M,
+  priceOut: m.outPer1M,
+  bestAt: m.goodAt,
+  ...(OBSERVED[m.id] ?? FALLBACK),
+}));
 
 export const TIER_LABEL: Record<PoolModel["tier"], string> = {
   frontier: "Premium",
@@ -845,13 +701,13 @@ export const DOC_OPTIONS = [
     name: "allowed_models",
     type: "list",
     body: "Only ever choose from these. Useful when your policy limits which providers you may use.",
-    example: '["sonnet-4", "llama-70b"]',
+    example: '["Qwen/Qwen3.5-397B-A17B-TEE", "Qwen/Qwen3-32B-TEE"]',
   },
   {
     name: "model",
     type: "name",
     body: "Pass a specific model name instead of “auto” and we skip routing entirely and send it there.",
-    example: '"gpt-5"',
+    example: '"moonshotai/Kimi-K3-TEE"',
   },
 ] as const;
 

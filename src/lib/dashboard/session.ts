@@ -1,44 +1,37 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
-import type { Classification, SearchHit } from "./engine";
-import { geminiEngine, simEngine } from "./engine";
-import { type StepEvent, runDemux } from "./graph";
+import { useCallback, useRef, useState } from "react";
 import { useKeys } from "./keys";
+import { recordRun, topicFor } from "./history";
+import { usePrefs } from "./prefs";
 import type { CatalogModel } from "./models";
+import type { Decision } from "./router";
+import { type StepEvent, runOnce } from "./run";
 
 export type Turn = {
   id: string;
   question: string;
   answer: string;
   steps: StepEvent[];
-  classification: Classification | null;
+  decision: Decision | null;
   chosen: CatalogModel | null;
-  hits: SearchHit[];
-  grade: { score: number; note: string } | null;
+  serving: string | null;
   costUsd: number;
   baselineUsd: number;
   status: "running" | "done" | "error";
   error?: string;
 };
 
-/**
- * One conversation, held in memory for the length of the visit.
- *
- * Streaming into React state is done by replacing the one turn being written
- * rather than the whole list, so a long answer does not re-render every earlier
- * message on each token.
- */
+/** One conversation, held in memory for the length of the visit. */
 export function useSession() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const counter = useRef(0);
-  const { geminiKey, hasGemini, hasChutes } = useKeys();
+  const { chutesKey, hasChutes } = useKeys();
+  const { prefs } = usePrefs();
 
   const patch = useCallback((id: string, next: Partial<Turn>) => {
-    setTurns((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, ...next } : t)),
-    );
+    setTurns((prev) => prev.map((t) => (t.id === id ? { ...t, ...next } : t)));
   }, []);
 
   const ask = useCallback(
@@ -47,37 +40,47 @@ export function useSession() {
       setBusy(true);
 
       const id = `turn-${++counter.current}`;
-      const turn: Turn = {
-        id,
-        question,
-        answer: "",
-        steps: [],
-        classification: null,
-        chosen: null,
-        hits: [],
-        grade: null,
-        costUsd: 0,
-        baselineUsd: 0,
-        status: "running",
-      };
-      setTurns((prev) => [...prev, turn]);
-
-      const engine = hasGemini ? geminiEngine(geminiKey) : simEngine();
-      let streamed = "";
-
-      try {
-        const result = await runDemux({
+      setTurns((prev) => [
+        ...prev,
+        {
+          id,
           question,
-          engine,
-          allowChutes: hasChutes,
+          answer: "",
+          steps: [],
+          decision: null,
+          chosen: null,
+          serving: null,
+          costUsd: 0,
+          baselineUsd: 0,
+          status: "running",
+        },
+      ]);
+
+      if (!hasChutes) {
+        patch(id, {
+          status: "error",
+          error: "Add a Chutes key under Settings — the router runs on a real model call.",
+        });
+        setBusy(false);
+        return;
+      }
+
+      const startedAt = Date.now();
+      let streamed = "";
+      try {
+        const result = await runOnce({
+          apiKey: chutesKey,
+          question,
+          prefs,
           onStep: (step) =>
             setTurns((prev) =>
-              prev.map((t) => {
-                if (t.id !== id) return t;
-                const rest = t.steps.filter((s) => s.id !== step.id);
-                return { ...t, steps: [...rest, step] };
-              }),
+              prev.map((t) =>
+                t.id === id
+                  ? { ...t, steps: [...t.steps.filter((s) => s.id !== step.id), step] }
+                  : t,
+              ),
             ),
+          onDecision: (decision) => patch(id, { decision, chosen: decision.chosen }),
           onToken: (token) => {
             streamed += token;
             patch(id, { answer: streamed });
@@ -86,39 +89,46 @@ export function useSession() {
 
         patch(id, {
           answer: result.answer || streamed,
-          classification: result.classification,
-          chosen: result.chosen,
-          hits: result.hits,
-          grade: result.grade,
+          decision: result.decision,
+          chosen: result.decision.chosen,
+          serving: result.serving,
           costUsd: result.costUsd,
           baselineUsd: result.baselineUsd,
           status: "done",
         });
+
+        const chosen = result.decision.chosen;
+        const { intent } = result.decision;
+        recordRun({
+          at: Date.now(),
+          modelId: chosen.id,
+          modelLabel: chosen.label,
+          tier: chosen.tier,
+          topic: topicFor(question, intent.sensitive, intent.why),
+          bar: result.decision.bar,
+          quality:
+            result.decision.scores.find((s) => s.modelId === chosen.id)?.quality ?? 0,
+          costUsd: result.costUsd,
+          baselineUsd: result.baselineUsd,
+          ms: Date.now() - startedAt,
+          scope: intent.scope,
+          category: intent.category,
+          confidence: intent.confidence,
+          sensitive: intent.sensitive,
+        });
       } catch (err) {
         patch(id, {
           status: "error",
-          error:
-            err instanceof Error
-              ? err.message
-              : "The provider rejected the request.",
+          error: err instanceof Error ? err.message : "The provider rejected the request.",
         });
       } finally {
         setBusy(false);
       }
     },
-    [busy, geminiKey, hasChutes, hasGemini, patch],
+    [busy, chutesKey, hasChutes, patch, prefs],
   );
 
   const reset = useCallback(() => setTurns([]), []);
 
-  const totals = useMemo(
-    () => ({
-      runs: turns.filter((t) => t.status === "done").length,
-      cost: turns.reduce((n, t) => n + t.costUsd, 0),
-      baseline: turns.reduce((n, t) => n + t.baselineUsd, 0),
-    }),
-    [turns],
-  );
-
-  return { turns, busy, ask, reset, totals, live: hasGemini };
+  return { turns, busy, ask, reset, live: hasChutes };
 }
