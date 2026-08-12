@@ -21,13 +21,13 @@ export function Hero() {
             <RevealItem>
               <h1 className="max-w-[13ch] text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.045em] text-balance sm:text-6xl">
                 One key for
-                <span className="text-gradient"> every AI model</span>
+                <span className="text-gradient"> every open model</span>
               </h1>
             </RevealItem>
 
             <RevealItem>
               <p className="max-w-lg text-[1.0625rem] leading-relaxed text-ink-muted">
-                Most questions do not need the most expensive model, and most steps
+                Most questions do not need the biggest open model, and most steps
                 of an agent do not need it to think first. We choose both for every
                 call — and show you exactly what that saved.
               </p>
@@ -74,7 +74,7 @@ export function Hero() {
 
       <div className="border-t border-line py-7">
         <p className="mb-5 text-center text-[0.8125rem] text-ink-faint">
-          Open weights from every lab worth routing to
+          Open weights only, from every lab worth routing to
         </p>
         <div className="mask-fade-x relative flex overflow-hidden">
           <div className="animate-marquee flex shrink-0 items-center gap-12 pr-12">

@@ -7,9 +7,9 @@ import { Section, SectionHeading } from "@/components/ui/primitives";
 const SPEND_STEPS = [1_000, 5_000, 10_000, 50_000, 100_000, 500_000];
 
 const TIERS = [
-  { key: "budget", label: "Budget models", color: "var(--tier-1)" },
+  { key: "budget", label: "Small models", color: "var(--tier-1)" },
   { key: "mid", label: "Mid-range", color: "var(--tier-2)" },
-  { key: "premium", label: "Premium", color: "var(--tier-3)" },
+  { key: "premium", label: "Biggest", color: "var(--tier-3)" },
 ] as const;
 
 /** Distribution and savings both follow from one setting: how careful to be. */

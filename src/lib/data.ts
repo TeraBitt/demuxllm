@@ -8,6 +8,22 @@
 
 import { CATALOG, FAMILY_LABEL, type CatalogModel } from "@/lib/dashboard/models";
 
+/** A typical request: ~600 words in, ~450 words out. */
+export const TYPICAL_IN_TOKENS = 800;
+export const TYPICAL_OUT_TOKENS = 600;
+
+const perAnswer = (m: CatalogModel) =>
+  (m.inPer1M * TYPICAL_IN_TOKENS) / 1e6 + (m.outPer1M * TYPICAL_OUT_TOKENS) / 1e6;
+
+/**
+ * How many times dearer the top model is than the cheapest, on one typical
+ * answer. Read from the catalog rather than asserted, because it is the number
+ * the whole pitch rests on and it moves every time Chutes changes a price.
+ */
+export const SPREAD = Math.round(
+  Math.max(...CATALOG.map(perAnswer)) / Math.min(...CATALOG.map(perAnswer)),
+);
+
 /* ------------------------------------------------------------------- nav -- */
 
 export const ROUTES = [
@@ -38,8 +54,8 @@ export const HERO_STATS = [
  */
 export const PROBLEM = [
   {
-    title: "You pay frontier prices for easy work",
-    body: "Most teams wire up one strong model and send it everything. But over half of what a product actually asks is routine — a summary, a tidy-up, a yes or no. The cheap model gets those right too. You just paid twenty times more to find that out.",
+    title: "You pay top-model prices for easy work",
+    body: `Most teams wire up one strong model and send it everything. But over half of what a product actually asks is routine — a summary, a tidy-up, a yes or no. The small model gets those right too. You just paid ${SPREAD} times more to find that out.`,
   },
   {
     title: "Agents turned one question into fifty calls",
@@ -57,9 +73,9 @@ export const PROBLEM = [
 
 export const WHY_NOW = [
   {
-    stat: "20×",
+    stat: `${SPREAD}×`,
     title: "The spread got wider",
-    body: "The gap between the cheapest model that answers correctly and the default expensive one is larger than it has ever been.",
+    body: "The gap between the cheapest open model that answers correctly and the biggest one in the pool is larger than it has ever been.",
   },
   {
     stat: "10–50×",
@@ -233,7 +249,7 @@ export const THINKING_MODES = [
 export const HOME_FAQS = [
   {
     q: "Will the answers get worse?",
-    a: "No. More than half the questions people ask get the same answer from a cheap model as an expensive one — we only send the easy ones to the cheap models. You set a quality floor, and hard questions still go to the best model available.",
+    a: "No. More than half the questions people ask get the same answer from a cheap model as an expensive one — we only send the easy ones to the cheap models. You set a quality floor, and hard questions still go to the strongest model in the pool.",
   },
   {
     q: "How much work is it to switch?",
@@ -241,7 +257,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Does this work with agents, or only chat?",
-    a: "Agents are where it pays off most. A task that takes fifty calls only has one or two that genuinely need the expensive model — the rest are picking tools, reading documents and checking work. We route each step on its own and total the whole run for you.",
+    a: "Agents are where it pays off most. A task that takes fifty calls only has one or two that genuinely need the biggest model — the rest are picking tools, reading documents and checking work. We route each step on its own and total the whole run for you.",
   },
   {
     q: "What do you do about thinking tokens?",
@@ -253,7 +269,11 @@ export const HOME_FAQS = [
   },
   {
     q: "How do I know I actually saved money?",
-    a: "We show you what the same questions would have cost on one expensive model, next to what you actually paid. Then we check that number against the real invoices every month.",
+    a: "We show you what the same questions would have cost on the biggest model in the pool, next to what you actually paid. Then we check that number against the real invoices every month.",
+  },
+  {
+    q: "Why only open models?",
+    a: "Every model we route to has published weights and is served on confidential hardware, so nobody — including us — reads your prompts on the way through. It also means one account reaches the whole pool, so the price you see is the price, and switching models never means signing another contract.",
   },
   {
     q: "What if you go down?",
@@ -323,10 +343,6 @@ export const TIER_LABEL: Record<PoolModel["tier"], string> = {
   mid: "Mid-range",
   open: "Budget",
 };
-
-/** A typical request: ~600 words in, ~450 words out. */
-export const TYPICAL_IN_TOKENS = 800;
-export const TYPICAL_OUT_TOKENS = 600;
 
 export function costPerAnswer(m: PoolModel) {
   return (

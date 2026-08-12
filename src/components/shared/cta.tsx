@@ -22,7 +22,7 @@ export function Cta({
       />
 
       <Reveal className="relative mx-auto flex max-w-2xl flex-col items-center px-5 py-20 text-center sm:py-28">
-        <LogoMark className="h-10 w-10" />
+        <LogoMark className="h-20 w-20" />
         <h2 className="mt-6 text-3xl font-semibold tracking-[-0.035em] text-balance sm:text-4xl">
           {title}
         </h2>
