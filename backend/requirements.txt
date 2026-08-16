@@ -1,0 +1,18 @@
+# Pinned to the versions these results were produced with. The router itself needs only
+# numpy; everything else is for loading corpora, plotting, and running the notebooks.
+numpy==2.5.2
+pandas==3.0.5          # RouterBench ships as a pandas pickle, so this is load-critical
+scipy==1.18.0
+scikit-learn==1.9.0
+matplotlib==3.11.1
+pyarrow==22.0.0        # columnar snapshot format (FR-12)
+tqdm==4.68.0
+
+# Notebooks
+jupyter==1.2.0
+nbclient==0.11.0
+nbconvert==7.17.0
+ipykernel==7.2.0
+
+# Tests
+pytest==9.0.2

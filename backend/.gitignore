@@ -1,0 +1,9 @@
+# Corpora are large and re-downloadable: scripts/fetch_data.py fetches them.
+data/raw/
+# Derived from data/raw + the feature map; rebuilt automatically when missing.
+data/cache/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/

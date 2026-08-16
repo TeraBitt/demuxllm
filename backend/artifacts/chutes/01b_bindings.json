@@ -1,0 +1,43 @@
+{
+  "swaps": [
+    {
+      "chutes_id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "tier": "frontier",
+      "was": "gemini-2.5-pro",
+      "was_accuracy": 0.8156386922817661,
+      "now": "deepseek-r1-0528",
+      "now_accuracy": 0.779912369396697
+    },
+    {
+      "chutes_id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "tier": "frontier",
+      "was": "gpt-5",
+      "was_accuracy": 0.8250758341759353,
+      "now": "deepseek-v3-0324",
+      "now_accuracy": 0.7017189079878665
+    }
+  ],
+  "spare_open_models_available": 17,
+  "best_mid_tier_accuracy": 0.8313019390581717,
+  "frontier_tier_accuracy": {
+    "GLM 5.2": 0.7742382271468145,
+    "Kimi K3": 0.686426592797784
+  },
+  "frontier_tier_still_above_mid": false,
+  "closed_bindings_in_use": [
+    {
+      "chutes_id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "proxy_id": "gemini-2.5-pro"
+    },
+    {
+      "chutes_id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "proxy_id": "gpt-5"
+    }
+  ],
+  "open_binding_share": 0.8461538461538461,
+  "reading": "Every slot can be bound to an open-weights model, but the frontier tier stops being a frontier tier: GLM 5.2 falls to 0.774; Kimi K3 falls to 0.686 against a best mid-tier model at 0.831. The corpus grades no open model strong enough to sit above the mid tier, so the two frontier slots keep closed-weight capability anchors and are labelled as such."
+}

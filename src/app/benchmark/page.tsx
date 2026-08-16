@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { DecayChart } from "@/components/benchmark/decay-chart";
+import { FrontierDial } from "@/components/benchmark/frontier-dial";
+import { MeasuredResults } from "@/components/benchmark/measured-results";
 import { Cta } from "@/components/shared/cta";
 import { Reveal, RevealItem } from "@/components/ui/motion";
 import { Card, PageHeader, Section, SectionHeading } from "@/components/ui/primitives";
@@ -47,6 +49,20 @@ export default function BenchmarkPage() {
         />
         <Reveal className="mt-8">
           <DecayChart />
+        </Reveal>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          eyebrow="Results"
+          title="What routing this pool is actually worth"
+          lede="Measured on held-out questions, against the two baselines that matter — including the one that is hard to beat."
+        />
+        <Reveal className="mt-8">
+          <MeasuredResults />
+        </Reveal>
+        <Reveal className="mt-3">
+          <FrontierDial />
         </Reveal>
       </Section>
 

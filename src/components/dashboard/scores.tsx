@@ -23,7 +23,7 @@ export function Scores({ decision }: { decision: Decision }) {
           Scored
         </span>
         <span className="ml-auto text-[0.75rem] text-ink-muted tabular-nums">
-          needs {decision.bar}/100
+          {decision.pinned ? "pinned — bar not applied" : `needs ${decision.bar}/100`}
         </span>
       </div>
 
@@ -39,7 +39,8 @@ export function Scores({ decision }: { decision: Decision }) {
               key={s.modelId}
               className={cx(
                 "relative flex items-center gap-3 px-3.5 py-2.5",
-                !passes && "opacity-45",
+                // The pick is never dimmed, even when a pin put it below the bar.
+                !passes && !isChosen && "opacity-45",
               )}
             >
               <span

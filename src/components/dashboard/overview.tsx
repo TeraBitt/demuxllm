@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Gauge, Route, ShieldAlert, Timer, Wallet } from "lucide-react";
+import { ArrowRight, Brain, Gauge, Route, ShieldAlert, Timer, Wallet, Wrench } from "lucide-react";
 import { cx } from "@/components/ui/primitives";
 import { TIER_VAR, usd } from "@/lib/dashboard/models";
 import { type RunRecord, analyse, byDay, useHistory } from "@/lib/dashboard/history";
@@ -155,8 +155,17 @@ function RecentRoutes({ runs }: { runs: RunRecord[] }) {
             />
             <div className="min-w-0 flex-1">
               <p className="truncate text-[0.8125rem]">{r.topic}</p>
-              <p className="mt-0.5 text-[0.6875rem] text-ink-faint">
-                {r.modelLabel} · scored {r.quality}, needed {r.bar}
+              <p className="mt-0.5 flex items-center gap-1.5 text-[0.6875rem] text-ink-faint">
+                <span className="truncate">
+                  {r.modelLabel} · scored {r.quality}, needed {r.bar}
+                </span>
+                {r.thought ? <Brain size={10} className="shrink-0" /> : null}
+                {r.toolCalls ? (
+                  <span className="flex shrink-0 items-center gap-0.5">
+                    <Wrench size={10} />
+                    {r.toolCalls}
+                  </span>
+                ) : null}
               </p>
             </div>
             <span className="w-16 shrink-0 text-right font-mono text-[0.75rem] text-ink-muted tabular-nums">
@@ -266,19 +275,26 @@ function PromptAnalytics({ runs }: { runs: RunRecord[] }) {
         </ul>
       ) : null}
 
-      {a.sensitive || a.lowConfidence ? (
-        <div className="glass-line mt-5 flex flex-wrap gap-x-5 gap-y-1.5 border-t pt-3.5 text-[0.75rem] text-ink-faint">
-          {a.sensitive ? (
-            <span className="flex items-center gap-1.5">
-              <ShieldAlert size={13} />
-              {a.sensitive} carried sensitive data
-            </span>
-          ) : null}
-          {a.lowConfidence ? (
-            <span>{a.lowConfidence} classified with low confidence</span>
-          ) : null}
-        </div>
-      ) : null}
+      <div className="glass-line mt-5 flex flex-wrap gap-x-5 gap-y-1.5 border-t pt-3.5 text-[0.75rem] text-ink-faint">
+        {/* What the extra capability was spent on, not what was offered. */}
+        <span className="flex items-center gap-1.5">
+          <Brain size={13} />
+          {a.reasoned} of {runs.length} bought reasoning
+        </span>
+        <span className="flex items-center gap-1.5">
+          <Wrench size={13} />
+          {a.toolCalls} tool {a.toolCalls === 1 ? "call" : "calls"}
+        </span>
+        {a.sensitive ? (
+          <span className="flex items-center gap-1.5">
+            <ShieldAlert size={13} />
+            {a.sensitive} carried sensitive data
+          </span>
+        ) : null}
+        {a.lowConfidence ? (
+          <span>{a.lowConfidence} classified with low confidence</span>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,213 @@
+{
+  "proxy_backed": true,
+  "disclaimer": "Quality and token behaviour are measured on a stand-in model per Chutes slot (see catalog.CHUTES_PROXY), not on the Chutes endpoint. Prices are the published Chutes rates.",
+  "pool_size": 13,
+  "test_items": 1239,
+  "lam_cost": 0.2,
+  "savings_pct": 0.7969138895515978,
+  "quality_retained_pct": 0.9975716367168528,
+  "baseline_model": "zai-org/GLM-5.2-TEE",
+  "artifact_bytes": 432692,
+  "tier_mix": {
+    "open": 0.07263922518159806,
+    "mid": 0.910411622276029,
+    "frontier": 0.01694915254237288
+  },
+  "models": [
+    {
+      "id": "Nemotron-3-Nano-Omni-30B-TEE",
+      "label": "Nemotron 3 Nano Omni 30B",
+      "tier": "open",
+      "accuracy": 0.48950766747376917,
+      "traffic_share": 0.03631961259079903,
+      "blended_price": 0.3179,
+      "proxy_id": "NVIDIA-Nemotron-Nano-9B-v2"
+    },
+    {
+      "id": "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+      "label": "Mistral Nemo Instruct",
+      "tier": "open",
+      "accuracy": 0.22195318805488298,
+      "traffic_share": 0.0,
+      "blended_price": 0.3179,
+      "proxy_id": "Llama-3.1-8B-Instruct"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "label": "DeepSeek V4 Flash",
+      "tier": "open",
+      "accuracy": 0.5318805488297014,
+      "traffic_share": 0.010492332526230832,
+      "blended_price": 0.9800000000000001,
+      "proxy_id": "DeepSeek-R1-0528-Qwen3-8B"
+    },
+    {
+      "id": "google/gemma-4-31B-turbo-TEE",
+      "label": "Gemma 4 31B Turbo",
+      "tier": "open",
+      "accuracy": 0.2602905569007264,
+      "traffic_share": 0.0,
+      "blended_price": 1.23,
+      "proxy_id": "gemma-2-9b-it"
+    },
+    {
+      "id": "Qwen/Qwen3-32B-TEE",
+      "label": "Qwen3 32B",
+      "tier": "open",
+      "accuracy": 0.5351089588377724,
+      "traffic_share": 0.0258272800645682,
+      "blended_price": 1.352,
+      "proxy_id": "Qwen3-8B"
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "label": "Qwen3 235B Thinking",
+      "tier": "mid",
+      "accuracy": 0.8341404358353511,
+      "traffic_share": 0.4261501210653753,
+      "blended_price": 3.886,
+      "proxy_id": "qwen3-235b-a22b-thinking-2507"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V3.2-TEE",
+      "label": "DeepSeek V3.2",
+      "tier": "mid",
+      "accuracy": 0.7493946731234867,
+      "traffic_share": 0.18321226795803067,
+      "blended_price": 4.0,
+      "proxy_id": "deepseek-v3.1-terminus"
+    },
+    {
+      "id": "Qwen/Qwen3.6-27B-TEE",
+      "label": "Qwen3.6 27B",
+      "tier": "mid",
+      "accuracy": 0.695318805488297,
+      "traffic_share": 0.02824858757062147,
+      "blended_price": 6.3,
+      "proxy_id": "intern-s1"
+    },
+    {
+      "id": "Qwen/Qwen3.5-397B-A17B-TEE",
+      "label": "Qwen3.5 397B",
+      "tier": "mid",
+      "accuracy": 0.7651331719128329,
+      "traffic_share": 0.11218724778046812,
+      "blended_price": 9.45,
+      "proxy_id": "qwen3-235b-a22b-2507"
+    },
+    {
+      "id": "zai-org/GLM-5.1-TEE",
+      "label": "GLM 5.1",
+      "tier": "mid",
+      "accuracy": 0.6924939467312349,
+      "traffic_share": 0.03389830508474576,
+      "blended_price": 10.22,
+      "proxy_id": "glm-4.6"
+    },
+    {
+      "id": "moonshotai/Kimi-K2.6-TEE",
+      "label": "Kimi K2.6",
+      "tier": "mid",
+      "accuracy": 0.7776432606941082,
+      "traffic_share": 0.12671509281678772,
+      "blended_price": 10.78,
+      "proxy_id": "kimi-k2-0905"
+    },
+    {
+      "id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "tier": "frontier",
+      "accuracy": 0.8309120258272801,
+      "traffic_share": 0.003228410008071025,
+      "blended_price": 13.100000000000001,
+      "proxy_id": "gemini-2.5-pro"
+    },
+    {
+      "id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "tier": "frontier",
+      "accuracy": 0.8131557707828895,
+      "traffic_share": 0.013720742534301856,
+      "blended_price": 48.0,
+      "proxy_id": "gpt-5"
+    }
+  ],
+  "frontier_curve": [
+    {
+      "lam_cost": 0.0,
+      "savings": 0.2342680147470345,
+      "quality_retained": 1.0033997085964061
+    },
+    {
+      "lam_cost": 0.005,
+      "savings": 0.2717884559761483,
+      "quality_retained": 1.0033997085964061
+    },
+    {
+      "lam_cost": 0.01,
+      "savings": 0.3057751103863351,
+      "quality_retained": 0.9995143273433705
+    },
+    {
+      "lam_cost": 0.02,
+      "savings": 0.3596742101706367,
+      "quality_retained": 0.9975716367168528
+    },
+    {
+      "lam_cost": 0.03,
+      "savings": 0.4326955045850793,
+      "quality_retained": 1.000971345313259
+    },
+    {
+      "lam_cost": 0.05,
+      "savings": 0.5322385101474956,
+      "quality_retained": 0.996600291403594
+    },
+    {
+      "lam_cost": 0.08,
+      "savings": 0.6376349428061175,
+      "quality_retained": 0.9970859640602234
+    },
+    {
+      "lam_cost": 0.12,
+      "savings": 0.7416990845778376,
+      "quality_retained": 1.0004856726566294
+    },
+    {
+      "lam_cost": 0.2,
+      "savings": 0.7969138895515978,
+      "quality_retained": 0.9975716367168528
+    },
+    {
+      "lam_cost": 0.35,
+      "savings": 0.8271643716039218,
+      "quality_retained": 0.9781447304516756
+    },
+    {
+      "lam_cost": 0.6,
+      "savings": 0.8731201066897979,
+      "quality_retained": 0.9684312773190868
+    },
+    {
+      "lam_cost": 1.0,
+      "savings": 0.9119260039897387,
+      "quality_retained": 0.9412336085478387
+    }
+  ],
+  "crossval": {
+    "savings_pct_mean": 0.7957430460916147,
+    "savings_pct_se": 0.003054668970916125,
+    "quality_retained_mean": 0.9778838853680212,
+    "quality_retained_se": 0.004290982444279136,
+    "savings_vs_best_single_mean": 0.19502021775784165,
+    "savings_vs_best_single_se": 0.013737626271694075,
+    "quality_vs_best_single_mean": 0.9937480942066674,
+    "quality_vs_best_single_se": 0.009883739428560353,
+    "splits": 8
+  },
+  "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+  "frontier_model_is_dominated": true,
+  "models_beating_the_frontier_model": [
+    "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE"
+  ]
+}

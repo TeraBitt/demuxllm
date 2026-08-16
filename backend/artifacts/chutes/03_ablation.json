@@ -1,0 +1,78 @@
+{
+  "arms": [
+    {
+      "train_on": "dense",
+      "ridge_lam": 1.0,
+      "train_items": 2302,
+      "train_cells": 29926,
+      "val_brier": 0.16099728784904185,
+      "quality_at_lam_cost_0": 0.8337368845843423,
+      "quality_vs_frontier": 1.0033997085964061
+    },
+    {
+      "train_on": "dense",
+      "ridge_lam": 10.0,
+      "train_items": 2302,
+      "train_cells": 29926,
+      "val_brier": 0.16115914377543464,
+      "quality_at_lam_cost_0": 0.8317191283292978,
+      "quality_vs_frontier": 1.000971345313259
+    },
+    {
+      "train_on": "dense",
+      "ridge_lam": 100.0,
+      "train_items": 2302,
+      "train_cells": 29926,
+      "val_brier": 0.16359919641072057,
+      "quality_at_lam_cost_0": 0.8297013720742534,
+      "quality_vs_frontier": 0.9985429820301117
+    },
+    {
+      "train_on": "dense",
+      "ridge_lam": 1000.0,
+      "train_items": 2302,
+      "train_cells": 29926,
+      "val_brier": 0.1714768980641853,
+      "quality_at_lam_cost_0": 0.8244552058111381,
+      "quality_vs_frontier": 0.9922292374939291
+    },
+    {
+      "train_on": "union",
+      "ridge_lam": 1.0,
+      "train_items": 23795,
+      "train_cells": 167141,
+      "val_brier": 0.21144590297274676,
+      "quality_at_lam_cost_0": 0.7320419693301049,
+      "quality_vs_frontier": 0.8810101991257892
+    },
+    {
+      "train_on": "union",
+      "ridge_lam": 10.0,
+      "train_items": 23795,
+      "train_cells": 167141,
+      "val_brier": 0.2113849771289936,
+      "quality_at_lam_cost_0": 0.7288135593220338,
+      "quality_vs_frontier": 0.8771248178727536
+    },
+    {
+      "train_on": "union",
+      "ridge_lam": 100.0,
+      "train_items": 23795,
+      "train_cells": 167141,
+      "val_brier": 0.21243385009557006,
+      "quality_at_lam_cost_0": 0.7276029055690073,
+      "quality_vs_frontier": 0.8756677999028655
+    },
+    {
+      "train_on": "union",
+      "ridge_lam": 1000.0,
+      "train_items": 23795,
+      "train_cells": 167141,
+      "val_brier": 0.22097894797701792,
+      "quality_at_lam_cost_0": 0.7029862792574657,
+      "quality_vs_frontier": 0.8460417678484702
+    }
+  ],
+  "frontier_model": "zai-org/GLM-5.2-TEE",
+  "reading": "dense-core training retains 100.3% of frontier quality on 2,302 items; the union arm has 10x the items and retains 88.1%. Uneven coverage across columns costs more than the extra data buys."
+}

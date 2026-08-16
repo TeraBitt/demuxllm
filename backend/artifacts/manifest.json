@@ -1,0 +1,42 @@
+{
+  "ran": [
+    "coldstart",
+    "decomposition",
+    "frontier",
+    "gram",
+    "metric",
+    "overview",
+    "scaling",
+    "staleness"
+  ],
+  "ran_this_invocation": [
+    "overview",
+    "scaling",
+    "frontier",
+    "staleness",
+    "gram",
+    "metric",
+    "coldstart",
+    "decomposition"
+  ],
+  "quick": false,
+  "seed": 0,
+  "corpus": {
+    "source": "RouterBench 0-shot (withmartian/routerbench)",
+    "items": 36497,
+    "models": 11,
+    "cells": 401467,
+    "density": 1.0,
+    "mean_quality": 0.5207107931660635,
+    "total_cost_usd": 333.789299832,
+    "notes": [
+      "quality = RouterBench per-cell accuracy in [0,1] (as published)",
+      "cost = RouterBench realised per-call USD (as published, not re-derived)",
+      "tokens_out = ceil(len(response)/4) \u2014 DERIVED, not measured; RouterBench publishes no token counts. Used only for the token-prediction target."
+    ]
+  },
+  "feature_dim": 64,
+  "n_train": 25000,
+  "n_test": 11497,
+  "elapsed_seconds": 797.0
+}

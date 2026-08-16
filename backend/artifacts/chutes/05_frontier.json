@@ -1,0 +1,158 @@
+[
+  {
+    "lam_cost": 0.0,
+    "quality": 0.8337368845843423,
+    "quality_vs_frontier": 1.0033997085964061,
+    "cost_usd": 26.483568040500003,
+    "savings_vs_frontier": 0.2342680147470345,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.031476997578692496,
+      "mid": 0.41969330104923325,
+      "frontier": 0.5488297013720742
+    }
+  },
+  {
+    "lam_cost": 0.005,
+    "quality": 0.8337368845843423,
+    "quality_vs_frontier": 1.0033997085964061,
+    "cost_usd": 25.1858879418,
+    "savings_vs_frontier": 0.2717884559761483,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.031476997578692496,
+      "mid": 0.45601291364003227,
+      "frontier": 0.5125100887812752
+    }
+  },
+  {
+    "lam_cost": 0.01,
+    "quality": 0.8305084745762712,
+    "quality_vs_frontier": 0.9995143273433705,
+    "cost_usd": 24.0104272168,
+    "savings_vs_frontier": 0.3057751103863351,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.03228410008071025,
+      "mid": 0.4947538337368846,
+      "frontier": 0.47296206618240516
+    }
+  },
+  {
+    "lam_cost": 0.02,
+    "quality": 0.8288942695722357,
+    "quality_vs_frontier": 0.9975716367168528,
+    "cost_usd": 22.1462756547,
+    "savings_vs_frontier": 0.3596742101706367,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.037933817594834544,
+      "mid": 0.5375302663438256,
+      "frontier": 0.4245359160613398
+    }
+  },
+  {
+    "lam_cost": 0.03,
+    "quality": 0.8317191283292978,
+    "quality_vs_frontier": 1.000971345313259,
+    "cost_usd": 19.6207648281,
+    "savings_vs_frontier": 0.4326955045850793,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.03954802259887006,
+      "mid": 0.5988700564971752,
+      "frontier": 0.3615819209039548
+    }
+  },
+  {
+    "lam_cost": 0.05,
+    "quality": 0.8280871670702179,
+    "quality_vs_frontier": 0.996600291403594,
+    "cost_usd": 16.1779754298,
+    "savings_vs_frontier": 0.5322385101474956,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.04519774011299435,
+      "mid": 0.6868442292171105,
+      "frontier": 0.2679580306698951
+    }
+  },
+  {
+    "lam_cost": 0.08,
+    "quality": 0.8284907183212268,
+    "quality_vs_frontier": 0.9970859640602234,
+    "cost_usd": 12.5327396955,
+    "savings_vs_frontier": 0.6376349428061175,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.053268765133171914,
+      "mid": 0.7804681194511703,
+      "frontier": 0.16626311541565778
+    }
+  },
+  {
+    "lam_cost": 0.12,
+    "quality": 0.831315577078289,
+    "quality_vs_frontier": 1.0004856726566294,
+    "cost_usd": 8.933582507,
+    "savings_vs_frontier": 0.7416990845778376,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.06295399515738499,
+      "mid": 0.8619854721549637,
+      "frontier": 0.07506053268765134
+    }
+  },
+  {
+    "lam_cost": 0.2,
+    "quality": 0.8288942695722357,
+    "quality_vs_frontier": 0.9975716367168528,
+    "cost_usd": 7.023926031199999,
+    "savings_vs_frontier": 0.7969138895515978,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.07263922518159806,
+      "mid": 0.910411622276029,
+      "frontier": 0.01694915254237288
+    }
+  },
+  {
+    "lam_cost": 0.35,
+    "quality": 0.8127522195318806,
+    "quality_vs_frontier": 0.9781447304516756,
+    "cost_usd": 5.977684376,
+    "savings_vs_frontier": 0.8271643716039218,
+    "models_used": 11,
+    "tier_mix": {
+      "open": 0.09281678773204197,
+      "mid": 0.8999192897497982,
+      "frontier": 0.007263922518159807
+    }
+  },
+  {
+    "lam_cost": 0.6,
+    "quality": 0.804681194511703,
+    "quality_vs_frontier": 0.9684312773190868,
+    "cost_usd": 4.388261627,
+    "savings_vs_frontier": 0.8731201066897979,
+    "models_used": 10,
+    "tier_mix": {
+      "open": 0.12106537530266344,
+      "mid": 0.87409200968523,
+      "frontier": 0.004842615012106538
+    }
+  },
+  {
+    "lam_cost": 1.0,
+    "quality": 0.7820823244552058,
+    "quality_vs_frontier": 0.9412336085478387,
+    "cost_usd": 3.0461228091,
+    "savings_vs_frontier": 0.9119260039897387,
+    "models_used": 10,
+    "tier_mix": {
+      "open": 0.1549636803874092,
+      "mid": 0.8418079096045198,
+      "frontier": 0.003228410008071025
+    }
+  }
+]

@@ -1,0 +1,314 @@
+{
+  "lam_cost": 0.2,
+  "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+  "best_single_quality": 0.8341404358353511,
+  "best_single_cost_per_call": 0.007094188954640838,
+  "learning_curve": [
+    {
+      "n_train": 100,
+      "repeat": 0,
+      "val_brier": 0.36445658994455776,
+      "quality": 0.7409200968523002,
+      "cost_per_call_usd": 0.007175704232849072,
+      "quality_vs_best_single": 0.8882438316400579,
+      "savings_vs_best_single": -0.011490429523294488,
+      "savings_vs_frontier": 0.7429390378734965,
+      "models_used": 13
+    },
+    {
+      "n_train": 100,
+      "repeat": 1,
+      "val_brier": 0.30016994955948717,
+      "quality": 0.7675544794188862,
+      "cost_per_call_usd": 0.005669256397497983,
+      "quality_vs_best_single": 0.9201741654571843,
+      "savings_vs_best_single": 0.20085912093033564,
+      "savings_vs_frontier": 0.7969057172937524,
+      "models_used": 13
+    },
+    {
+      "n_train": 100,
+      "repeat": 2,
+      "val_brier": 0.3049861529476968,
+      "quality": 0.7146892655367232,
+      "cost_per_call_usd": 0.007742693837933818,
+      "quality_vs_best_single": 0.8567972907595549,
+      "savings_vs_best_single": -0.09141353401205143,
+      "savings_vs_frontier": 0.7226273181217835,
+      "models_used": 13
+    },
+    {
+      "n_train": 250,
+      "repeat": 0,
+      "val_brier": 0.1968346110942012,
+      "quality": 0.7659402744148507,
+      "cost_per_call_usd": 0.00646715096440678,
+      "quality_vs_best_single": 0.9182389937106917,
+      "savings_vs_best_single": 0.08838755131040965,
+      "savings_vs_frontier": 0.7683221053736652,
+      "models_used": 12
+    },
+    {
+      "n_train": 250,
+      "repeat": 1,
+      "val_brier": 0.1970230323955333,
+      "quality": 0.784503631961259,
+      "cost_per_call_usd": 0.006530166286117837,
+      "quality_vs_best_single": 0.9404934687953554,
+      "savings_vs_best_single": 0.07950488380409315,
+      "savings_vs_frontier": 0.7660646573654821,
+      "models_used": 12
+    },
+    {
+      "n_train": 250,
+      "repeat": 2,
+      "val_brier": 0.1991607241546458,
+      "quality": 0.7784503631961259,
+      "cost_per_call_usd": 0.005829740641565779,
+      "quality_vs_best_single": 0.9332365747460086,
+      "savings_vs_best_single": 0.17823719119405323,
+      "savings_vs_frontier": 0.7911565625282372,
+      "models_used": 13
+    },
+    {
+      "n_train": 500,
+      "repeat": 0,
+      "val_brier": 0.17350041072565672,
+      "quality": 0.7929782082324455,
+      "cost_per_call_usd": 0.0056190725905569,
+      "quality_vs_best_single": 0.9506531204644411,
+      "savings_vs_best_single": 0.20793305246245997,
+      "savings_vs_frontier": 0.7987034917388571,
+      "models_used": 11
+    },
+    {
+      "n_train": 500,
+      "repeat": 1,
+      "val_brier": 0.17468844357375252,
+      "quality": 0.8075060532687651,
+      "cost_per_call_usd": 0.005728433458999193,
+      "quality_vs_best_single": 0.9680696661828737,
+      "savings_vs_best_single": 0.19251749627393322,
+      "savings_vs_frontier": 0.7947857703350021,
+      "models_used": 12
+    },
+    {
+      "n_train": 500,
+      "repeat": 2,
+      "val_brier": 0.17422899014208895,
+      "quality": 0.7953995157384988,
+      "cost_per_call_usd": 0.005507106393381759,
+      "quality_vs_best_single": 0.9535558780841799,
+      "savings_vs_best_single": 0.22371585693680318,
+      "savings_vs_frontier": 0.8027145459068548,
+      "models_used": 11
+    },
+    {
+      "n_train": 1000,
+      "repeat": 0,
+      "val_brier": 0.1661292476276216,
+      "quality": 0.8139628732849071,
+      "cost_per_call_usd": 0.005927458078369653,
+      "quality_vs_best_single": 0.9758103531688436,
+      "savings_vs_best_single": 0.16446289825814964,
+      "savings_vs_frontier": 0.7876559530401331,
+      "models_used": 11
+    },
+    {
+      "n_train": 1000,
+      "repeat": 1,
+      "val_brier": 0.1646322109863488,
+      "quality": 0.8167877320419693,
+      "cost_per_call_usd": 0.005203578682324455,
+      "quality_vs_best_single": 0.9791969037252055,
+      "savings_vs_best_single": 0.2665012567898398,
+      "savings_vs_frontier": 0.8135880606037483,
+      "models_used": 12
+    },
+    {
+      "n_train": 1000,
+      "repeat": 2,
+      "val_brier": 0.16593753703965627,
+      "quality": 0.8083131557707829,
+      "cost_per_call_usd": 0.006139487069491526,
+      "quality_vs_best_single": 0.9690372520561199,
+      "savings_vs_best_single": 0.134575198271928,
+      "savings_vs_frontier": 0.780060269789005,
+      "models_used": 11
+    },
+    {
+      "n_train": 1500,
+      "repeat": 0,
+      "val_brier": 0.16286349140291867,
+      "quality": 0.8075060532687651,
+      "cost_per_call_usd": 0.00526830955504439,
+      "quality_vs_best_single": 0.9680696661828737,
+      "savings_vs_best_single": 0.2573767644576205,
+      "savings_vs_frontier": 0.8112691550467855,
+      "models_used": 11
+    },
+    {
+      "n_train": 1500,
+      "repeat": 1,
+      "val_brier": 0.16415479162798818,
+      "quality": 0.8111380145278451,
+      "cost_per_call_usd": 0.0057029777894269575,
+      "quality_vs_best_single": 0.9724238026124818,
+      "savings_vs_best_single": 0.1961057386699272,
+      "savings_vs_frontier": 0.7956976890400481,
+      "models_used": 11
+    },
+    {
+      "n_train": 1500,
+      "repeat": 2,
+      "val_brier": 0.163412533563564,
+      "quality": 0.8184019370460048,
+      "cost_per_call_usd": 0.006321202295480227,
+      "quality_vs_best_single": 0.981132075471698,
+      "savings_vs_best_single": 0.10896053997193622,
+      "savings_vs_frontier": 0.773550540665576,
+      "models_used": 11
+    },
+    {
+      "n_train": 2000,
+      "repeat": 0,
+      "val_brier": 0.16139010211739765,
+      "quality": 0.8252623083131557,
+      "cost_per_call_usd": 0.006051240414366424,
+      "quality_vs_best_single": 0.9893565553942911,
+      "savings_vs_best_single": 0.14701448565056097,
+      "savings_vs_frontier": 0.7832215999295448,
+      "models_used": 11
+    },
+    {
+      "n_train": 2000,
+      "repeat": 1,
+      "val_brier": 0.16151513658679897,
+      "quality": 0.817998385794996,
+      "cost_per_call_usd": 0.005785497713962873,
+      "quality_vs_best_single": 0.980648282535075,
+      "savings_vs_best_single": 0.18447369375774136,
+      "savings_vs_frontier": 0.7927415121259132,
+      "models_used": 11
+    },
+    {
+      "n_train": 2000,
+      "repeat": 2,
+      "val_brier": 0.16101242896502388,
+      "quality": 0.8196125907990315,
+      "cost_per_call_usd": 0.005512083856577885,
+      "quality_vs_best_single": 0.9825834542815675,
+      "savings_vs_best_single": 0.2230142315321303,
+      "savings_vs_frontier": 0.8025362342824307,
+      "models_used": 11
+    },
+    {
+      "n_train": 2302,
+      "repeat": 0,
+      "val_brier": 0.1609972878490418,
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.005669028273769168,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": 0.2008912773516366,
+      "savings_vs_frontier": 0.7969138895515978,
+      "models_used": 11
+    }
+  ],
+  "capacity_curve": [
+    {
+      "d": 16,
+      "semantic_components": 4,
+      "artifact_kb": 27.67578125,
+      "val_brier": 0.16577305423705563,
+      "quality": 0.8232445520581114,
+      "cost_per_call_usd": 0.005912246298789346,
+      "quality_vs_best_single": 0.9869375907111756,
+      "savings_vs_best_single": 0.16660715740850052,
+      "savings_vs_frontier": 0.7882008967233843,
+      "models_used": 11
+    },
+    {
+      "d": 20,
+      "semantic_components": 8,
+      "artifact_kb": 42.70703125,
+      "val_brier": 0.16381148878060625,
+      "quality": 0.8228410008071025,
+      "cost_per_call_usd": 0.0056040646854721545,
+      "quality_vs_best_single": 0.9864537977745524,
+      "savings_vs_best_single": 0.21004857337411098,
+      "savings_vs_frontier": 0.7992411318638398,
+      "models_used": 10
+    },
+    {
+      "d": 28,
+      "semantic_components": 16,
+      "artifact_kb": 82.51953125,
+      "val_brier": 0.16304843175531786,
+      "quality": 0.8151735270379338,
+      "cost_per_call_usd": 0.005395837309362389,
+      "quality_vs_best_single": 0.977261731978713,
+      "savings_vs_best_single": 0.23940039603363417,
+      "savings_vs_frontier": 0.8067006268356108,
+      "models_used": 11
+    },
+    {
+      "d": 36,
+      "semantic_components": 24,
+      "artifact_kb": 135.33203125,
+      "val_brier": 0.16210939103157174,
+      "quality": 0.8196125907990315,
+      "cost_per_call_usd": 0.005467698969733656,
+      "quality_vs_best_single": 0.9825834542815675,
+      "savings_vs_best_single": 0.22927074473300768,
+      "savings_vs_frontier": 0.8041262693989594,
+      "models_used": 11
+    },
+    {
+      "d": 44,
+      "semantic_components": 32,
+      "artifact_kb": 201.14453125,
+      "val_brier": 0.16196321895937177,
+      "quality": 0.8252623083131557,
+      "cost_per_call_usd": 0.005564289285875706,
+      "quality_vs_best_single": 0.9893565553942911,
+      "savings_vs_best_single": 0.2156553312220858,
+      "savings_vs_frontier": 0.8006660376511243,
+      "models_used": 11
+    },
+    {
+      "d": 52,
+      "semantic_components": 40,
+      "artifact_kb": 279.95703125,
+      "val_brier": 0.16139029585680212,
+      "quality": 0.8280871670702179,
+      "cost_per_call_usd": 0.00565214619031477,
+      "quality_vs_best_single": 0.9927431059506531,
+      "savings_vs_best_single": 0.20327098327183968,
+      "savings_vs_frontier": 0.797518669859518,
+      "models_used": 11
+    },
+    {
+      "d": 64,
+      "semantic_components": 52,
+      "artifact_kb": 422.55078125,
+      "val_brier": 0.16099728784904185,
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.005669028273769168,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": 0.2008912773516366,
+      "savings_vs_frontier": 0.7969138895515978,
+      "models_used": 11
+    }
+  ],
+  "coupling": {
+    "corr_brier_savings_over_capacity": -0.49396053396370737,
+    "corr_brier_quality_over_capacity": -0.3917682725655018,
+    "best_d_by_loss": 64,
+    "best_d_by_savings": 28
+  },
+  "converged": {
+    "val_brier": 0.1609972878490418,
+    "savings_vs_best_single": 0.2008912773516366,
+    "quality_vs_best_single": 0.9937106918238993
+  }
+}

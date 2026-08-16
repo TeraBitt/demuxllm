@@ -1,0 +1,53 @@
+==============================================================================
+RollingBench — router engine experiments
+==============================================================================
+corpus: RouterBench 0-shot (withmartian/routerbench)
+        36,497 items × 11 models = 401,467 graded cells, $333.79 of measured inference
+[build] features for 36,497 items (d=108, 4096 hash buckets) …
+features: d=108 (frozen after fitting on the training split only)
+split: 25,000 train / 11,497 test items, disjoint by item
+
+[1/7] overview: pool, ties, domains
+       → artifacts/overview.json
+       ties: 57.8% of model pairs score identically (1s)
+
+[2/8] scaling: loss against data, capacity, regularisation — and regret
+       → artifacts/scaling.json
+       data: val Brier 0.7196 → 0.1559; last doubling buys +0.00035
+       capacity: best d=108 (Brier 0.15773), saturates at d=64
+       coupling: Brier↔regret r=+0.88, ranking↔regret r=+1.00 (442s)
+
+[3/8] frontier: the cost/quality dial, and every policy compared
+       → artifacts/frontier.json
+       λ_c=0.05: 45.2% cheaper at 99.1% of frontier quality (42s)
+
+[4/8] staleness (§14.1): the experiment that could invalidate the premise
+       → artifacts/staleness.json
+       frozen -0.029 → -1.025; rolling -0.021 → -0.047
+       attribution: new models +0.711, fresher data +0.013
+       VERDICT: decay observed (7s)
+
+[5/8] gram: what §8.3's shared-matrix shortcut costs
+       → artifacts/gram.json
+       worst utility gap +0.0582; shortcut starts costing at coverage 0.5 (25s)
+
+[6/8] metric (7.3): both degeneracies in the §8.8 score
+       → artifacts/metric.json
+       oracle luck: 50.4% of the gap
+       ranking: raw 0.831 → shrunk 0.883 (10s)
+
+[7/8] coldstart (7.4 then 7.2): the bridge, then sample complexity
+       bridge R²=0.285 → bridge does NOT hold; §5.1's linking assumption needs revision or Contribution 2 must be dropped (the proposal's own gate)
+       → artifacts/coldstart.json
+       probe items needed (models with a material gap): {'blend (§8.6)': 1000.0, 'derived (§5.2)': 500.0, 'no prior': 1000.0} (492s)
+
+[8/8] decomposition (7.1): component-wise γ, and read-vs-learn
+       → artifacts/decomposition.json
+       default: component-wise γ_q/γ_t vs one shared γ: reduces mean regret by -0.0012 ± 0.0004 (SE over 8 seeds) — NOT distinguishable from noise
+       high_drift: component-wise γ_q/γ_t vs one shared γ: reduces mean regret by +0.0011 ± 0.0013 (SE over 8 seeds) — NOT distinguishable from noise
+       (575s)
+
+figures: 12 written to artifacts/figures/
+       → artifacts/manifest.json
+
+done in 1635s

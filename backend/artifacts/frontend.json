@@ -1,0 +1,94 @@
+{
+  "decay_weeks": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24
+  ],
+  "decay_series": {
+    "frozen": [
+      1.032,
+      1.05,
+      0.978,
+      0.941,
+      1.008,
+      0.948,
+      1.024,
+      1.923,
+      1.837,
+      2.223,
+      2.373,
+      1.882,
+      2.182
+    ],
+    "rolling": [
+      1.032,
+      1.049,
+      1.028,
+      1.028,
+      0.991,
+      1.017,
+      1.002,
+      1.303,
+      1.125,
+      1.106,
+      1.322,
+      1.04,
+      1.022
+    ]
+  },
+  "staleness_summary": {
+    "frozen_start": 0.01033778483740913,
+    "frozen_end": -1.0115590440954971,
+    "frozen_decay": 1.0218968289329062,
+    "rolling_start": -0.0026818670832272073,
+    "rolling_end": -0.022745496912726287,
+    "rolling_decay": 0.02006362982949908,
+    "gap_first_half": -0.027424359657680725,
+    "gap_second_half": 0.7875584024763049,
+    "week_crossed_below_best_single": 5,
+    "frozen_end_feasible": -3.9237178312106042,
+    "rolling_end_feasible": -0.09860729299882051,
+    "frozen_start_feasible": 0.02545450415138614,
+    "rolling_start_feasible": -0.00875972197035003,
+    "attribution_fresher_data": 0.009868395151668374,
+    "attribution_new_models": 0.7776900073246366,
+    "verdict": "decay observed"
+  },
+  "savings": {
+    "lam_cost": 0.05,
+    "savings_pct": 0.4451978893097833,
+    "quality_retained_pct": 0.9936232046051526,
+    "quality": 0.773197355831956,
+    "best_single_model": "gpt-4-1106-preview"
+  },
+  "tie_rate": 0.5783748103829206,
+  "corpus": {
+    "source": "RouterBench 0-shot (withmartian/routerbench)",
+    "items": 36497,
+    "models": 11,
+    "cells": 401467,
+    "density": 1.0,
+    "mean_quality": 0.5207107931660635,
+    "total_cost_usd": 333.789299832,
+    "notes": [
+      "quality = RouterBench per-cell accuracy in [0,1] (as published)",
+      "cost = RouterBench realised per-call USD (as published, not re-derived)",
+      "tokens_out = ceil(len(response)/4) \u2014 DERIVED, not measured; RouterBench publishes no token counts. Used only for the token-prediction target."
+    ]
+  },
+  "caveats": [
+    "one corpus (RouterBench), 11 models, pool history ending December 2023",
+    "items are undated, so the replay holds the item distribution fixed: this measures decay from the pool moving and from data ageing, not workload drift or contamination",
+    "mostly multiple-choice grading, so per-item outcomes carry substantial luck"
+  ]
+}

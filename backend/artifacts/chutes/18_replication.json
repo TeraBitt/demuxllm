@@ -1,0 +1,128 @@
+{
+  "coverage_bias": {
+    "pool": [
+      "claude-sonnet-4",
+      "deepseek-r1-0528",
+      "deepseek-v3-0324",
+      "gemini-2.5-flash",
+      "gpt-5-chat",
+      "GLM-Z1-9B-0414",
+      "MiniCPM4.1-8B",
+      "Intern-S1-mini",
+      "Llama-3.1-Nemotron-Nano-8B-v1",
+      "DeepSeek-R1-Distill-Qwen-7B",
+      "OpenThinker3-7B",
+      "granite-3.3-8b-instruct",
+      "internlm3-8b-instruct"
+    ],
+    "disjoint_from_chutes_proxies": true,
+    "dense_core_items": 3920,
+    "arms": [
+      {
+        "train_on": "dense",
+        "ridge_lam": 1.0,
+        "train_items": 2548,
+        "val_brier": 0.17711877780602434,
+        "quality_vs_frontier": 1.0329400196656833
+      },
+      {
+        "train_on": "dense",
+        "ridge_lam": 10.0,
+        "train_items": 2548,
+        "val_brier": 0.17725611280052683,
+        "quality_vs_frontier": 1.031465093411996
+      },
+      {
+        "train_on": "dense",
+        "ridge_lam": 100.0,
+        "train_items": 2548,
+        "val_brier": 0.17890532266764061,
+        "quality_vs_frontier": 1.0309734513274336
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 1.0,
+        "train_items": 23663,
+        "val_brier": 0.21965521332887003,
+        "quality_vs_frontier": 0.8416912487708947
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 10.0,
+        "train_items": 23663,
+        "val_brier": 0.2195712774374787,
+        "quality_vs_frontier": 0.839724680432645
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 100.0,
+        "train_items": 23663,
+        "val_brier": 0.2199945380525813,
+        "quality_vs_frontier": 0.8289085545722713
+      }
+    ],
+    "dense_best": {
+      "train_on": "dense",
+      "ridge_lam": 1.0,
+      "train_items": 2548,
+      "val_brier": 0.17711877780602434,
+      "quality_vs_frontier": 1.0329400196656833
+    },
+    "union_best": {
+      "train_on": "union",
+      "ridge_lam": 1.0,
+      "train_items": 23663,
+      "val_brier": 0.21965521332887003,
+      "quality_vs_frontier": 0.8416912487708947
+    },
+    "gap_points": 0.19124877089478853,
+    "replicates": true,
+    "reading": "On thirteen models sharing no column with the first pool, dense-core training retains 103.3% of frontier quality on 2,548 items against 84.2% on 23,663. The finding replicates \u2014 gap +19.1% against the original +12.2%."
+  },
+  "workload_mix": {
+    "rows": [
+      {
+        "easy_share": 0.0,
+        "quality": 0.688458434221146,
+        "cost_per_call_usd": 0.006545638487812752,
+        "savings_vs_best_single": 0.2034059934213941,
+        "savings_vs_frontier": 0.7857933603051592,
+        "open_tier_share": 0.02986279257465698
+      },
+      {
+        "easy_share": 0.25,
+        "quality": 0.7255851493139629,
+        "cost_per_call_usd": 0.0060474202909604514,
+        "savings_vs_best_single": 0.20166129735758576,
+        "savings_vs_frontier": 0.7934077061130156,
+        "open_tier_share": 0.05649717514124294
+      },
+      {
+        "easy_share": 0.5,
+        "quality": 0.8244552058111381,
+        "cost_per_call_usd": 0.005331634202744148,
+        "savings_vs_best_single": 0.22214287727368365,
+        "savings_vs_frontier": 0.8022778636195319,
+        "open_tier_share": 0.06133979015334948
+      },
+      {
+        "easy_share": 0.75,
+        "quality": 0.8958837772397095,
+        "cost_per_call_usd": 0.0055438726372881355,
+        "savings_vs_best_single": 0.17689551421068528,
+        "savings_vs_frontier": 0.7965526586872818,
+        "open_tier_share": 0.08151735270379339
+      },
+      {
+        "easy_share": 0.9,
+        "quality": 0.940677966101695,
+        "cost_per_call_usd": 0.00497468244205004,
+        "savings_vs_best_single": 0.1883785266147442,
+        "savings_vs_frontier": 0.8008578552367341,
+        "open_tier_share": 0.1162227602905569
+      }
+    ],
+    "easy_defined_as": "pool solve rate at or above the median held-out item",
+    "reading": "On the benchmark mix as measured (0% reweighting) the router is 20.3% cheaper than the best single model. Reweighted to 90% easy traffic it is 18.8% cheaper, with the open tier carrying 11.6% against 3.0%. The headline figures are measured where routing is hardest."
+  }
+}

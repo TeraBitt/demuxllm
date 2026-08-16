@@ -36,6 +36,10 @@ export type RunRecord = {
   /** Confidence in the scope call, 0-100. */
   confidence: number;
   sensitive: boolean;
+  /** Whether a reasoning trace was bought for this answer. Absent on old records. */
+  thought?: boolean;
+  /** How many tools the model called. Absent on old records. */
+  toolCalls?: number;
 };
 
 /** What lands in the recent-routes list. Never a sensitive request's own words. */
@@ -80,6 +84,9 @@ function subscribe(onChange: () => void) {
 export function recordRun(run: RunRecord) {
   commit([...read(), run].slice(-LIMIT));
 }
+
+/** The same snapshot the hook serves, for callers outside React — the tools. */
+export const readRuns = read;
 
 export function useHistory() {
   const runs = useSyncExternalStore(subscribe, read, () => EMPTY);
@@ -133,5 +140,8 @@ export function analyse(runs: RunRecord[]) {
     sensitive: runs.filter((r) => r.sensitive).length,
     /** Calls the orchestrator itself would not stand behind. */
     lowConfidence: runs.filter((r) => r.scope !== "unclear" && r.confidence < 60).length,
+    /** What the extra capability was actually spent on, rather than offered. */
+    reasoned: runs.filter((r) => r.thought).length,
+    toolCalls: runs.reduce((n, r) => n + (r.toolCalls ?? 0), 0),
   };
 }

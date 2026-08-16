@@ -42,6 +42,61 @@ HTML. Nav and footer live in the root layout.
 | `/benchmark` | Why routers go stale, how we avoid it, what we grade |
 | `/pricing` | Three plans and a worked example of a bill |
 | `/docs` | Drop-in quickstart, the `demuxllm` package, agent runs, options, headers |
+| `/dashboard` | Metrics built only from runs that actually happened on this device |
+| `/dashboard/chat` | The working assistant — the router, live, against real models |
+
+## The assistant
+
+`/dashboard/chat` is not a mock. Every answer is two real Chutes calls: a small
+orchestrator that scores the pool and classifies the request, then the model that
+scoring chose. Both are priced on the token counts Chutes reports.
+
+```
+src/lib/dashboard/
+├── models.ts         the pool — mirrors GET /v1/models field for field
+├── prefs.ts          every control, and the policy functions that read them
+├── keys.ts           BYOK, held in this browser and sent only to Chutes
+├── chutes.ts         one transport: headers, errors, SSE frames, usage
+├── router.ts         the orchestrator call → bar, scores, intent, pick
+├── tools.ts          five tools, declared and executed in the browser
+├── agent.ts          the answer loop: stream, call tools, stream again
+├── run.ts            one turn end to end, emitting trace rows as it goes
+├── session.ts        turns as ordered parts, abort, regenerate
+├── conversations.ts  chats in localStorage
+└── history.ts        completed runs, for the metrics view
+```
+
+**An answer is a sequence, not a string.** The model may reason, call a tool, say
+a sentence, call another tool and then finish. `session.ts` stores that as ordered
+parts, which is what lets the transcript show the sequence in the order it
+happened rather than collapsing it into a paragraph with a spinner above it.
+
+**Reasoning arrives two ways and both are handled.** vLLM emits it as its own
+`reasoning_content` delta; a Qwen chat template with nothing stripping it emits
+inline `<think>` tags. Which one you get depends on the model, not on anything we
+send, so `agent.ts` splits the stream on tag boundaries *and* reads the separate
+field. The splitter holds seven characters back on every push, because a tag
+straddling two network chunks is still a tag.
+
+**Thinking is bought, not assumed.** `thinking: "auto"` turns a reasoning trace on
+only where the orchestrator graded the request at or above the threshold — the
+product's argument about model choice, applied to reasoning. "always" and "never"
+override it in either direction, and a model that cannot think ignores all three.
+
+**Tools run in this browser.** The demo holds one Chutes key and no server, so a
+tool may not need a credential of its own. What is left is better than it sounds:
+four of the five answer questions about DemuxLLM itself, from real data, so the
+assistant can be asked what a workload would cost or where the month's money went
+and reply with arithmetic instead of a guess. The fifth runs JavaScript in a
+terminated-on-timeout worker. A tool switched off is never declared to the model,
+and a model the catalog says cannot hold a schema is never offered any — with a
+fallback that drops them and answers anyway if the endpoint disagrees.
+
+**Every control is wired.** Nothing in Settings is decoration: a family toggle
+removes models from the pool, a cost cap removes them by price, the floor raises
+the bar the scorer set, the memory slider changes what is re-sent as context. An
+inert switch is worse than a missing one, because a missing one does not lie
+about what the product does.
 
 ## Structure
 
@@ -71,8 +126,11 @@ src/
 │   ├── docs/quickstart.tsx language tabs                             [client]
 │   ├── shared/            cta, faq accordion                         [faq: client]
 │   ├── icons/social.tsx
+│   ├── dashboard/         shell, sidebar, chat, markdown, thinking,  [all client]
+│   │                      tool-call, trace, scores, controls, overview
 │   └── ui/                motion, layout primitives, code block
-└── lib/data.ts            all copy and figures in one module
+├── lib/data.ts            all copy and figures in one module
+└── lib/dashboard/         the router, the agent loop and the tools — see above
 ```
 
 ## Design notes

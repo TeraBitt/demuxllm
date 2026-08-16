@@ -22,8 +22,9 @@ import {
   orchestrator,
 } from "./models";
 import { type Prefs, blendedPrice, poolFor } from "./prefs";
+import { type Usage, chutes, parseJson, readUsage } from "./chutes";
 
-const BASE = "https://llm.chutes.ai/v1";
+export type { Usage };
 
 export type Score = {
   modelId: string;
@@ -62,8 +63,6 @@ export type Intent = {
   why: string;
 };
 
-export type Usage = { inTok: number; outTok: number };
-
 export type Decision = {
   /** 0-100: how good the answer has to be for this request. */
   bar: number;
@@ -75,6 +74,8 @@ export type Decision = {
   rejected: { model: CatalogModel; quality: number }[];
   /** What the orchestrator call itself burned, as reported by Chutes. */
   usage: Usage;
+  /** True when the user pinned a model and the pick was theirs, not ours. */
+  pinned: boolean;
 };
 
 const SCHEMA = {
@@ -129,7 +130,7 @@ ${what}
 Judge "scope" against that description and nothing else.`;
 }
 
-function prompt(question: string, pool: CatalogModel[], prefs: Prefs) {
+function prompt(question: string, pool: CatalogModel[], prefs: Prefs, context: string) {
   const roster = pool
     .map((m) => {
       const traits = [
@@ -147,7 +148,19 @@ function prompt(question: string, pool: CatalogModel[], prefs: Prefs) {
     .join("\n");
 
   return `You are the orchestrator of DemuxLLM. Every model below is served by Chutes, and they are the only models that exist for you — never name, suggest or score anything else.
+${
+  context
+    ? `
+Earlier in this conversation:
 
+"""
+${context}
+"""
+
+The request below may be a follow-up to that. Judge it in context — "now make it faster" inherits the difficulty of whatever came before it, and a bare "thanks" does not.
+`
+    : ""
+}
 A user has sent this request:
 
 """
@@ -182,64 +195,14 @@ ${orgClause(prefs)}
 "reason" is one short sentence, addressed to an engineer, explaining the bar. Each "note" is at most six words.`;
 }
 
-/** Qwen thinks out loud unless told not to; take the JSON object regardless. */
-function parseJson(raw: string) {
-  const cleaned = raw.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
-  const start = cleaned.indexOf("{");
-  const end = cleaned.lastIndexOf("}");
-  if (start === -1 || end <= start) throw new Error("The orchestrator did not return JSON.");
-  return JSON.parse(cleaned.slice(start, end + 1));
-}
-
-function readUsage(usage: unknown, fallback: Usage): Usage {
-  const u = usage as { prompt_tokens?: number; completion_tokens?: number } | null;
-  return {
-    inTok: u?.prompt_tokens ?? fallback.inTok,
-    outTok: u?.completion_tokens ?? fallback.outTok,
-  };
-}
-
-/**
- * `thinking` rides a header rather than the body. Chutes names X-Enable-Thinking
- * in the CORS allowlist it serves, which makes it the supported switch; the
- * vLLM-style `chat_template_kwargs` is a body field a strict proxy may reject.
- */
-async function chutes(
-  apiKey: string,
-  body: Record<string, unknown>,
-  thinking?: boolean,
-) {
-  const res = await fetch(`${BASE}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-      ...(thinking === undefined ? {} : { "X-Enable-Thinking": String(thinking) }),
-    },
-    body: JSON.stringify(body),
-  });
-
-  if (!res.ok) {
-    // Chutes puts the useful half of a failure in the body, not the status.
-    const detail = await res.text().catch(() => "");
-    const trimmed = detail.slice(0, 200);
-    throw new Error(
-      res.status === 401
-        ? "Chutes rejected the key. Check it under Settings."
-        : `Chutes returned ${res.status}${trimmed ? ` — ${trimmed}` : ""}`,
-    );
-  }
-
-  return res;
-}
-
 export async function decideRoute(
   apiKey: string,
   question: string,
   prefs: Prefs,
+  opts: { context?: string; signal?: AbortSignal } = {},
 ): Promise<Decision> {
   const pool = poolFor(prefs);
-  const text = prompt(question, pool, prefs);
+  const text = prompt(question, pool, prefs, opts.context ?? "");
 
   const res = await chutes(
     apiKey,
@@ -253,9 +216,12 @@ export async function decideRoute(
         json_schema: { name: "route", schema: SCHEMA, strict: true },
       },
     },
-    // Routing is classification. Paying for a reasoning trace to pick a model
-    // costs more than the difference between the models being picked between.
-    false,
+    {
+      // Routing is classification. Paying for a reasoning trace to pick a model
+      // costs more than the difference between the models being picked between.
+      thinking: false,
+      signal: opts.signal,
+    },
   );
 
   const data = await res.json();
@@ -293,8 +259,15 @@ export async function decideRoute(
     .map((s) => ({ model: byId(s.modelId)!, quality: s.quality }))
     .sort((a, b) => blendedPrice(a.model) - blendedPrice(b.model));
 
+  // A pinned model overrides the pick but not the scoring: the bar, the scores
+  // and the classification are all still worth having, and the panel says
+  // plainly that the choice was the user's rather than ours.
+  const pin = prefs.pinnedModel ? byId(prefs.pinnedModel) : undefined;
+
   let chosen: CatalogModel;
-  if (prefs.preset === "best" || passing.length === 0) {
+  if (pin) {
+    chosen = pin;
+  } else if (prefs.preset === "best" || passing.length === 0) {
     // Nothing cleared the bar, or the user asked for the top score outright.
     chosen = byId(ranked[0].modelId)!;
   } else if (prefs.preset === "balanced") {
@@ -313,6 +286,7 @@ export async function decideRoute(
     chosen,
     rejected: passing.filter((p) => p.model.id !== chosen.id),
     usage,
+    pinned: Boolean(pin),
   };
 }
 
@@ -327,79 +301,6 @@ function normaliseIntent(intent: Intent | undefined): Intent {
     confidence: Math.max(0, Math.min(100, intent?.confidence ?? 0)),
     sensitive: intent?.sensitive === true,
     why: intent?.why ?? "",
-  };
-}
-
-/**
- * The answer runs on the model the router picked. There is no substitution and
- * no tier-matching stand-in: one Chutes key reaches every model in the pool, so
- * the badge under the answer names the endpoint that actually served it.
- */
-export async function streamAnswer(
-  apiKey: string,
-  model: CatalogModel,
-  question: string,
-  onToken: (t: string) => void,
-): Promise<{ text: string; usage: Usage }> {
-  const res = await chutes(
-    apiKey,
-    {
-      model: model.id,
-      messages: [
-        {
-          role: "system",
-          content:
-            "Answer directly and concisely in markdown. No preamble, no restating the question.",
-        },
-        { role: "user", content: question },
-      ],
-      stream: true,
-      stream_options: { include_usage: true },
-    },
-    // A model that cannot think ignores this; one that can bills for the trace.
-    model.thinks,
-  );
-
-  if (!res.body) throw new Error("Chutes returned no stream.");
-
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-  let out = "";
-  let usage: Usage | null = null;
-
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-
-    const lines = buffer.split("\n");
-    buffer = lines.pop() ?? "";
-    for (const line of lines) {
-      if (!line.startsWith("data:")) continue;
-      const payload = line.slice(5).trim();
-      if (!payload || payload === "[DONE]") continue;
-      try {
-        const chunk = JSON.parse(payload);
-        // The usage frame is the last one and carries no choices.
-        if (chunk?.usage) usage = readUsage(chunk.usage, { inTok: 0, outTok: 0 });
-        const text: string = chunk?.choices?.[0]?.delta?.content ?? "";
-        if (text) {
-          out += text;
-          onToken(text);
-        }
-      } catch {
-        // Partial JSON across chunk boundaries — the next read completes it.
-      }
-    }
-  }
-
-  return {
-    text: out,
-    usage: usage ?? {
-      inTok: Math.ceil(question.length / 4) + 40,
-      outTok: Math.ceil(out.length / 4),
-    },
   };
 }
 

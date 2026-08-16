@@ -4,6 +4,7 @@ import { useCallback, useId, useRef, useState } from "react";
 import { m } from "@/components/ui/motion";
 import { cx } from "@/components/ui/primitives";
 import { DECAY_SERIES, DECAY_WEEKS } from "@/lib/data";
+import { DECAY, ROUTERBENCH } from "@/lib/measured";
 
 /*
  * Plotted as "share of the possible saving you actually capture", so up is good
@@ -20,7 +21,10 @@ const W = 760;
 const H = 320;
 const PAD = { t: 28, r: 142, b: 44, l: 52 };
 const Y_MAX = 1;
-const Y_MIN = -0.2;
+// The measured frozen curve reaches −1.37 by week 26. The axis is sized from the
+// data rather than pinned, so a worse decay in a future run cannot silently run
+// off the bottom of the plot and read as a plateau.
+const Y_MIN = Math.min(-0.2, Math.floor(Math.min(...FROZEN, ...ROLLING) * 10) / 10);
 const PLOT_W = W - PAD.l - PAD.r;
 const PLOT_H = H - PAD.t - PAD.b;
 const LAST = DECAY_WEEKS.length - 1;
@@ -54,7 +58,16 @@ const SERIES = [
   },
 ];
 
-const Y_TICKS = [1, 0.75, 0.5, 0.25, 0];
+/**
+ * Ticks every 25% down to whatever the data reaches. Generated rather than listed
+ * because the interesting half of this chart is below zero — a frozen router ends
+ * up worse than not routing — and a fixed 0…100% scale would leave that half of
+ * the plot unlabelled, which reads as an empty margin rather than as the point.
+ */
+const Y_TICKS = Array.from(
+  { length: Math.round((Y_MAX - Math.ceil(Y_MIN * 4) / 4) / 0.25) + 1 },
+  (_, i) => Y_MAX - i * 0.25,
+);
 const pct = (v: number) => `${Math.round(v * 100)}%`;
 
 export function DecayChart() {
@@ -308,8 +321,14 @@ export function DecayChart() {
       </div>
 
       <figcaption className="border-t border-line px-4 py-3 text-[0.8125rem] text-ink-faint sm:px-5">
-        Illustrative. We are running this measurement for real and will publish it
-        either way — including if the drop-off turns out to be small.
+        Measured, not illustrative. A 26-week replay on RouterBench —{" "}
+        {ROUTERBENCH.items.toLocaleString()} real prompts across{" "}
+        {ROUTERBENCH.models} real commercial models,{" "}
+        {ROUTERBENCH.gradedCells.toLocaleString()} graded answers. Both routers start
+        identical; only one keeps testing.{" "}
+        {Math.round(DECAY.shareFromNewModels * 100)}% of the gap comes from being able
+        to pick models that did not exist when the frozen router was built — not from
+        fresher data on the models it already had.
       </figcaption>
     </figure>
   );

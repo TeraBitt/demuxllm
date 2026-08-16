@@ -1,0 +1,46 @@
+{
+  "d": 64,
+  "n_train_items": 2302,
+  "n_train_cells": 29926,
+  "lam": 1.0,
+  "lam_cost": 0.05,
+  "alpha": 0.0,
+  "ref_model": "zai-org/GLM-5.2-TEE",
+  "artifact_bytes": 432692,
+  "train_brier": 0.15329443305968554,
+  "observations_per_model": {
+    "Nemotron-3-Nano-Omni-30B-TEE": 2302,
+    "unsloth/Mistral-Nemo-Instruct-2407-TEE": 2302,
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 2302,
+    "google/gemma-4-31B-turbo-TEE": 2302,
+    "Qwen/Qwen3-32B-TEE": 2302,
+    "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 2302,
+    "deepseek-ai/DeepSeek-V3.2-TEE": 2302,
+    "Qwen/Qwen3.6-27B-TEE": 2302,
+    "Qwen/Qwen3.5-397B-A17B-TEE": 2302,
+    "zai-org/GLM-5.1-TEE": 2302,
+    "moonshotai/Kimi-K2.6-TEE": 2302,
+    "zai-org/GLM-5.2-TEE": 2302,
+    "moonshotai/Kimi-K3-TEE": 2302
+  },
+  "weight_norm_per_model": {
+    "Nemotron-3-Nano-Omni-30B-TEE": 0.5871596725550132,
+    "unsloth/Mistral-Nemo-Instruct-2407-TEE": 0.5072306252691776,
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.8881904549304256,
+    "google/gemma-4-31B-turbo-TEE": 0.5279950236958642,
+    "Qwen/Qwen3-32B-TEE": 0.6117855822546643,
+    "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.6712177173634373,
+    "deepseek-ai/DeepSeek-V3.2-TEE": 0.6647891690805364,
+    "Qwen/Qwen3.6-27B-TEE": 0.6609686462140221,
+    "Qwen/Qwen3.5-397B-A17B-TEE": 0.669541767345302,
+    "zai-org/GLM-5.1-TEE": 0.5080489747875706,
+    "moonshotai/Kimi-K2.6-TEE": 0.6629529986822342,
+    "zai-org/GLM-5.2-TEE": 0.5962428932675508,
+    "moonshotai/Kimi-K3-TEE": 0.5936456317035641
+  },
+  "artifact": {
+    "path": "/home/yogesh/Documents/work/demuxllm/backend/artifacts/chutes/router.npz",
+    "bytes": 36876,
+    "in_memory_bytes": 432692
+  }
+}

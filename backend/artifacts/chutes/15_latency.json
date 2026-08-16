@@ -1,0 +1,549 @@
+{
+  "latency_is_measured": false,
+  "signal": "output tokens per item (measured); seconds shown at an assumed decode rate",
+  "assumed_tok_s": 60.0,
+  "throughput_fit": {
+    "fits": {
+      "DeepHermes-3-Llama-3-8B-Preview": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 584.2044656613987,
+        "r2": 0.07440872525944098,
+        "mean_wall_per_item_s": 3.6930890747146417
+      },
+      "DeepSeek-R1-0528-Qwen3-8B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1302.14567683048,
+        "r2": 0.5297178857813233,
+        "mean_wall_per_item_s": 7.400594278591419
+      },
+      "DeepSeek-R1-Distill-Qwen-7B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1394.7488552188738,
+        "r2": 0.059876711154318474,
+        "mean_wall_per_item_s": 8.979212798019784
+      },
+      "Fin-R1": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 3653.1549914605525,
+        "r2": 0.21092647725388325,
+        "mean_wall_per_item_s": 0.6968089975940553
+      },
+      "GLM-Z1-9B-0414": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1291.6037233418006,
+        "r2": 0.6893496821286345,
+        "mean_wall_per_item_s": 5.433395117688825
+      },
+      "Intern-S1-mini": {
+        "runs": 22,
+        "overhead_s": 3.7187518086435993,
+        "throughput_tok_s": 1303.5895903603164,
+        "r2": 0.0490464074004755,
+        "mean_wall_per_item_s": 18.205694205038768
+      },
+      "Llama-3.1-8B-Instruct": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1859.0541270166575,
+        "r2": 0.22647994990203757,
+        "mean_wall_per_item_s": 0.944404615935677
+      },
+      "Llama-3.1-8B-UltraMedical": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1751.453346169362,
+        "r2": 0.3847713525461176,
+        "mean_wall_per_item_s": 0.6564743206535127
+      },
+      "Llama-3.1-Nemotron-Nano-8B-v1": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1760.877716049295,
+        "r2": 0.753616843624056,
+        "mean_wall_per_item_s": 2.0836502402229082
+      },
+      "MiMo-7B-RL-0530": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 2644.540125600308,
+        "r2": 0.2561038630051805,
+        "mean_wall_per_item_s": 1.0810161848490736
+      },
+      "MiniCPM4.1-8B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 699.7455716395057,
+        "r2": 0.42228104337706085,
+        "mean_wall_per_item_s": 17.490617019295943
+      },
+      "NVIDIA-Nemotron-Nano-9B-v2": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 280.5117282182722,
+        "r2": 0.49383894306534304,
+        "mean_wall_per_item_s": 30.41184297881041
+      },
+      "OpenThinker3-7B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1952.9342202599805,
+        "r2": 0.4003358450564126,
+        "mean_wall_per_item_s": 7.049755129915609
+      },
+      "Qwen2.5-Coder-7B-Instruct": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1105.6972360692205,
+        "r2": 0.4832978392785966,
+        "mean_wall_per_item_s": 1.1541688591737083
+      },
+      "Qwen3-8B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1027.7412762139777,
+        "r2": 0.3536936259333111,
+        "mean_wall_per_item_s": 10.524936507193766
+      },
+      "claude-sonnet-4": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 333.06114953604686,
+        "r2": -0.02497947270220946,
+        "mean_wall_per_item_s": 9.236009263799893
+      },
+      "cogito-v1-preview-llama-8B": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 584.6838279367344,
+        "r2": 0.16230409453160222,
+        "mean_wall_per_item_s": 3.8018283095374032
+      },
+      "deepseek-r1-0528": {
+        "runs": 16,
+        "overhead_s": 0.5138010515050745,
+        "throughput_tok_s": 529.3694246324454,
+        "r2": -0.035280983697981494,
+        "mean_wall_per_item_s": 47.58516642419522
+      },
+      "deepseek-v3-0324": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 207.35576304499617,
+        "r2": 0.6326405636018029,
+        "mean_wall_per_item_s": 7.009180118505123
+      },
+      "deepseek-v3.1-terminus": {
+        "runs": 13,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 792.9487305222607,
+        "r2": -0.07538849784699408,
+        "mean_wall_per_item_s": 5.058833822760031
+      },
+      "gemini-2.5-flash": {
+        "runs": 16,
+        "overhead_s": 0.27030948617978934,
+        "throughput_tok_s": 7612.734427404779,
+        "r2": -0.10005258935605332,
+        "mean_wall_per_item_s": 4.030888508031998
+      },
+      "gemini-2.5-pro": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 2200.5536014585377,
+        "r2": 0.01226303834892073,
+        "mean_wall_per_item_s": 9.719352437106453
+      },
+      "gemma-2-9b-it": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 676.0557796723931,
+        "r2": 0.6724625238431112,
+        "mean_wall_per_item_s": 0.6938325774197867
+      },
+      "glm-4-9b-chat": {
+        "runs": 22,
+        "overhead_s": 1.6713481228652927,
+        "throughput_tok_s": 249.6587249701602,
+        "r2": 0.11382342944613555,
+        "mean_wall_per_item_s": 4.369363562464624
+      },
+      "glm-4.6": {
+        "runs": 16,
+        "overhead_s": 2.2346773351292413,
+        "throughput_tok_s": 10809.885477804179,
+        "r2": -0.11688243628173312,
+        "mean_wall_per_item_s": 10.369881408611198
+      },
+      "gpt-4.1": {
+        "runs": 6,
+        "overhead_s": 0.7643728383147229,
+        "throughput_tok_s": 1183.9755384944717,
+        "r2": 0.09161954555271368,
+        "mean_wall_per_item_s": 4.076713630156866
+      },
+      "gpt-5": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 1195.2277714782629,
+        "r2": -0.06619655620725173,
+        "mean_wall_per_item_s": 19.571495327733263
+      },
+      "gpt-5-chat": {
+        "runs": 16,
+        "overhead_s": 0.1529121617309175,
+        "throughput_tok_s": 2766.235149929169,
+        "r2": 0.7218087619655287,
+        "mean_wall_per_item_s": 0.43473057109339813
+      },
+      "granite-3.3-8b-instruct": {
+        "runs": 22,
+        "overhead_s": 0.42064258842964,
+        "throughput_tok_s": 1203.9522306360263,
+        "r2": 0.804359058919927,
+        "mean_wall_per_item_s": 2.9515939389161976
+      },
+      "intern-s1": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 306.3456189600232,
+        "r2": 0.8345383707703866,
+        "mean_wall_per_item_s": 28.141072002289
+      },
+      "intern-s1-new": {
+        "runs": 7,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 42.71994878674883,
+        "r2": 0.1154075872794531,
+        "mean_wall_per_item_s": 250.69561634307988
+      },
+      "internlm3-8b-instruct": {
+        "runs": 22,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 339.492143426124,
+        "r2": 0.6028996785142537,
+        "mean_wall_per_item_s": 6.5588817834437005
+      },
+      "kimi-k2-0905": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 386.55253468358785,
+        "r2": -0.05260215443485072,
+        "mean_wall_per_item_s": 9.603998592683219
+      },
+      "openrouter": {
+        "runs": 12,
+        "overhead_s": 0.2070758857700728,
+        "throughput_tok_s": 1248.7288528806475,
+        "r2": 0.44761311431457806,
+        "mean_wall_per_item_s": 2.3952513015543473
+      },
+      "qwen3-235b-a22b-2507": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 295.98711126252493,
+        "r2": -0.022119820657969802,
+        "mean_wall_per_item_s": 20.392909689122696
+      },
+      "qwen3-235b-a22b-no-thinking": {
+        "runs": 7,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 123.90135132092308,
+        "r2": -0.10325778564274679,
+        "mean_wall_per_item_s": 17.54461101508803
+      },
+      "qwen3-235b-a22b-thinking": {
+        "runs": 7,
+        "overhead_s": 13.515209319333307,
+        "throughput_tok_s": 258.85550302955636,
+        "r2": -0.021303926812693552,
+        "mean_wall_per_item_s": 80.98382953222486
+      },
+      "qwen3-235b-a22b-thinking-2507": {
+        "runs": 16,
+        "overhead_s": 0.0,
+        "throughput_tok_s": 241.8751229636004,
+        "r2": 0.09882296184229733,
+        "mean_wall_per_item_s": 38.969554868913846
+      }
+    },
+    "credible": false,
+    "models_fitted": 38,
+    "median_tok_s": 1066.719256141599,
+    "max_tok_s": 10809.885477804179,
+    "implausible_rate_count": 26,
+    "poor_fit_count": 22,
+    "verdict": "NOT USABLE as per-request latency: 26 of 38 models fit above 500 tok/s (max 10810) and 22 of 38 fits have R\u00b2 < 0.3. The runs were concurrent, so wall-clock measures harness throughput, not request latency. Routing uses measured output tokens instead."
+  },
+  "per_model": [
+    {
+      "model_id": "Nemotron-3-Nano-Omni-30B-TEE",
+      "label": "Nemotron 3 Nano Omni 30B",
+      "tier": "open",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 2552.0,
+      "p95_tokens": 31974.7,
+      "p99_tokens": 32438.179999999997,
+      "p50_s": 42.53333333333333,
+      "p95_s": 532.9116666666666,
+      "p99_s": 540.6363333333333,
+      "tail_ratio_p95_p50": 12.52927115987461
+    },
+    {
+      "model_id": "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+      "label": "Mistral Nemo Instruct",
+      "tier": "open",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 413.0,
+      "p95_tokens": 7931.199999999999,
+      "p99_tokens": 8120.62,
+      "p50_s": 6.883333333333334,
+      "p95_s": 132.18666666666664,
+      "p99_s": 135.34366666666668,
+      "tail_ratio_p95_p50": 19.203874092009684
+    },
+    {
+      "model_id": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "label": "DeepSeek V4 Flash",
+      "tier": "open",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 4047.0,
+      "p95_tokens": 25986.199999999946,
+      "p99_tokens": 32286.78,
+      "p50_s": 67.45,
+      "p95_s": 433.10333333333244,
+      "p99_s": 538.1129999999999,
+      "tail_ratio_p95_p50": 6.421102050901889
+    },
+    {
+      "model_id": "google/gemma-4-31B-turbo-TEE",
+      "label": "Gemma 4 31B Turbo",
+      "tier": "open",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 327.0,
+      "p95_tokens": 781.1999999999989,
+      "p99_tokens": 1107.1799999999957,
+      "p50_s": 5.45,
+      "p95_s": 13.019999999999982,
+      "p99_s": 18.45299999999993,
+      "tail_ratio_p95_p50": 2.38899082568807
+    },
+    {
+      "model_id": "Qwen/Qwen3-32B-TEE",
+      "label": "Qwen3 32B",
+      "tier": "open",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 3620.0,
+      "p95_tokens": 20280.699999999964,
+      "p99_tokens": 32419.0,
+      "p50_s": 60.333333333333336,
+      "p95_s": 338.0116666666661,
+      "p99_s": 540.3166666666667,
+      "tail_ratio_p95_p50": 5.602403314917117
+    },
+    {
+      "model_id": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "label": "Qwen3 235B Thinking",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 3939.0,
+      "p95_tokens": 18904.89999999999,
+      "p99_tokens": 26897.47999999993,
+      "p50_s": 65.65,
+      "p95_s": 315.08166666666654,
+      "p99_s": 448.29133333333215,
+      "tail_ratio_p95_p50": 4.799416095455697
+    },
+    {
+      "model_id": "deepseek-ai/DeepSeek-V3.2-TEE",
+      "label": "DeepSeek V3.2",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 616.0,
+      "p95_tokens": 2662.199999999999,
+      "p99_tokens": 4373.539999999998,
+      "p50_s": 10.266666666666667,
+      "p95_s": 44.36999999999998,
+      "p99_s": 72.8923333333333,
+      "tail_ratio_p95_p50": 4.321753246753245
+    },
+    {
+      "model_id": "Qwen/Qwen3.6-27B-TEE",
+      "label": "Qwen3.6 27B",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 3038.0,
+      "p95_tokens": 20249.1,
+      "p99_tokens": 21713.539999999997,
+      "p50_s": 50.63333333333333,
+      "p95_s": 337.48499999999996,
+      "p99_s": 361.8923333333333,
+      "tail_ratio_p95_p50": 6.665273206056615
+    },
+    {
+      "model_id": "Qwen/Qwen3.5-397B-A17B-TEE",
+      "label": "Qwen3.5 397B",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 820.0,
+      "p95_tokens": 3861.7999999999984,
+      "p99_tokens": 7922.099999999999,
+      "p50_s": 13.666666666666666,
+      "p95_s": 64.3633333333333,
+      "p99_s": 132.035,
+      "tail_ratio_p95_p50": 4.709512195121949
+    },
+    {
+      "model_id": "zai-org/GLM-5.1-TEE",
+      "label": "GLM 5.1",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 832.0,
+      "p95_tokens": 4248.0,
+      "p99_tokens": 38038.499999999774,
+      "p50_s": 13.866666666666667,
+      "p95_s": 70.8,
+      "p99_s": 633.9749999999963,
+      "tail_ratio_p95_p50": 5.105769230769231
+    },
+    {
+      "model_id": "moonshotai/Kimi-K2.6-TEE",
+      "label": "Kimi K2.6",
+      "tier": "mid",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 573.0,
+      "p95_tokens": 3628.299999999999,
+      "p99_tokens": 6920.979999999975,
+      "p50_s": 9.55,
+      "p95_s": 60.47166666666665,
+      "p99_s": 115.34966666666625,
+      "tail_ratio_p95_p50": 6.332111692844675
+    },
+    {
+      "model_id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "tier": "frontier",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 4259.0,
+      "p95_tokens": 20334.199999999993,
+      "p99_tokens": 25002.86,
+      "p50_s": 70.98333333333333,
+      "p95_s": 338.90333333333325,
+      "p99_s": 416.71433333333334,
+      "tail_ratio_p95_p50": 4.774407137825779
+    },
+    {
+      "model_id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "tier": "frontier",
+      "measured": "output tokens",
+      "seconds_assume_tok_s": 60.0,
+      "p50_tokens": 1737.0,
+      "p95_tokens": 8627.299999999996,
+      "p99_tokens": 16822.899999999914,
+      "p50_s": 28.95,
+      "p95_s": 143.78833333333327,
+      "p99_s": 280.38166666666524,
+      "tail_ratio_p95_p50": 4.966781807714447
+    }
+  ],
+  "routed": {
+    "p50_tokens": 1752.0,
+    "p95_tokens": 18195.499999999993,
+    "p99_tokens": 28857.079999999864,
+    "mean_tokens": 4313.81194511703,
+    "p50_s": 29.2,
+    "p95_s": 303.2583333333332,
+    "p99_s": 480.95133333333104,
+    "seconds_assume_tok_s": 60.0
+  },
+  "lam_latency_sweep": [
+    {
+      "lam_latency": 0.0,
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.005669028273769168,
+      "savings_vs_frontier": 0.7969138895515978,
+      "p50_tokens": 1752.0,
+      "p95_tokens": 18195.499999999993,
+      "p99_tokens": 28857.079999999864,
+      "models_used": 11
+    },
+    {
+      "lam_latency": 0.02,
+      "quality": 0.8244552058111381,
+      "cost_per_call_usd": 0.005520456146569814,
+      "savings_vs_frontier": 0.8022363070765859,
+      "p50_tokens": 1374.0,
+      "p95_tokens": 18024.899999999994,
+      "p99_tokens": 28022.579999999984,
+      "models_used": 11
+    },
+    {
+      "lam_latency": 0.05,
+      "quality": 0.8184019370460048,
+      "cost_per_call_usd": 0.0052764102325262305,
+      "savings_vs_frontier": 0.8109789580319998,
+      "p50_tokens": 991.0,
+      "p95_tokens": 15745.699999999999,
+      "p99_tokens": 26466.539999999994,
+      "models_used": 11
+    },
+    {
+      "lam_latency": 0.1,
+      "quality": 0.7885391444713479,
+      "cost_per_call_usd": 0.004494049792574657,
+      "savings_vs_frontier": 0.8390060785622748,
+      "p50_tokens": 740.0,
+      "p95_tokens": 8670.999999999996,
+      "p99_tokens": 22633.379999999983,
+      "models_used": 9
+    },
+    {
+      "lam_latency": 0.2,
+      "quality": 0.7760290556900726,
+      "cost_per_call_usd": 0.003315892279741727,
+      "savings_vs_frontier": 0.8812121525527511,
+      "p50_tokens": 639.0,
+      "p95_tokens": 3282.1,
+      "p99_tokens": 7857.439999999982,
+      "models_used": 7
+    },
+    {
+      "lam_latency": 0.4,
+      "quality": 0.7687651331719129,
+      "cost_per_call_usd": 0.0023645320016142048,
+      "savings_vs_frontier": 0.9152934887517625,
+      "p50_tokens": 624.0,
+      "p95_tokens": 2975.999999999998,
+      "p99_tokens": 5301.819999999999,
+      "models_used": 6
+    },
+    {
+      "lam_latency": 0.8,
+      "quality": 0.7606941081517352,
+      "cost_per_call_usd": 0.0018103804519774011,
+      "savings_vs_frontier": 0.9351453006284862,
+      "p50_tokens": 611.0,
+      "p95_tokens": 2903.4999999999986,
+      "p99_tokens": 4833.2599999999975,
+      "models_used": 5
+    }
+  ],
+  "reading": "Per-request latency is not in this corpus \u2014 NOT USABLE as per-request latency: 26 of 38 models fit above 500 tok/s (max 10810) and 22 of 38 fits have R\u00b2 < 0.3. The runs were concurrent, so wall-clock measures harness throughput, not request latency. Routing uses measured output tokens instead. On the measured signal, routed p95 is 18,195 output tokens and p99 28,857, against a pool spanning 781 (Gemma 4 31B Turbo) to 31,975 (Nemotron 3 Nano Omni 30B) at p95. Turning the latency term on moves routed p95 from 18,195 to 2,903 tokens (84% shorter) for +0.0682 of quality."
+}

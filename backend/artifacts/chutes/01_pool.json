@@ -1,0 +1,186 @@
+{
+  "proxy_backed": true,
+  "corpus": {
+    "source": "LLMRouterBench via CHUTES_PROXY (proxy-backed; see catalog.CHUTES_PROXY)",
+    "items": 25034,
+    "models": 13,
+    "cells": 183248,
+    "density": 0.5630742190620756,
+    "mean_quality": 0.5343850956081376,
+    "total_cost_usd": 1816.8002267484999,
+    "notes": [
+      "quality = LLMRouterBench per-item score as published (task-specific grader)",
+      "cost = LLMRouterBench realised per-call USD for the *measured* model",
+      "tokens_in / tokens_out = MEASURED token counts, not derived from text length",
+      "items keyed by sha1(dataset, normalised prompt); 25,035 kept",
+      "PROXY-BACKED: quality and tokens are measured on a stand-in model per slot, not on the Chutes endpoint. See catalog.CHUTES_PROXY for each binding.",
+      "cost = measured tokens x published Chutes price (the proxy's own bill is discarded)",
+      "2037 zero-token, zero-score cells marked unobserved as failed calls"
+    ]
+  },
+  "dense_core_items": 3541,
+  "n_train_items": 2302,
+  "n_test_items": 1239,
+  "feature_dim": 64,
+  "bindings": [
+    {
+      "chutes_id": "Nemotron-3-Nano-Omni-30B-TEE",
+      "label": "Nemotron 3 Nano Omni 30B",
+      "tier": "open",
+      "proxy_id": "NVIDIA-Nemotron-Nano-9B-v2",
+      "exact": false,
+      "same_family": true,
+      "why": "Same family and size class \u2014 NVIDIA's Nemotron Nano line, small and non-thinking."
+    },
+    {
+      "chutes_id": "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+      "label": "Mistral Nemo Instruct",
+      "tier": "open",
+      "proxy_id": "Llama-3.1-8B-Instruct",
+      "exact": false,
+      "same_family": false,
+      "why": "No Mistral checkpoint is graded anywhere in the corpus. The closest measured analogue is a small non-thinking general instruct model of the same generation."
+    },
+    {
+      "chutes_id": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "label": "DeepSeek V4 Flash",
+      "tier": "open",
+      "proxy_id": "DeepSeek-R1-0528-Qwen3-8B",
+      "exact": false,
+      "same_family": true,
+      "why": "DeepSeek family, small 'flash' class, reasoning-capable \u2014 matching the catalogue entry's thinks=True at the cheap end of the pool."
+    },
+    {
+      "chutes_id": "google/gemma-4-31B-turbo-TEE",
+      "label": "Gemma 4 31B Turbo",
+      "tier": "open",
+      "proxy_id": "gemma-2-9b-it",
+      "exact": false,
+      "same_family": true,
+      "why": "Gemma family; the only Google open-weights model the corpus grades."
+    },
+    {
+      "chutes_id": "Qwen/Qwen3-32B-TEE",
+      "label": "Qwen3 32B",
+      "tier": "open",
+      "proxy_id": "Qwen3-8B",
+      "exact": false,
+      "same_family": true,
+      "why": "Qwen3 generation, dense open model \u2014 same line, one size class down."
+    },
+    {
+      "chutes_id": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "label": "Qwen3 235B Thinking",
+      "tier": "mid",
+      "proxy_id": "qwen3-235b-a22b-thinking-2507",
+      "exact": true,
+      "same_family": true,
+      "why": "The identical checkpoint. The catalogue id and the measured id name the same weights, so this column is not a proxy at all."
+    },
+    {
+      "chutes_id": "deepseek-ai/DeepSeek-V3.2-TEE",
+      "label": "DeepSeek V3.2",
+      "tier": "mid",
+      "proxy_id": "deepseek-v3.1-terminus",
+      "exact": false,
+      "same_family": true,
+      "why": "DeepSeek V3 line, adjacent point release."
+    },
+    {
+      "chutes_id": "Qwen/Qwen3.6-27B-TEE",
+      "label": "Qwen3.6 27B",
+      "tier": "mid",
+      "proxy_id": "intern-s1",
+      "exact": false,
+      "same_family": false,
+      "why": "WEAKEST BINDING IN THE TABLE. No Qwen checkpoint is left unassigned at this capability, so this slot is matched on measured capability and mid-tier price alone. The family is wrong and the 'code and analysis' speciality is not reproduced; treat this column's per-task profile as the least trustworthy."
+    },
+    {
+      "chutes_id": "Qwen/Qwen3.5-397B-A17B-TEE",
+      "label": "Qwen3.5 397B",
+      "tier": "mid",
+      "proxy_id": "qwen3-235b-a22b-2507",
+      "exact": false,
+      "same_family": true,
+      "why": "Qwen large MoE, non-thinking \u2014 same architecture class as the catalogue entry."
+    },
+    {
+      "chutes_id": "zai-org/GLM-5.1-TEE",
+      "label": "GLM 5.1",
+      "tier": "mid",
+      "proxy_id": "glm-4.6",
+      "exact": false,
+      "same_family": true,
+      "why": "GLM family, the strongest GLM checkpoint the corpus grades."
+    },
+    {
+      "chutes_id": "moonshotai/Kimi-K2.6-TEE",
+      "label": "Kimi K2.6",
+      "tier": "mid",
+      "proxy_id": "kimi-k2-0905",
+      "exact": false,
+      "same_family": true,
+      "why": "Kimi K2 line \u2014 the catalogue entry is a later point release of these weights."
+    },
+    {
+      "chutes_id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "tier": "frontier",
+      "proxy_id": "gemini-2.5-pro",
+      "exact": false,
+      "same_family": false,
+      "why": "Family unmatched, and deliberately so. A frontier slot needs a column that beats every mid-tier model, and glm-4.6 \u2014 already bound to GLM 5.1 \u2014 is the only GLM measured and does not clear that bar. Capability-matched instead."
+    },
+    {
+      "chutes_id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "tier": "frontier",
+      "proxy_id": "gpt-5",
+      "exact": false,
+      "same_family": false,
+      "why": "The strongest measured column in the corpus, matching the catalogue entry's 'the hardest work, price no object'."
+    }
+  ],
+  "tasks": [
+    "aime",
+    "arc-agi",
+    "arcc",
+    "arenahard",
+    "arenahard_coding",
+    "arenahard_creative_writing",
+    "arenahard_math",
+    "bbh",
+    "emorynlp",
+    "finqa",
+    "gpqa",
+    "hle",
+    "humaneval",
+    "kandk",
+    "korbench",
+    "livecodebench",
+    "livemathbench",
+    "math500",
+    "mathbench",
+    "mbpp",
+    "medqa",
+    "meld",
+    "mmlupro",
+    "simpleqa",
+    "swe-bench",
+    "tau2",
+    "winogrande"
+  ],
+  "domains": [
+    "agentic",
+    "business",
+    "code",
+    "commonsense",
+    "dialogue",
+    "knowledge",
+    "math",
+    "medicine",
+    "openended",
+    "reasoning",
+    "science"
+  ]
+}

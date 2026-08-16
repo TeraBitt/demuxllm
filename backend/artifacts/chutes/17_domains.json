@@ -1,0 +1,78 @@
+{
+  "rows": [
+    {
+      "domain": "knowledge",
+      "items": 343,
+      "router_quality": 0.8017492711370262,
+      "best_single_quality": 0.8483965014577259,
+      "best_single_model": "zai-org/GLM-5.2-TEE",
+      "delta": -0.04664723032069971,
+      "se": 0.01829278703799445,
+      "t": -2.5500340775745416,
+      "p_uncorrected": 0.011206774653006474,
+      "p": 0.011206774653006474,
+      "holm_threshold": 0.01,
+      "significant": false
+    },
+    {
+      "domain": "science",
+      "items": 58,
+      "router_quality": 0.7241379310344828,
+      "best_single_quality": 0.8620689655172413,
+      "best_single_model": "moonshotai/Kimi-K3-TEE",
+      "delta": -0.13793103448275862,
+      "se": 0.057410736426464846,
+      "t": -2.4025303117201613,
+      "p_uncorrected": 0.019561540316311594,
+      "p": 0.019561540316311594,
+      "holm_threshold": 0.0125,
+      "significant": false
+    },
+    {
+      "domain": "openended",
+      "items": 326,
+      "router_quality": 0.8542944785276073,
+      "best_single_quality": 0.8312883435582822,
+      "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "delta": 0.023006134969325152,
+      "se": 0.01627902467987229,
+      "t": 1.4132379194541302,
+      "p_uncorrected": 0.15854280223977696,
+      "p": 0.15854280223977696,
+      "holm_threshold": 0.016666666666666666,
+      "significant": false
+    },
+    {
+      "domain": "code",
+      "items": 395,
+      "router_quality": 0.8531645569620253,
+      "best_single_quality": 0.8784810126582279,
+      "best_single_model": "moonshotai/Kimi-K3-TEE",
+      "delta": -0.02531645569620253,
+      "se": 0.02063174254968223,
+      "t": -1.2270633774747475,
+      "p_uncorrected": 0.220531470290914,
+      "p": 0.220531470290914,
+      "holm_threshold": 0.025,
+      "significant": false
+    },
+    {
+      "domain": "math",
+      "items": 117,
+      "router_quality": 0.8076923076923077,
+      "best_single_quality": 0.8076923076923077,
+      "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "delta": 0.0,
+      "se": 0.032117526590541415,
+      "t": 0.0,
+      "p_uncorrected": 1.0,
+      "p": 1.0,
+      "holm_threshold": 0.05,
+      "significant": false
+    }
+  ],
+  "family_size": 5,
+  "correction": "Holm\u2013Bonferroni, alpha = 0.05",
+  "significant_after_correction": [],
+  "reading": "Of 5 per-domain comparisons, 0 survive Holm\u2013Bonferroni: none. Every other difference \u2014 including the router's apparent win on open-ended work \u2014 is inside the noise and must not be quoted as a result."
+}

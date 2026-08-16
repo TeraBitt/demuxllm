@@ -1,0 +1,46 @@
+{
+  "proxy_backed": true,
+  "disclaimer": "Quality and token behaviour are measured on a stand-in model per Chutes slot (see catalog.CHUTES_PROXY), not on the Chutes endpoint. Prices are the published Chutes rates.",
+  "lam_cost": 0.2,
+  "lam_cost_inherited_default": 0.05,
+  "seed": 0,
+  "quick": false,
+  "corpus": {
+    "source": "LLMRouterBench via CHUTES_PROXY (proxy-backed; see catalog.CHUTES_PROXY)",
+    "items": 25034,
+    "models": 13,
+    "cells": 183248,
+    "density": 0.5630742190620756,
+    "mean_quality": 0.5343850956081376,
+    "total_cost_usd": 1816.8002267484999,
+    "notes": [
+      "quality = LLMRouterBench per-item score as published (task-specific grader)",
+      "cost = LLMRouterBench realised per-call USD for the *measured* model",
+      "tokens_in / tokens_out = MEASURED token counts, not derived from text length",
+      "items keyed by sha1(dataset, normalised prompt); 25,035 kept",
+      "PROXY-BACKED: quality and tokens are measured on a stand-in model per slot, not on the Chutes endpoint. See catalog.CHUTES_PROXY for each binding.",
+      "cost = measured tokens x published Chutes price (the proxy's own bill is discarded)",
+      "2037 zero-token, zero-score cells marked unobserved as failed calls"
+    ]
+  },
+  "dense_core_items": 3541,
+  "feature_dim": 64,
+  "headline": {
+    "vs_frontier_model": {
+      "model": "zai-org/GLM-5.2-TEE",
+      "savings_pct": 0.7957430460916147,
+      "savings_pct_se": 0.003054668970916125,
+      "quality_retained": 0.9778838853680212,
+      "quality_retained_se": 0.004290982444279136
+    },
+    "vs_best_single": {
+      "model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "savings_pct": 0.19502021775784165,
+      "savings_pct_se": 0.013737626271694075,
+      "quality_retained": 0.9937480942066674,
+      "quality_retained_se": 0.009883739428560353
+    },
+    "frontier_model_is_dominated": true
+  },
+  "elapsed_seconds": 106.3
+}

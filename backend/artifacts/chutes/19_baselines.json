@@ -1,0 +1,192 @@
+{
+  "rows": [
+    {
+      "policy": "this router (\u00a78.7 argmax)",
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.005669028273769168,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": 0.2008912773516366,
+      "models_used": 11
+    },
+    {
+      "policy": "cascade, predicted verifier \u03c4=0.5",
+      "quality": 0.6961259079903148,
+      "cost_per_call_usd": 0.0039118376192090396,
+      "quality_vs_best_single": 0.8345428156748912,
+      "savings_vs_best_single": 0.4485856460518979,
+      "mean_attempts": 3.073446327683616,
+      "wasted_spend_share": 0.37285971656338635,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "cascade, predicted verifier \u03c4=0.6",
+      "quality": 0.7530266343825666,
+      "cost_per_call_usd": 0.005838836029378531,
+      "quality_vs_best_single": 0.9027576197387517,
+      "savings_vs_best_single": 0.17695510132149594,
+      "mean_attempts": 3.8813559322033897,
+      "wasted_spend_share": 0.4041528938460822,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "cascade, predicted verifier \u03c4=0.7",
+      "quality": 0.804681194511703,
+      "cost_per_call_usd": 0.009238171901937046,
+      "quality_vs_best_single": 0.9646831156265118,
+      "savings_vs_best_single": -0.302216780664359,
+      "mean_attempts": 4.832929782082324,
+      "wasted_spend_share": 0.4545194086136811,
+      "our_savings_at_matched_quality": 0.48673123603475493,
+      "margin_vs_us": -0.7889480166991139,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "cascade, predicted verifier \u03c4=0.8",
+      "quality": 0.8220338983050848,
+      "cost_per_call_usd": 0.02583992797788539,
+      "quality_vs_best_single": 0.9854862119013063,
+      "savings_vs_best_single": -2.6424076301183894,
+      "mean_attempts": 6.889426957223567,
+      "wasted_spend_share": 0.5823296299452976,
+      "our_savings_at_matched_quality": 0.24690149597923133,
+      "margin_vs_us": -2.8893091260976207,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "cascade, ORACLE verifier (not implementable)",
+      "quality": 0.9713478611783697,
+      "cost_per_call_usd": 0.011816837656174334,
+      "quality_vs_best_single": 1.1644895984518626,
+      "savings_vs_best_single": -0.6657066412706782,
+      "mean_attempts": 3.656174334140436,
+      "wasted_spend_share": 0.5773997044985915,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "matrix factorisation, rank 4",
+      "quality": 0.8139628732849071,
+      "cost_per_call_usd": 0.005048378100645682,
+      "quality_vs_best_single": 0.9758103531688436,
+      "savings_vs_best_single": 0.2883783991483394,
+      "bridge_r2": 0.16772708784636847,
+      "our_savings_at_matched_quality": 0.3277053209918782,
+      "margin_vs_us": -0.03932692184353881,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "matrix factorisation, rank 8",
+      "quality": 0.8159806295399515,
+      "cost_per_call_usd": 0.005149664247215496,
+      "quality_vs_best_single": 0.9782293178519593,
+      "savings_vs_best_single": 0.2741010593118306,
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": 0.28065611575227095,
+      "margin_vs_us": -0.006555056440440354,
+      "verdict": "tied"
+    },
+    {
+      "policy": "matrix factorisation, rank 16",
+      "quality": 0.8167877320419693,
+      "cost_per_call_usd": 0.005080409522356739,
+      "quality_vs_best_single": 0.9791969037252055,
+      "savings_vs_best_single": 0.283863235834272,
+      "bridge_r2": 0.1272881156903949,
+      "our_savings_at_matched_quality": 0.2761554997825326,
+      "margin_vs_us": 0.007707736051739356,
+      "verdict": "tied"
+    },
+    {
+      "policy": "cheapest above 0.5 (no per-item routing)",
+      "quality": 0.5318805488297014,
+      "cost_per_call_usd": 0.002149103163841808,
+      "quality_vs_best_single": 0.6376390904692791,
+      "savings_vs_best_single": 0.6970614713559442,
+      "model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "cheapest above 0.7 (no per-item routing)",
+      "quality": 0.8341404358353511,
+      "cost_per_call_usd": 0.007094188954640838,
+      "quality_vs_best_single": 1.0,
+      "savings_vs_best_single": 0.0,
+      "model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "cheapest above 0.8 (no per-item routing)",
+      "quality": 0.8341404358353511,
+      "cost_per_call_usd": 0.007094188954640838,
+      "quality_vs_best_single": 1.0,
+      "savings_vs_best_single": 0.0,
+      "model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    }
+  ],
+  "our_dial": [
+    {
+      "lam_cost": 1.0,
+      "quality_vs_best_single": 0.9375907111756168,
+      "savings_vs_best_single": 0.6534440573267144
+    },
+    {
+      "lam_cost": 0.7,
+      "quality_vs_best_single": 0.9559748427672955,
+      "savings_vs_best_single": 0.5500886731344438
+    },
+    {
+      "lam_cost": 0.5,
+      "quality_vs_best_single": 0.972907595549105,
+      "savings_vs_best_single": 0.42689365655171485
+    },
+    {
+      "lam_cost": 0.4,
+      "quality_vs_best_single": 0.9743589743589743,
+      "savings_vs_best_single": 0.3613044939329264
+    },
+    {
+      "lam_cost": 0.3,
+      "quality_vs_best_single": 0.9777455249153362,
+      "savings_vs_best_single": 0.28290642373714037
+    },
+    {
+      "lam_cost": 0.25,
+      "quality_vs_best_single": 0.9859700048379294,
+      "savings_vs_best_single": 0.24465118799436192
+    },
+    {
+      "lam_cost": 0.05,
+      "quality_vs_best_single": 0.9927431059506531,
+      "savings_vs_best_single": -0.840560567312155
+    },
+    {
+      "lam_cost": 0.1,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": -0.20238154682942544
+    },
+    {
+      "lam_cost": 0.2,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": 0.2008912773516366
+    },
+    {
+      "lam_cost": 0.15,
+      "quality_vs_best_single": 0.9946782776971456,
+      "savings_vs_best_single": 0.09238369738379593
+    }
+  ],
+  "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+  "n_test_items": 1239,
+  "beaten_by": [],
+  "tied_with": [
+    "matrix factorisation, rank 8",
+    "matrix factorisation, rank 16"
+  ],
+  "reading": "Compared at matched quality rather than a fixed bar: no strategy beats this router; 2 is within 2 points of it (matrix factorisation, rank 8, matrix factorisation, rank 16). Every cascade variant loses badly because it pays for each attempt \u2014 at \u03c4=0.8 it holds 98.5% of quality and spends 4.6x what we do."
+}

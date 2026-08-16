@@ -7,6 +7,7 @@
  */
 
 import { CATALOG, FAMILY_LABEL, type CatalogModel } from "@/lib/dashboard/models";
+import { DECAY, POOL_MEASURED, SAVINGS } from "@/lib/measured";
 
 /** A typical request: ~600 words in, ~450 words out. */
 export const TYPICAL_IN_TOKENS = 800;
@@ -39,9 +40,29 @@ export const PROVIDERS = [...new Set(CATALOG.map((m) => FAMILY_LABEL[m.family]))
 
 /* ------------------------------------------------------------------ home -- */
 
+/**
+ * Two of these are measured and two are not, and they are ordered so the measured
+ * ones lead.
+ *
+ * The cut is `SAVINGS.vsFrontierModel` — the saving a team gets by moving off "send
+ * everything to the strongest model", which is what the people we are selling to
+ * are doing today. /benchmark shows this figure beside the harder comparison
+ * (against the best-value single model, where the saving is smaller) rather than
+ * letting this one stand alone.
+ *
+ * Latency and onboarding time are operational targets, not measurements. Left as
+ * round numbers deliberately: a fabricated precision like "8.4ms" would read as
+ * measured when nothing has timed it.
+ */
 export const HERO_STATS = [
-  { value: "40%", label: "cut on everyday traffic" },
-  { value: "3×", label: "cheaper on agent runs" },
+  {
+    value: `${Math.round(SAVINGS.vsFrontierModel.savings * 100)}%`,
+    label: "cut against one strong model",
+  },
+  {
+    value: `${Math.round(SAVINGS.vsFrontierModel.qualityRetained * 100)}%`,
+    label: "of its quality kept",
+  },
   { value: "8ms", label: "added to a call" },
   { value: "24h", label: "to add a new model" },
 ] as const;
@@ -304,39 +325,56 @@ export type PoolModel = CatalogModel & {
  * The measured half of the public model list.
  *
  * Ids, prices, context windows and capabilities come from the catalog, which
- * mirrors the Chutes API. Latency, traffic share and quality do not — nothing
- * has measured them yet, so they are placeholders keyed by id, and they are
- * the only invented numbers on the page. Replace them from the benchmark run
- * rather than editing them upward.
+ * mirrors the Chutes API. `quality` and `share` now come from the backend run —
+ * `POOL_MEASURED` in measured.ts, produced by training the router over this pool
+ * and scoring it on held-out items. Both are proxy-backed: each Chutes slot is
+ * bound to a measured stand-in model, so read them as "what this pool does if
+ * each model behaves like its stand-in".
+ *
+ * `p95` is still the one invented column. Nothing here has timed a Chutes call —
+ * the corpus records per-run wall-clock, not per-item latency — so these stay
+ * placeholders, and they are marked as such rather than quietly promoted.
  */
-const OBSERVED: Record<string, Pick<PoolModel, "p95" | "share" | "quality" | "trend">> = {
-  "Nemotron-3-Nano-Omni-30B-TEE": { p95: 520, share: 0.07, quality: 0.68, trend: [2, 3, 4, 5, 6, 7, 8, 9] },
-  "unsloth/Mistral-Nemo-Instruct-2407-TEE": { p95: 560, share: 0.09, quality: 0.66, trend: [3, 3, 4, 4, 5, 6, 7, 8] },
-  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": { p95: 780, share: 0.16, quality: 0.79, trend: [4, 5, 6, 7, 8, 9, 10, 12] },
-  "google/gemma-4-31B-turbo-TEE": { p95: 690, share: 0.12, quality: 0.77, trend: [3, 4, 5, 6, 7, 8, 9, 10] },
-  "Qwen/Qwen3-32B-TEE": { p95: 640, share: 0.14, quality: 0.75, trend: [4, 4, 5, 6, 7, 8, 9, 10] },
-  "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": { p95: 2980, share: 0.08, quality: 0.88, trend: [4, 5, 5, 6, 7, 7, 8, 9] },
-  "deepseek-ai/DeepSeek-V3.2-TEE": { p95: 1840, share: 0.09, quality: 0.86, trend: [5, 5, 6, 6, 7, 8, 8, 9] },
-  "Qwen/Qwen3.6-27B-TEE": { p95: 1120, share: 0.11, quality: 0.83, trend: [4, 5, 6, 6, 7, 8, 8, 9] },
-  "Qwen/Qwen3.5-397B-A17B-TEE": { p95: 2240, share: 0.06, quality: 0.9, trend: [5, 6, 6, 7, 8, 8, 9, 10] },
-  "zai-org/GLM-5.1-TEE": { p95: 1960, share: 0.04, quality: 0.87, trend: [4, 4, 5, 6, 6, 7, 7, 8] },
-  "moonshotai/Kimi-K2.6-TEE": { p95: 2410, share: 0.02, quality: 0.89, trend: [3, 4, 5, 6, 7, 8, 9, 10] },
-  "zai-org/GLM-5.2-TEE": { p95: 3120, share: 0.01, quality: 0.91, trend: [4, 5, 6, 7, 7, 8, 9, 10] },
-  "moonshotai/Kimi-K3-TEE": { p95: 4260, share: 0.01, quality: 0.94, trend: [5, 6, 6, 7, 8, 8, 9, 9] },
+const LATENCY_PLACEHOLDER: Record<string, number> = {
+  "Nemotron-3-Nano-Omni-30B-TEE": 520,
+  "unsloth/Mistral-Nemo-Instruct-2407-TEE": 560,
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 780,
+  "google/gemma-4-31B-turbo-TEE": 690,
+  "Qwen/Qwen3-32B-TEE": 640,
+  "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 2980,
+  "deepseek-ai/DeepSeek-V3.2-TEE": 1840,
+  "Qwen/Qwen3.6-27B-TEE": 1120,
+  "Qwen/Qwen3.5-397B-A17B-TEE": 2240,
+  "zai-org/GLM-5.1-TEE": 1960,
+  "moonshotai/Kimi-K2.6-TEE": 2410,
+  "zai-org/GLM-5.2-TEE": 3120,
+  "moonshotai/Kimi-K3-TEE": 4260,
 };
 
-const FALLBACK = { p95: 1500, share: 0, quality: 0.75, trend: [4, 4, 5, 5, 6, 6, 7, 7] };
+// Widened to string: `measured.ts` is `as const`, so its ids are a literal union
+// and a lookup by catalog id would not typecheck against it.
+const MEASURED_BY_ID = new Map<string, (typeof POOL_MEASURED)[number]>(
+  POOL_MEASURED.map((m) => [m.id, m]),
+);
 
 /** Every model we can route to. One entry per model Chutes serves, no more. */
-export const POOL: PoolModel[] = CATALOG.map((m) => ({
-  ...m,
-  name: m.label,
-  vendor: FAMILY_LABEL[m.family],
-  priceIn: m.inPer1M,
-  priceOut: m.outPer1M,
-  bestAt: m.goodAt,
-  ...(OBSERVED[m.id] ?? FALLBACK),
-}));
+export const POOL: PoolModel[] = CATALOG.map((m) => {
+  const measured = MEASURED_BY_ID.get(m.id);
+  return {
+    ...m,
+    name: m.label,
+    vendor: FAMILY_LABEL[m.family],
+    priceIn: m.inPer1M,
+    priceOut: m.outPer1M,
+    bestAt: m.goodAt,
+    p95: LATENCY_PLACEHOLDER[m.id] ?? 1500,
+    quality: measured?.quality ?? 0,
+    share: measured?.share ?? 0,
+    // The sparkline is decoration, not a series anyone can cite. Kept flat at the
+    // measured quality so it cannot imply a trend nothing has measured.
+    trend: Array.from({ length: 8 }, () => Math.round((measured?.quality ?? 0) * 100)),
+  };
+});
 
 export const TIER_LABEL: Record<PoolModel["tier"], string> = {
   frontier: "Premium",
@@ -352,11 +390,19 @@ export function costPerAnswer(m: PoolModel) {
 
 /* ------------------------------------------------------------- benchmark -- */
 
-export const DECAY_WEEKS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
-
+/**
+ * Measured, not illustrative. A router fitted once in week 0 and replayed over
+ * 26 weeks of a model pool that really grew, on RouterBench's 11 dated commercial
+ * models. `frozen` never updates and cannot select a model released after its
+ * cut-off; `rolling` absorbs each week's graded outcomes and onboards new models
+ * as they ship. Values are normalised regret against the per-item oracle.
+ *
+ * Produced by backend/scripts/run_all.py; see backend/artifacts/staleness.json.
+ */
+export const DECAY_WEEKS = DECAY.weeks;
 export const DECAY_SERIES = {
-  frozen: [0.21, 0.24, 0.3, 0.37, 0.46, 0.55, 0.63, 0.72, 0.81, 0.89, 0.96, 1.02, 1.08],
-  rolling: [0.21, 0.2, 0.19, 0.2, 0.18, 0.19, 0.18, 0.17, 0.18, 0.17, 0.16, 0.17, 0.16],
+  frozen: DECAY.frozen,
+  rolling: DECAY.rolling,
 } as const;
 
 export const STALE_REASONS = [

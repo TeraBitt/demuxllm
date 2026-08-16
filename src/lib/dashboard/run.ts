@@ -1,11 +1,16 @@
+"use client";
+
 /**
- * One run: orchestrate, pick, answer. Both model calls are real, and both are
- * priced on the token counts Chutes reports rather than on a guess.
+ * One run: orchestrate, pick, then answer with whatever tools and reasoning the
+ * preferences allow. Both model calls are real, and both are priced on the token
+ * counts Chutes reports rather than on a guess.
  */
 
+import { type AgentEvent, type ChatMessage, runAgent } from "./agent";
 import { type CatalogModel, baselineCost, costOf, orchestrator } from "./models";
-import type { Prefs } from "./prefs";
-import { type Decision, decideRoute, streamAnswer } from "./router";
+import { type Prefs, thinkingFor, toolsFor } from "./prefs";
+import { type Decision, decideRoute } from "./router";
+import { TOOL_BY_NAME } from "./tools";
 
 export type StepEvent = {
   id: string;
@@ -20,11 +25,13 @@ export type StepEvent = {
 
 export type RunResult = {
   answer: string;
+  reasoning: string;
   decision: Decision;
   /** The Chutes model that produced the text. Always the one that was picked. */
   serving: string;
   costUsd: number;
   baselineUsd: number;
+  toolRounds: number;
 };
 
 const SCOPE_DETAIL: Record<Decision["intent"]["scope"], string> = {
@@ -36,12 +43,17 @@ const SCOPE_DETAIL: Record<Decision["intent"]["scope"], string> = {
 export async function runOnce(opts: {
   apiKey: string;
   question: string;
+  /** Prior turns, oldest first, already trimmed to the history window. */
+  history: ChatMessage[];
+  /** A short transcript tail the router reads so follow-ups route in context. */
+  routerContext: string;
   prefs: Prefs;
+  signal?: AbortSignal;
   onStep: (s: StepEvent) => void;
   onDecision: (d: Decision) => void;
-  onToken: (t: string) => void;
+  onEvent: (e: AgentEvent) => void;
 }): Promise<RunResult> {
-  const { apiKey, question, prefs, onStep, onDecision, onToken } = opts;
+  const { apiKey, question, prefs, signal, onStep, onDecision, onEvent } = opts;
 
   /* 1. One small-model call: score the pool and classify the request. */
   onStep({
@@ -55,7 +67,10 @@ export async function runOnce(opts: {
   });
 
   let startedAt = performance.now();
-  const decision = await decideRoute(apiKey, question, prefs);
+  const decision = await decideRoute(apiKey, question, prefs, {
+    context: opts.routerContext,
+    signal,
+  });
   onDecision(decision);
 
   const { inTok: scoreIn, outTok: scoreOut } = decision.usage;
@@ -90,10 +105,12 @@ export async function runOnce(opts: {
   const cheaperRejects = decision.rejected.length;
   onStep({
     id: "pick",
-    label: "Pick the model",
-    detail: cheaperRejects
-      ? `Cheapest of ${cheaperRejects + 1} that clear the bar`
-      : `Only model clearing ${decision.bar}/100`,
+    label: decision.pinned ? "Pinned model" : "Pick the model",
+    detail: decision.pinned
+      ? "Routing bypassed — you pinned this model"
+      : cheaperRejects
+        ? `Cheapest of ${cheaperRejects + 1} that clear the bar`
+        : `Only model clearing ${decision.bar}/100`,
     model: decision.chosen,
     costUsd: 0,
     baselineUsd: 0,
@@ -101,11 +118,18 @@ export async function runOnce(opts: {
     status: "done",
   });
 
-  /* 4. Answer, on the model that was picked. */
+  /* 4. Answer, on the model that was picked, with whatever it is allowed. */
+  const tools = toolsFor(prefs, decision.chosen);
+  const thinking = thinkingFor(prefs, decision.chosen, decision.bar);
+  const equipment = [
+    thinking ? "reasoning on" : "reasoning off",
+    tools.length ? `${tools.length} tools` : "no tools",
+  ].join(" · ");
+
   onStep({
     id: "answer",
     label: "Answer",
-    detail: `Served by ${decision.chosen.label}`,
+    detail: `${decision.chosen.label} — ${equipment}`,
     model: decision.chosen,
     costUsd: 0,
     baselineUsd: 0,
@@ -114,12 +138,51 @@ export async function runOnce(opts: {
   });
 
   startedAt = performance.now();
-  const { text: answer, usage } = await streamAnswer(
+
+  // Tool calls get their own trace rows, so the run reads as what happened
+  // rather than as one long "Answer" that silently did five things.
+  const toolNames = new Map<string, string>();
+
+  const {
+    text: answer,
+    reasoning,
+    usage,
+    toolRounds,
+    truncated,
+  } = await runAgent({
     apiKey,
-    decision.chosen,
-    question,
-    onToken,
-  );
+    model: decision.chosen,
+    messages: [...opts.history, { role: "user", content: question }],
+    prefs,
+    bar: decision.bar,
+    signal,
+    onEvent: (e) => {
+      if (e.kind === "tool_start") {
+        toolNames.set(e.id, e.name);
+        onStep({
+          id: `tool-${e.id}`,
+          label: TOOL_BY_NAME.get(e.name)?.label ?? e.name,
+          detail: TOOL_BY_NAME.get(e.name)?.running ?? "Running a tool",
+          costUsd: 0,
+          baselineUsd: 0,
+          ms: 0,
+          status: "running",
+        });
+      } else if (e.kind === "tool_end") {
+        const name = toolNames.get(e.id) ?? "";
+        onStep({
+          id: `tool-${e.id}`,
+          label: TOOL_BY_NAME.get(name)?.label ?? (name || "Tool"),
+          detail: e.result.ok ? "Returned" : e.result.summary.slice(0, 90),
+          costUsd: 0,
+          baselineUsd: 0,
+          ms: e.ms,
+          status: "done",
+        });
+      }
+      onEvent(e);
+    },
+  });
 
   const cost = costOf(decision.chosen, usage.inTok, usage.outTok);
   const base = baselineCost(usage.inTok, usage.outTok);
@@ -127,7 +190,11 @@ export async function runOnce(opts: {
   onStep({
     id: "answer",
     label: "Answer",
-    detail: `Served by ${decision.chosen.label}`,
+    detail: truncated
+      ? `${decision.chosen.label} — stopped after ${prefs.maxToolRounds} tool rounds`
+      : `${decision.chosen.label} — ${equipment}${
+          toolRounds ? ` · ${toolRounds} tool round${toolRounds === 1 ? "" : "s"}` : ""
+        }`,
     model: decision.chosen,
     costUsd: cost,
     baselineUsd: base,
@@ -137,9 +204,11 @@ export async function runOnce(opts: {
 
   return {
     answer,
+    reasoning,
     decision,
     serving: decision.chosen.id,
     costUsd: scoreCost + cost,
     baselineUsd: scoreBaseline + base,
+    toolRounds,
   };
 }

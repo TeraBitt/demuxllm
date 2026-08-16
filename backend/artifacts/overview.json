@@ -1,0 +1,468 @@
+{
+  "corpus": {
+    "source": "RouterBench 0-shot (withmartian/routerbench)",
+    "items": 36497,
+    "models": 11,
+    "cells": 401467,
+    "density": 1.0,
+    "mean_quality": 0.5207107931660635,
+    "total_cost_usd": 333.789299832,
+    "notes": [
+      "quality = RouterBench per-cell accuracy in [0,1] (as published)",
+      "cost = RouterBench realised per-call USD (as published, not re-derived)",
+      "tokens_out = ceil(len(response)/4) \u2014 DERIVED, not measured; RouterBench publishes no token counts. Used only for the token-prediction target."
+    ]
+  },
+  "ties": {
+    "pairwise_tie_rate": 0.5783748103829206,
+    "pairs_compared": 2007335,
+    "unanimous_item_rate": 0.06416965778009151
+  },
+  "models": [
+    {
+      "model_id": "claude-instant-v1",
+      "label": "Claude Instant v1",
+      "tier": "open",
+      "family": "anthropic",
+      "released": "2023-03-14",
+      "accuracy": 0.5984135682384853,
+      "cost_total_usd": 8.5015064,
+      "cost_per_call_usd": 0.0002329371290791024,
+      "price_in_per_1m": 0.8,
+      "price_out_per_1m": 2.4,
+      "blended_price": 7.999999999999999,
+      "uniquely_correct": 149,
+      "uniquely_correct_share": 0.004082527331013508,
+      "cells": 36497
+    },
+    {
+      "model_id": "claude-v1",
+      "label": "Claude v1",
+      "tier": "mid",
+      "family": "anthropic",
+      "released": "2023-03-14",
+      "accuracy": 0.6301175439077185,
+      "cost_total_usd": 78.273488,
+      "cost_per_call_usd": 0.0021446553963339453,
+      "price_in_per_1m": 8.0,
+      "price_out_per_1m": 24.0,
+      "blended_price": 80.0,
+      "uniquely_correct": 105,
+      "uniquely_correct_share": 0.0028769487903115326,
+      "cells": 36497
+    },
+    {
+      "model_id": "mistralai/mistral-7b-chat",
+      "label": "Mistral 7B Instruct",
+      "tier": "open",
+      "family": "mistral",
+      "released": "2023-09-27",
+      "accuracy": 0.30611146121599037,
+      "cost_total_usd": 1.6687994000000002,
+      "cost_per_call_usd": 4.572428966764392e-05,
+      "price_in_per_1m": 0.2,
+      "price_out_per_1m": 0.2,
+      "blended_price": 0.8,
+      "uniquely_correct": 234,
+      "uniquely_correct_share": 0.006411485875551415,
+      "cells": 36497
+    },
+    {
+      "model_id": "WizardLM/WizardLM-13B-V1.2",
+      "label": "WizardLM 13B v1.2",
+      "tier": "open",
+      "family": "wizardlm",
+      "released": "2023-07-25",
+      "accuracy": 0.43112721593555636,
+      "cost_total_usd": 2.6611569,
+      "cost_per_call_usd": 7.291440118365893e-05,
+      "price_in_per_1m": 0.3,
+      "price_out_per_1m": 0.3,
+      "blended_price": 1.2,
+      "uniquely_correct": 195,
+      "uniquely_correct_share": 0.005342904896292846,
+      "cells": 36497
+    },
+    {
+      "model_id": "meta/llama-2-70b-chat",
+      "label": "Llama 2 70B Chat",
+      "tier": "open",
+      "family": "meta",
+      "released": "2023-07-18",
+      "accuracy": 0.3286886593418637,
+      "cost_total_usd": 7.3966653,
+      "cost_per_call_usd": 0.0002026650217826123,
+      "price_in_per_1m": 0.9,
+      "price_out_per_1m": 0.9,
+      "blended_price": 3.6,
+      "uniquely_correct": 41,
+      "uniquely_correct_share": 0.0011233800038359318,
+      "cells": 36497
+    },
+    {
+      "model_id": "meta/code-llama-instruct-34b-chat",
+      "label": "Code Llama 34B Instruct",
+      "tier": "open",
+      "family": "meta",
+      "released": "2023-08-24",
+      "accuracy": 0.2022275803490698,
+      "cost_total_usd": 6.279261632000001,
+      "cost_per_call_usd": 0.00017204870624982878,
+      "price_in_per_1m": 0.78,
+      "price_out_per_1m": 0.78,
+      "blended_price": 3.12,
+      "uniquely_correct": 17,
+      "uniquely_correct_share": 0.00046579170890758147,
+      "cells": 36497
+    },
+    {
+      "model_id": "claude-v2",
+      "label": "Claude v2",
+      "tier": "mid",
+      "family": "anthropic",
+      "released": "2023-07-11",
+      "accuracy": 0.6358056826588486,
+      "cost_total_usd": 88.271792,
+      "cost_per_call_usd": 0.0024186040496479164,
+      "price_in_per_1m": 8.0,
+      "price_out_per_1m": 24.0,
+      "blended_price": 80.0,
+      "uniquely_correct": 157,
+      "uniquely_correct_share": 0.004301723429322958,
+      "cells": 36497
+    },
+    {
+      "model_id": "gpt-3.5-turbo-1106",
+      "label": "GPT-3.5 Turbo (1106)",
+      "tier": "open",
+      "family": "openai",
+      "released": "2023-11-06",
+      "accuracy": 0.6193207660903636,
+      "cost_total_usd": 8.878262,
+      "cost_per_call_usd": 0.00024326004877113185,
+      "price_in_per_1m": 1.0,
+      "price_out_per_1m": 2.0,
+      "blended_price": 7.0,
+      "uniquely_correct": 212,
+      "uniquely_correct_share": 0.0058086966052004274,
+      "cells": 36497
+    },
+    {
+      "model_id": "gpt-4-1106-preview",
+      "label": "GPT-4 Turbo (1106)",
+      "tier": "frontier",
+      "family": "openai",
+      "released": "2023-11-06",
+      "accuracy": 0.7813998410828287,
+      "cost_total_usd": 120.1756,
+      "cost_per_call_usd": 0.003292752828999644,
+      "price_in_per_1m": 10.0,
+      "price_out_per_1m": 30.0,
+      "blended_price": 100.0,
+      "uniquely_correct": 741,
+      "uniquely_correct_share": 0.020303038605912815,
+      "cells": 36497
+    },
+    {
+      "model_id": "zero-one-ai/Yi-34B-Chat",
+      "label": "Yi 34B Chat",
+      "tier": "mid",
+      "family": "01ai",
+      "released": "2023-11-23",
+      "accuracy": 0.6474915746499712,
+      "cost_total_usd": 6.7710056000000005,
+      "cost_per_call_usd": 0.00018552225114392966,
+      "price_in_per_1m": 0.8,
+      "price_out_per_1m": 0.8,
+      "blended_price": 3.2,
+      "uniquely_correct": 239,
+      "uniquely_correct_share": 0.006548483436994821,
+      "cells": 36497
+    },
+    {
+      "model_id": "mistralai/mixtral-8x7b-chat",
+      "label": "Mixtral 8x7B Instruct",
+      "tier": "mid",
+      "family": "mistral",
+      "released": "2023-12-11",
+      "accuracy": 0.5471148313560018,
+      "cost_total_usd": 4.911762599999999,
+      "cost_per_call_usd": 0.00013457989971778502,
+      "price_in_per_1m": 0.6,
+      "price_out_per_1m": 0.6,
+      "blended_price": 2.4,
+      "uniquely_correct": 109,
+      "uniquely_correct_share": 0.0029865468394662574,
+      "cells": 36497
+    }
+  ],
+  "domains": [
+    {
+      "domain": "business",
+      "items": 859,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.8207217694994179,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.819557625145518,
+      "oracle_quality": 0.9674039580908033
+    },
+    {
+      "domain": "chinese",
+      "items": 785,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.4789808917197452,
+      "best_value_model": "mistralai/mixtral-8x7b-chat",
+      "spread": 0.47197452229299364,
+      "oracle_quality": 0.6777070063694267
+    },
+    {
+      "domain": "code",
+      "items": 427,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.6861826697892272,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.3559718969555035,
+      "oracle_quality": 0.8665105386416861
+    },
+    {
+      "domain": "commonsense",
+      "items": 12779,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.8516315830659676,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.6069332498630566,
+      "oracle_quality": 0.9799671335785273
+    },
+    {
+      "domain": "cs",
+      "items": 457,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.7855579868708972,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.7811816192560175,
+      "oracle_quality": 0.949671772428884
+    },
+    {
+      "domain": "engineering",
+      "items": 145,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.7448275862068966,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.7379310344827587,
+      "oracle_quality": 0.9448275862068966
+    },
+    {
+      "domain": "humanities",
+      "items": 3143,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.8345529748647789,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.8304167992363983,
+      "oracle_quality": 0.9541839007317849
+    },
+    {
+      "domain": "knowledge",
+      "items": 3713,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.9008887691893348,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.8917317532992189,
+      "oracle_quality": 0.97576084029087
+    },
+    {
+      "domain": "law",
+      "items": 1763,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.7027793533749291,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.7022121384004538,
+      "oracle_quality": 0.9393079977311402
+    },
+    {
+      "domain": "math",
+      "items": 8628,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.6547287899860917,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.27448423736671296,
+      "oracle_quality": 0.7716736207695873
+    },
+    {
+      "domain": "medicine",
+      "items": 1417,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.8362738179251941,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.8341566690190543,
+      "oracle_quality": 0.9576570218772054
+    },
+    {
+      "domain": "openended",
+      "items": 981,
+      "best_quality_model": "claude-v2",
+      "best_quality": 0.6506116207951068,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.09566768603465792,
+      "oracle_quality": 0.858053007135576
+    },
+    {
+      "domain": "other",
+      "items": 3,
+      "best_quality_model": "claude-v1",
+      "best_quality": 0.6666666666666666,
+      "best_value_model": "mistralai/mistral-7b-chat",
+      "spread": 0.6666666666666666,
+      "oracle_quality": 0.6666666666666666
+    },
+    {
+      "domain": "science",
+      "items": 1397,
+      "best_quality_model": "gpt-4-1106-preview",
+      "best_quality": 0.8017179670722978,
+      "best_value_model": "WizardLM/WizardLM-13B-V1.2",
+      "spread": 0.7974230493915534,
+      "oracle_quality": 0.9477451682176091
+    }
+  ],
+  "solve_rate_percentiles": {
+    "0": 0.0,
+    "5": 0.09090909090909091,
+    "25": 0.36363636363636365,
+    "50": 0.5454545454545454,
+    "75": 0.7272727272727273,
+    "95": 0.8181818181818182,
+    "100": 1.0
+  },
+  "chutes_pool": [
+    {
+      "id": "Nemotron-3-Nano-Omni-30B-TEE",
+      "label": "Nemotron 3 Nano Omni 30B",
+      "tier": "open",
+      "family": "nvidia",
+      "in_per_1m": 0.0245,
+      "out_per_1m": 0.0978,
+      "blended_price": 0.3179,
+      "good_at": "Extraction, tagging and cleanup"
+    },
+    {
+      "id": "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+      "label": "Mistral Nemo Instruct",
+      "tier": "open",
+      "family": "mistral",
+      "in_per_1m": 0.0245,
+      "out_per_1m": 0.0978,
+      "blended_price": 0.3179,
+      "good_at": "Rewriting and short everyday replies"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "label": "DeepSeek V4 Flash",
+      "tier": "open",
+      "family": "deepseek",
+      "in_per_1m": 0.14,
+      "out_per_1m": 0.28,
+      "blended_price": 0.9800000000000001,
+      "good_at": "Cheap long-context work"
+    },
+    {
+      "id": "google/gemma-4-31B-turbo-TEE",
+      "label": "Gemma 4 31B Turbo",
+      "tier": "open",
+      "family": "google",
+      "in_per_1m": 0.12,
+      "out_per_1m": 0.37,
+      "blended_price": 1.23,
+      "good_at": "Everyday questions at low cost"
+    },
+    {
+      "id": "Qwen/Qwen3-32B-TEE",
+      "label": "Qwen3 32B",
+      "tier": "open",
+      "family": "qwen",
+      "in_per_1m": 0.104,
+      "out_per_1m": 0.416,
+      "blended_price": 1.352,
+      "good_at": "Classification and structured output"
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "label": "Qwen3 235B Thinking",
+      "tier": "mid",
+      "family": "qwen",
+      "in_per_1m": 0.2989,
+      "out_per_1m": 1.1957,
+      "blended_price": 3.886,
+      "good_at": "Multi-step reasoning"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V3.2-TEE",
+      "label": "DeepSeek V3.2",
+      "tier": "mid",
+      "family": "deepseek",
+      "in_per_1m": 1.0,
+      "out_per_1m": 1.0,
+      "blended_price": 4.0,
+      "good_at": "Balanced general work"
+    },
+    {
+      "id": "Qwen/Qwen3.6-27B-TEE",
+      "label": "Qwen3.6 27B",
+      "tier": "mid",
+      "family": "qwen",
+      "in_per_1m": 0.3,
+      "out_per_1m": 2.0,
+      "blended_price": 6.3,
+      "good_at": "Code and analysis"
+    },
+    {
+      "id": "Qwen/Qwen3.5-397B-A17B-TEE",
+      "label": "Qwen3.5 397B",
+      "tier": "mid",
+      "family": "qwen",
+      "in_per_1m": 0.45,
+      "out_per_1m": 3.0,
+      "blended_price": 9.45,
+      "good_at": "Hard reasoning at mid price"
+    },
+    {
+      "id": "zai-org/GLM-5.1-TEE",
+      "label": "GLM 5.1",
+      "tier": "mid",
+      "family": "zai",
+      "in_per_1m": 0.98,
+      "out_per_1m": 3.08,
+      "blended_price": 10.22,
+      "good_at": "Agentic tool use"
+    },
+    {
+      "id": "moonshotai/Kimi-K2.6-TEE",
+      "label": "Kimi K2.6",
+      "tier": "mid",
+      "family": "moonshot",
+      "in_per_1m": 0.58,
+      "out_per_1m": 3.4,
+      "blended_price": 10.78,
+      "good_at": "Long-form writing and agents"
+    },
+    {
+      "id": "zai-org/GLM-5.2-TEE",
+      "label": "GLM 5.2",
+      "tier": "frontier",
+      "family": "zai",
+      "in_per_1m": 1.25,
+      "out_per_1m": 3.95,
+      "blended_price": 13.100000000000001,
+      "good_at": "Frontier reasoning, long context"
+    },
+    {
+      "id": "moonshotai/Kimi-K3-TEE",
+      "label": "Kimi K3",
+      "tier": "frontier",
+      "family": "moonshot",
+      "in_per_1m": 3.0,
+      "out_per_1m": 15.0,
+      "blended_price": 48.0,
+      "good_at": "The hardest work, price no object"
+    }
+  ]
+}

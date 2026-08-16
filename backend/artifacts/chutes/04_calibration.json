@@ -1,0 +1,130 @@
+{
+  "grid": [
+    {
+      "lam_cost": 0.0,
+      "quality": 0.8337368845843423,
+      "cost_per_call_usd": 0.02137495402784504,
+      "quality_vs_best_single": 0.9995162070633768,
+      "cost_vs_best_single": 3.013022935322591,
+      "savings_vs_best_single": -2.013022935322591
+    },
+    {
+      "lam_cost": 0.01,
+      "quality": 0.8305084745762712,
+      "cost_per_call_usd": 0.019378875881194513,
+      "quality_vs_best_single": 0.9956458635703919,
+      "cost_vs_best_single": 2.7316548805085525,
+      "savings_vs_best_single": -1.7316548805085525
+    },
+    {
+      "lam_cost": 0.02,
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.01787431449128329,
+      "quality_vs_best_single": 0.9937106918238993,
+      "cost_vs_best_single": 2.5195712442350957,
+      "savings_vs_best_single": -1.5195712442350957
+    },
+    {
+      "lam_cost": 0.05,
+      "quality": 0.8280871670702179,
+      "cost_per_call_usd": 0.013057284446973365,
+      "quality_vs_best_single": 0.9927431059506531,
+      "cost_vs_best_single": 1.840560567312155,
+      "savings_vs_best_single": -0.840560567312155
+    },
+    {
+      "lam_cost": 0.08,
+      "quality": 0.8284907183212268,
+      "cost_per_call_usd": 0.010115205565375303,
+      "quality_vs_best_single": 0.9932268988872762,
+      "cost_vs_best_single": 1.4258438321914435,
+      "savings_vs_best_single": -0.4258438321914435
+    },
+    {
+      "lam_cost": 0.12,
+      "quality": 0.831315577078289,
+      "cost_per_call_usd": 0.00721031679338176,
+      "quality_vs_best_single": 0.996613449443638,
+      "cost_vs_best_single": 1.0163694313026375,
+      "savings_vs_best_single": -0.01636943130263746
+    },
+    {
+      "lam_cost": 0.16,
+      "quality": 0.8280871670702179,
+      "cost_per_call_usd": 0.006350302162711864,
+      "quality_vs_best_single": 0.9927431059506531,
+      "cost_vs_best_single": 0.8951413901313776,
+      "savings_vs_best_single": 0.10485860986862239
+    },
+    {
+      "lam_cost": 0.2,
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.005669028273769168,
+      "quality_vs_best_single": 0.9937106918238993,
+      "cost_vs_best_single": 0.7991087226483634,
+      "savings_vs_best_single": 0.2008912773516366
+    },
+    {
+      "lam_cost": 0.25,
+      "quality": 0.8224374495560937,
+      "cost_per_call_usd": 0.005358587199031477,
+      "quality_vs_best_single": 0.9859700048379294,
+      "cost_vs_best_single": 0.7553488120056381,
+      "savings_vs_best_single": 0.24465118799436192
+    },
+    {
+      "lam_cost": 0.3,
+      "quality": 0.8155770782889427,
+      "cost_per_call_usd": 0.0050871973281678765,
+      "quality_vs_best_single": 0.9777455249153362,
+      "cost_vs_best_single": 0.7170935762628596,
+      "savings_vs_best_single": 0.28290642373714037
+    },
+    {
+      "lam_cost": 0.4,
+      "quality": 0.8127522195318806,
+      "cost_per_call_usd": 0.004531026604519774,
+      "quality_vs_best_single": 0.9743589743589743,
+      "cost_vs_best_single": 0.6386955060670736,
+      "savings_vs_best_single": 0.3613044939329264
+    },
+    {
+      "lam_cost": 0.5,
+      "quality": 0.811541565778854,
+      "cost_per_call_usd": 0.0040657246915254235,
+      "quality_vs_best_single": 0.972907595549105,
+      "cost_vs_best_single": 0.5731063434482851,
+      "savings_vs_best_single": 0.42689365655171485
+    },
+    {
+      "lam_cost": 0.7,
+      "quality": 0.7974172719935432,
+      "cost_per_call_usd": 0.003191755965617433,
+      "quality_vs_best_single": 0.9559748427672955,
+      "cost_vs_best_single": 0.44991132686555624,
+      "savings_vs_best_single": 0.5500886731344438
+    },
+    {
+      "lam_cost": 1.0,
+      "quality": 0.7820823244552058,
+      "cost_per_call_usd": 0.002458533340677966,
+      "quality_vs_best_single": 0.9375907111756168,
+      "cost_vs_best_single": 0.3465559426732856,
+      "savings_vs_best_single": 0.6534440573267144
+    }
+  ],
+  "quality_floor": 0.99,
+  "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+  "best_single_quality": 0.8341404358353511,
+  "best_single_cost_per_call": 0.007094188954640838,
+  "chosen_lam_cost": 0.2,
+  "chosen": {
+    "lam_cost": 0.2,
+    "quality": 0.8288942695722357,
+    "cost_per_call_usd": 0.005669028273769168,
+    "quality_vs_best_single": 0.9937106918238993,
+    "cost_vs_best_single": 0.7991087226483634,
+    "savings_vs_best_single": 0.2008912773516366
+  },
+  "reading": "\u03bb_c=0.2 is the loosest setting that still holds 99% of Qwen/Qwen3-235B-A22B-Thinking-2507-TEE's quality: 20.1% cheaper at 99.4% of its quality."
+}
