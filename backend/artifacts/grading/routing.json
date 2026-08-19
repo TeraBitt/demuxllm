@@ -1,0 +1,526 @@
+{
+ "proxy_backed": false,
+ "n_items": 55,
+ "models": [
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+  "moonshotai/Kimi-K2.6-TEE",
+  "moonshotai/Kimi-K3-TEE",
+  "zai-org/GLM-5.2-TEE"
+ ],
+ "accuracy": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.8182,
+  "moonshotai/Kimi-K2.6-TEE": 0.8909,
+  "moonshotai/Kimi-K3-TEE": 0.8727,
+  "zai-org/GLM-5.2-TEE": 0.8909
+ },
+ "chutes_cost_per_call": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.00045,
+  "moonshotai/Kimi-K2.6-TEE": 0.014418,
+  "moonshotai/Kimi-K3-TEE": 0.017457,
+  "zai-org/GLM-5.2-TEE": 0.014181
+ },
+ "mean_tokens_out": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 1526.9,
+  "moonshotai/Kimi-K2.6-TEE": 4212.0,
+  "moonshotai/Kimi-K3-TEE": 1114.2,
+  "zai-org/GLM-5.2-TEE": 3535.3
+ },
+ "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+ "n_train": 36,
+ "n_test": 19,
+ "lambda_sweep": [
+  {
+   "lam_cost": 0.0,
+   "best_single_model": "moonshotai/Kimi-K2.6-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.009988,
+     "savings_vs_frontier_pct": 0.28842,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.28842,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.971199,
+     "quality_vs_best_single_pct": 0.944444
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.12657,
+     "quality_vs_best_single_pct": 0.944444
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.943306,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.943306,
+     "quality_vs_best_single_pct": 1.0
+    }
+   ]
+  },
+  {
+   "lam_cost": 0.05,
+   "best_single_model": "moonshotai/Kimi-K2.6-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.009988,
+     "savings_vs_frontier_pct": 0.28842,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.28842,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.971199,
+     "quality_vs_best_single_pct": 0.944444
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.12657,
+     "quality_vs_best_single_pct": 0.944444
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000723,
+     "savings_vs_frontier_pct": 0.948477,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.948477,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": 0.943306,
+     "quality_vs_best_single_pct": 1.0
+    }
+   ]
+  },
+  {
+   "lam_cost": 0.1,
+   "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.006801,
+     "savings_vs_frontier_pct": 0.515446,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -15.824182,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -33.720939,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": -29.326326,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000723,
+     "savings_vs_frontier_pct": 0.948477,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.788914,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.968477,
+     "quality_vs_best_single_pct": 1.058824
+    }
+   ]
+  },
+  {
+   "lam_cost": 0.2,
+   "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.004602,
+     "savings_vs_frontier_pct": 0.672119,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -10.384351,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -33.720939,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": -29.326326,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000723,
+     "savings_vs_frontier_pct": 0.948477,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.788914,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.968477,
+     "quality_vs_best_single_pct": 1.058824
+    }
+   ]
+  },
+  {
+   "lam_cost": 0.4,
+   "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.001713,
+     "savings_vs_frontier_pct": 0.877935,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": -3.238204,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -33.720939,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": -29.326326,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000723,
+     "savings_vs_frontier_pct": 0.948477,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.788914,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.968477,
+     "quality_vs_best_single_pct": 1.058824
+    }
+   ]
+  },
+  {
+   "lam_cost": 0.8,
+   "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "frontier_model": "moonshotai/Kimi-K2.6-TEE",
+   "dominated_models": {
+    "moonshotai/Kimi-K3-TEE": [
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+     "moonshotai/Kimi-K2.6-TEE",
+     "zai-org/GLM-5.2-TEE"
+    ],
+    "zai-org/GLM-5.2-TEE": [
+     "moonshotai/Kimi-K2.6-TEE"
+    ]
+   },
+   "policies": [
+    {
+     "policy": "router",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "best-single (utility)",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "frontier model (Kimi K2.6)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.014036,
+     "savings_vs_frontier_pct": 0.0,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -33.720939,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "cheapest model",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.000404,
+     "savings_vs_frontier_pct": 0.971199,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": 0.0,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "random",
+     "quality": 0.894737,
+     "cost_per_call_usd": 0.012259,
+     "savings_vs_frontier_pct": 0.12657,
+     "quality_vs_frontier_pct": 0.944444,
+     "savings_vs_best_single_pct": -29.326326,
+     "quality_vs_best_single_pct": 1.0
+    },
+    {
+     "policy": "oracle (per item, utility)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000723,
+     "savings_vs_frontier_pct": 0.948477,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.788914,
+     "quality_vs_best_single_pct": 1.058824
+    },
+    {
+     "policy": "oracle (per item, quality)",
+     "quality": 0.947368,
+     "cost_per_call_usd": 0.000796,
+     "savings_vs_frontier_pct": 0.943306,
+     "quality_vs_frontier_pct": 1.0,
+     "savings_vs_best_single_pct": -0.968477,
+     "quality_vs_best_single_pct": 1.058824
+    }
+   ]
+  }
+ ],
+ "verdict": {
+  "best_single_model": "moonshotai/Kimi-K2.6-TEE",
+  "dominated_models": {
+   "moonshotai/Kimi-K3-TEE": [
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    "moonshotai/Kimi-K2.6-TEE",
+    "zai-org/GLM-5.2-TEE"
+   ],
+   "zai-org/GLM-5.2-TEE": [
+    "moonshotai/Kimi-K2.6-TEE"
+   ]
+  }
+ }
+}

@@ -1,0 +1,179 @@
+{
+ "proxy_backed": false,
+ "source": "Fireworks serverless, same open-weights checkpoints as the Chutes slots",
+ "note": "Quality and token counts are measured on the real checkpoint. The remaining assumption is host, not model: the same weights served by Fireworks rather than Chutes. Prices are the Chutes list.",
+ "n_items": 55,
+ "slots": [
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+  "moonshotai/Kimi-K2.6-TEE",
+  "moonshotai/Kimi-K3-TEE",
+  "zai-org/GLM-5.2-TEE"
+ ],
+ "tasks": {
+  "aime": 9,
+  "gpqa": 9,
+  "livemathbench": 18,
+  "mmlupro": 19
+ },
+ "accuracy": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.8182,
+  "moonshotai/Kimi-K2.6-TEE": 0.8909,
+  "moonshotai/Kimi-K3-TEE": 0.8727,
+  "zai-org/GLM-5.2-TEE": 0.8909
+ },
+ "mean_tokens_out": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 1526.9,
+  "moonshotai/Kimi-K2.6-TEE": 4212.0,
+  "moonshotai/Kimi-K3-TEE": 1114.2,
+  "zai-org/GLM-5.2-TEE": 3535.3
+ },
+ "chutes_cost_per_call_usd": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.00045,
+  "moonshotai/Kimi-K2.6-TEE": 0.014418,
+  "moonshotai/Kimi-K3-TEE": 0.017457,
+  "zai-org/GLM-5.2-TEE": 0.014181
+ },
+ "by_task": {
+  "aime": {
+   "n": 9,
+   "accuracy_by_slot": {
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 1.0,
+    "moonshotai/Kimi-K2.6-TEE": 1.0,
+    "moonshotai/Kimi-K3-TEE": 1.0,
+    "zai-org/GLM-5.2-TEE": 1.0
+   }
+  },
+  "gpqa": {
+   "n": 9,
+   "accuracy_by_slot": {
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.8889,
+    "moonshotai/Kimi-K2.6-TEE": 1.0,
+    "moonshotai/Kimi-K3-TEE": 1.0,
+    "zai-org/GLM-5.2-TEE": 1.0
+   }
+  },
+  "livemathbench": {
+   "n": 18,
+   "accuracy_by_slot": {
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.5556,
+    "moonshotai/Kimi-K2.6-TEE": 0.7222,
+    "moonshotai/Kimi-K3-TEE": 0.6111,
+    "zai-org/GLM-5.2-TEE": 0.6667
+   }
+  },
+  "mmlupro": {
+   "n": 19,
+   "accuracy_by_slot": {
+    "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.9474,
+    "moonshotai/Kimi-K2.6-TEE": 0.9474,
+    "moonshotai/Kimi-K3-TEE": 1.0,
+    "zai-org/GLM-5.2-TEE": 1.0
+   }
+  }
+ },
+ "proxy_audit": [
+  {
+   "slot": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "proxy_id": "DeepSeek-R1-0528-Qwen3-8B",
+   "proxy_was_exact_checkpoint": false,
+   "n_items": 55,
+   "real_accuracy": 0.8182,
+   "proxy_accuracy": 0.8182,
+   "abs_error": 0.0,
+   "signed_error_proxy_minus_real": 0.0,
+   "error_ci95": [
+    -0.0914,
+    0.0909
+   ],
+   "error_excludes_zero": false,
+   "real_mean_tokens_out": 1526.9,
+   "proxy_mean_tokens_out": 6062.6
+  },
+  {
+   "slot": "moonshotai/Kimi-K2.6-TEE",
+   "proxy_id": "kimi-k2-0905",
+   "proxy_was_exact_checkpoint": false,
+   "n_items": 55,
+   "real_accuracy": 0.8909,
+   "proxy_accuracy": 0.7818,
+   "abs_error": 0.1091,
+   "signed_error_proxy_minus_real": -0.1091,
+   "error_ci95": [
+    -0.2,
+    -0.0364
+   ],
+   "error_excludes_zero": true,
+   "real_mean_tokens_out": 4212.0,
+   "proxy_mean_tokens_out": 1213.7
+  },
+  {
+   "slot": "moonshotai/Kimi-K3-TEE",
+   "proxy_id": "gpt-5",
+   "proxy_was_exact_checkpoint": false,
+   "n_items": 55,
+   "real_accuracy": 0.8727,
+   "proxy_accuracy": 0.8909,
+   "abs_error": 0.0182,
+   "signed_error_proxy_minus_real": 0.0182,
+   "error_ci95": [
+    -0.0545,
+    0.0909
+   ],
+   "error_excludes_zero": false,
+   "real_mean_tokens_out": 1114.2,
+   "proxy_mean_tokens_out": 1456.0
+  },
+  {
+   "slot": "zai-org/GLM-5.2-TEE",
+   "proxy_id": "gemini-2.5-pro",
+   "proxy_was_exact_checkpoint": false,
+   "n_items": 55,
+   "real_accuracy": 0.8909,
+   "proxy_accuracy": 0.7273,
+   "abs_error": 0.1636,
+   "signed_error_proxy_minus_real": -0.1636,
+   "error_ci95": [
+    -0.255,
+    -0.0727
+   ],
+   "error_excludes_zero": true,
+   "real_mean_tokens_out": 3535.3,
+   "proxy_mean_tokens_out": 5350.3
+  }
+ ],
+ "selection_bias": {
+  "per_slot": [
+   {
+    "slot": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    "proxy_on_dense_set": 0.8182,
+    "proxy_on_all_attempted": 0.6458,
+    "selection_bias": 0.1723
+   },
+   {
+    "slot": "moonshotai/Kimi-K2.6-TEE",
+    "proxy_on_dense_set": 0.7818,
+    "proxy_on_all_attempted": 0.6875,
+    "selection_bias": 0.0943
+   },
+   {
+    "slot": "moonshotai/Kimi-K3-TEE",
+    "proxy_on_dense_set": 0.8909,
+    "proxy_on_all_attempted": 0.8438,
+    "selection_bias": 0.0472
+   },
+   {
+    "slot": "zai-org/GLM-5.2-TEE",
+    "proxy_on_dense_set": 0.7273,
+    "proxy_on_all_attempted": 0.7083,
+    "selection_bias": 0.0189
+   }
+  ],
+  "mean": 0.0832,
+  "note": "dense-set minus all-attempted, measured on the stand-ins which answered every item. The audit is paired on identical items so this does not bias it."
+ },
+ "excluded": {
+  "truncated": 82,
+  "ungradeable": 0,
+  "errors": 0
+ }
+}

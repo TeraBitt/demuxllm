@@ -1,41 +1,154 @@
 {
-  "rows": [
+  "our_dial": [
     {
-      "policy": "this router (\u00a78.7 argmax)",
+      "policy": "this router, lam_c=1",
+      "family": "ours",
+      "quality": 0.7820823244552058,
+      "cost_per_call_usd": 0.002458533340677966,
+      "quality_vs_best_single": 0.9375907111756168,
+      "savings_vs_best_single": 0.6534440573267144,
+      "lam_cost": 1.0,
+      "models_used": 10
+    },
+    {
+      "policy": "this router, lam_c=0.7",
+      "family": "ours",
+      "quality": 0.7974172719935432,
+      "cost_per_call_usd": 0.003191755965617433,
+      "quality_vs_best_single": 0.9559748427672955,
+      "savings_vs_best_single": 0.5500886731344438,
+      "lam_cost": 0.7,
+      "models_used": 10
+    },
+    {
+      "policy": "this router, lam_c=0.5",
+      "family": "ours",
+      "quality": 0.811541565778854,
+      "cost_per_call_usd": 0.0040657246915254235,
+      "quality_vs_best_single": 0.972907595549105,
+      "savings_vs_best_single": 0.42689365655171485,
+      "lam_cost": 0.5,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.4",
+      "family": "ours",
+      "quality": 0.8127522195318806,
+      "cost_per_call_usd": 0.004531026604519774,
+      "quality_vs_best_single": 0.9743589743589743,
+      "savings_vs_best_single": 0.3613044939329264,
+      "lam_cost": 0.4,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.3",
+      "family": "ours",
+      "quality": 0.8155770782889427,
+      "cost_per_call_usd": 0.0050871973281678765,
+      "quality_vs_best_single": 0.9777455249153362,
+      "savings_vs_best_single": 0.28290642373714037,
+      "lam_cost": 0.3,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.25",
+      "family": "ours",
+      "quality": 0.8224374495560937,
+      "cost_per_call_usd": 0.005358587199031477,
+      "quality_vs_best_single": 0.9859700048379294,
+      "savings_vs_best_single": 0.24465118799436192,
+      "lam_cost": 0.25,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.05",
+      "family": "ours",
+      "quality": 0.8280871670702179,
+      "cost_per_call_usd": 0.013057284446973365,
+      "quality_vs_best_single": 0.9927431059506531,
+      "savings_vs_best_single": -0.840560567312155,
+      "lam_cost": 0.05,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.1",
+      "family": "ours",
+      "quality": 0.8288942695722357,
+      "cost_per_call_usd": 0.008529921888781275,
+      "quality_vs_best_single": 0.9937106918238993,
+      "savings_vs_best_single": -0.20238154682942544,
+      "lam_cost": 0.1,
+      "models_used": 11
+    },
+    {
+      "policy": "this router, lam_c=0.2",
+      "family": "ours",
       "quality": 0.8288942695722357,
       "cost_per_call_usd": 0.005669028273769168,
       "quality_vs_best_single": 0.9937106918238993,
       "savings_vs_best_single": 0.2008912773516366,
+      "lam_cost": 0.2,
       "models_used": 11
     },
     {
-      "policy": "cascade, predicted verifier \u03c4=0.5",
+      "policy": "this router, lam_c=0.15",
+      "family": "ours",
+      "quality": 0.8297013720742534,
+      "cost_per_call_usd": 0.0064388015490718315,
+      "quality_vs_best_single": 0.9946782776971456,
+      "savings_vs_best_single": 0.09238369738379593,
+      "lam_cost": 0.15,
+      "models_used": 11
+    }
+  ],
+  "rows": [
+    {
+      "policy": "cascade (FrugalGPT-style), tau=0.4",
+      "family": "cascade",
+      "quality": 0.6287328490718321,
+      "cost_per_call_usd": 0.002532936313559322,
+      "quality_vs_best_single": 0.7537493952588292,
+      "savings_vs_best_single": 0.6429561814952307,
+      "tau": 0.4,
+      "mean_attempts": 2.3470540758676353,
+      "wasted_spend_share": 0.3301061187637364,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "cascade (FrugalGPT-style), tau=0.5",
+      "family": "cascade",
       "quality": 0.6961259079903148,
       "cost_per_call_usd": 0.0039118376192090396,
       "quality_vs_best_single": 0.8345428156748912,
       "savings_vs_best_single": 0.4485856460518979,
+      "tau": 0.5,
       "mean_attempts": 3.073446327683616,
       "wasted_spend_share": 0.37285971656338635,
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     },
     {
-      "policy": "cascade, predicted verifier \u03c4=0.6",
+      "policy": "cascade (FrugalGPT-style), tau=0.6",
+      "family": "cascade",
       "quality": 0.7530266343825666,
       "cost_per_call_usd": 0.005838836029378531,
       "quality_vs_best_single": 0.9027576197387517,
       "savings_vs_best_single": 0.17695510132149594,
+      "tau": 0.6,
       "mean_attempts": 3.8813559322033897,
       "wasted_spend_share": 0.4041528938460822,
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     },
     {
-      "policy": "cascade, predicted verifier \u03c4=0.7",
+      "policy": "cascade (FrugalGPT-style), tau=0.7",
+      "family": "cascade",
       "quality": 0.804681194511703,
       "cost_per_call_usd": 0.009238171901937046,
       "quality_vs_best_single": 0.9646831156265118,
       "savings_vs_best_single": -0.302216780664359,
+      "tau": 0.7,
       "mean_attempts": 4.832929782082324,
       "wasted_spend_share": 0.4545194086136811,
       "our_savings_at_matched_quality": 0.48673123603475493,
@@ -43,11 +156,13 @@
       "verdict": "loses to us"
     },
     {
-      "policy": "cascade, predicted verifier \u03c4=0.8",
+      "policy": "cascade (FrugalGPT-style), tau=0.8",
+      "family": "cascade",
       "quality": 0.8220338983050848,
       "cost_per_call_usd": 0.02583992797788539,
       "quality_vs_best_single": 0.9854862119013063,
       "savings_vs_best_single": -2.6424076301183894,
+      "tau": 0.8,
       "mean_attempts": 6.889426957223567,
       "wasted_spend_share": 0.5823296299452976,
       "our_savings_at_matched_quality": 0.24690149597923133,
@@ -55,138 +170,381 @@
       "verdict": "loses to us"
     },
     {
+      "policy": "cascade (FrugalGPT-style), tau=0.9",
+      "family": "cascade",
+      "quality": 0.8127522195318806,
+      "cost_per_call_usd": 0.08172065164116223,
+      "quality_vs_best_single": 0.9743589743589743,
+      "savings_vs_best_single": -10.519379052865888,
+      "tau": 0.9,
+      "mean_attempts": 11.033091202582728,
+      "wasted_spend_share": 0.6016942810834767,
+      "our_savings_at_matched_quality": 0.3613044939329264,
+      "margin_vs_us": -10.880683546798815,
+      "verdict": "loses to us"
+    },
+    {
       "policy": "cascade, ORACLE verifier (not implementable)",
+      "family": "cascade-oracle",
       "quality": 0.9713478611783697,
       "cost_per_call_usd": 0.011816837656174334,
       "quality_vs_best_single": 1.1644895984518626,
       "savings_vs_best_single": -0.6657066412706782,
       "mean_attempts": 3.656174334140436,
-      "wasted_spend_share": 0.5773997044985915,
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     },
     {
-      "policy": "matrix factorisation, rank 4",
-      "quality": 0.8139628732849071,
-      "cost_per_call_usd": 0.005048378100645682,
-      "quality_vs_best_single": 0.9758103531688436,
-      "savings_vs_best_single": 0.2883783991483394,
-      "bridge_r2": 0.16772708784636847,
-      "our_savings_at_matched_quality": 0.3277053209918782,
-      "margin_vs_us": -0.03932692184353881,
-      "verdict": "loses to us"
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.05",
+      "family": "matrix",
+      "quality": 0.8260694108151735,
+      "cost_per_call_usd": 0.009287952231234867,
+      "quality_vs_best_single": 0.9903241412675374,
+      "savings_vs_best_single": -0.30923383781015934,
+      "lam_cost": 0.05,
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": -0.4529849404169629,
+      "margin_vs_us": 0.14375110260680357,
+      "verdict": "beats us"
     },
     {
-      "policy": "matrix factorisation, rank 8",
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.2",
+      "family": "matrix",
       "quality": 0.8159806295399515,
       "cost_per_call_usd": 0.005149664247215496,
       "quality_vs_best_single": 0.9782293178519593,
       "savings_vs_best_single": 0.2741010593118306,
+      "lam_cost": 0.2,
       "bridge_r2": 0.14307386992060245,
       "our_savings_at_matched_quality": 0.28065611575227095,
       "margin_vs_us": -0.006555056440440354,
       "verdict": "tied"
     },
     {
-      "policy": "matrix factorisation, rank 16",
-      "quality": 0.8167877320419693,
-      "cost_per_call_usd": 0.005080409522356739,
-      "quality_vs_best_single": 0.9791969037252055,
-      "savings_vs_best_single": 0.283863235834272,
-      "bridge_r2": 0.1272881156903949,
-      "our_savings_at_matched_quality": 0.2761554997825326,
-      "margin_vs_us": 0.007707736051739356,
-      "verdict": "tied"
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.5",
+      "family": "matrix",
+      "quality": 0.7962066182405165,
+      "cost_per_call_usd": 0.0028788470085552866,
+      "quality_vs_best_single": 0.9545234639574262,
+      "savings_vs_best_single": 0.5941964575567136,
+      "lam_cost": 0.5,
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": 0.5582483087285702,
+      "margin_vs_us": 0.035948148828143345,
+      "verdict": "beats us"
     },
     {
-      "policy": "cheapest above 0.5 (no per-item routing)",
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=1",
+      "family": "matrix",
+      "quality": 0.7627118644067796,
+      "cost_per_call_usd": 0.0016610700511702986,
+      "quality_vs_best_single": 0.9143686502177067,
+      "savings_vs_best_single": 0.7658548338942017,
+      "lam_cost": 1.0,
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= -0.05",
+      "family": "hybrid",
+      "quality": 0.8333333333333334,
+      "cost_per_call_usd": 0.02725824504390638,
+      "quality_vs_best_single": 0.9990324141267537,
+      "savings_vs_best_single": -2.842334228506097,
+      "threshold": -0.05,
+      "large_share": 0.9814366424535916,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= 0",
+      "family": "hybrid",
+      "quality": 0.8309120258272801,
+      "cost_per_call_usd": 0.026531889210895887,
+      "quality_vs_best_single": 0.9961296565070149,
+      "savings_vs_best_single": -2.739946790328921,
+      "threshold": 0.0,
+      "large_share": 0.9572235673930589,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= 0.05",
+      "family": "hybrid",
+      "quality": 0.8301049233252623,
+      "cost_per_call_usd": 0.025070370194350287,
+      "quality_vs_best_single": 0.9951620706337687,
+      "savings_vs_best_single": -2.533930425965027,
+      "threshold": 0.05,
+      "large_share": 0.9176755447941889,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= 0.1",
+      "family": "hybrid",
+      "quality": 0.8208232445520581,
+      "cost_per_call_usd": 0.02264831698038741,
+      "quality_vs_best_single": 0.9840348330914368,
+      "savings_vs_best_single": -2.192516738022809,
+      "threshold": 0.1,
+      "large_share": 0.8563357546408394,
+      "our_savings_at_matched_quality": 0.2536524199338396,
+      "margin_vs_us": -2.4461691579566485,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= 0.2",
+      "family": "hybrid",
+      "quality": 0.8010492332526231,
+      "cost_per_call_usd": 0.01736771377029863,
+      "quality_vs_best_single": 0.9603289791969037,
+      "savings_vs_best_single": -1.4481605834500804,
+      "threshold": 0.2,
+      "large_share": 0.7167070217917676,
+      "our_savings_at_matched_quality": 0.5184099545845985,
+      "margin_vs_us": -1.966570538034679,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "HybridLLM-style, gap >= 0.35",
+      "family": "hybrid",
+      "quality": 0.7360774818401937,
+      "cost_per_call_usd": 0.00940843797070218,
+      "quality_vs_best_single": 0.8824383164005806,
+      "savings_vs_best_single": -0.3262175607188218,
+      "threshold": 0.35,
+      "large_share": 0.46569814366424533,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "classification router, lam_c=0.05",
+      "family": "classifier",
+      "quality": 0.569410815173527,
+      "cost_per_call_usd": 0.0008883625023405974,
+      "quality_vs_best_single": 0.6826318335752297,
+      "savings_vs_best_single": 0.8747760303509462,
+      "lam_cost": 0.05,
+      "models_used": 7,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "classification router, lam_c=0.2",
+      "family": "classifier",
+      "quality": 0.5706214689265536,
+      "cost_per_call_usd": 0.0008925411944309926,
+      "quality_vs_best_single": 0.6840832123850991,
+      "savings_vs_best_single": 0.8741870000731916,
+      "lam_cost": 0.2,
+      "models_used": 7,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "classification router, lam_c=0.5",
+      "family": "classifier",
+      "quality": 0.5718321226795803,
+      "cost_per_call_usd": 0.0008920663492332526,
+      "quality_vs_best_single": 0.6855345911949685,
+      "savings_vs_best_single": 0.874253934461432,
+      "lam_cost": 0.5,
+      "models_used": 7,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "classification router, lam_c=1",
+      "family": "classifier",
+      "quality": 0.569410815173527,
+      "cost_per_call_usd": 0.0008921480778046812,
+      "quality_vs_best_single": 0.6826318335752297,
+      "savings_vs_best_single": 0.8742424139660023,
+      "lam_cost": 1.0,
+      "models_used": 7,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "k-NN retrieval (k=32), lam_c=0.05",
+      "family": "knn",
+      "quality": 0.83454398708636,
+      "cost_per_call_usd": 0.012630446589588378,
+      "quality_vs_best_single": 1.000483792936623,
+      "savings_vs_best_single": -0.7803933149152815,
+      "lam_cost": 0.05,
+      "models_used": 10,
+      "our_savings_at_matched_quality": null,
+      "verdict": "outside our dial's range"
+    },
+    {
+      "policy": "k-NN retrieval (k=32), lam_c=0.2",
+      "family": "knn",
+      "quality": 0.8155770782889427,
+      "cost_per_call_usd": 0.005351900845520581,
+      "quality_vs_best_single": 0.9777455249153362,
+      "savings_vs_best_single": 0.2455936993305622,
+      "lam_cost": 0.2,
+      "models_used": 11,
+      "our_savings_at_matched_quality": 0.28290642373714037,
+      "margin_vs_us": -0.03731272440657818,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "k-NN retrieval (k=32), lam_c=0.5",
+      "family": "knn",
+      "quality": 0.788135593220339,
+      "cost_per_call_usd": 0.0033615284571428573,
+      "quality_vs_best_single": 0.9448476052249637,
+      "savings_vs_best_single": 0.5261574679451086,
+      "lam_cost": 0.5,
+      "models_used": 10,
+      "our_savings_at_matched_quality": 0.612645879356081,
+      "margin_vs_us": -0.0864884114109723,
+      "verdict": "loses to us"
+    },
+    {
+      "policy": "cheapest above 0.5 (no routing)",
+      "family": "no-routing",
       "quality": 0.5318805488297014,
       "cost_per_call_usd": 0.002149103163841808,
       "quality_vs_best_single": 0.6376390904692791,
       "savings_vs_best_single": 0.6970614713559442,
+      "bar": 0.5,
       "model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     },
     {
-      "policy": "cheapest above 0.7 (no per-item routing)",
+      "policy": "cheapest above 0.7 (no routing)",
+      "family": "no-routing",
       "quality": 0.8341404358353511,
       "cost_per_call_usd": 0.007094188954640838,
       "quality_vs_best_single": 1.0,
       "savings_vs_best_single": 0.0,
+      "bar": 0.7,
       "model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     },
     {
-      "policy": "cheapest above 0.8 (no per-item routing)",
+      "policy": "cheapest above 0.8 (no routing)",
+      "family": "no-routing",
       "quality": 0.8341404358353511,
       "cost_per_call_usd": 0.007094188954640838,
       "quality_vs_best_single": 1.0,
       "savings_vs_best_single": 0.0,
+      "bar": 0.8,
       "model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
       "our_savings_at_matched_quality": null,
       "verdict": "outside our dial's range"
     }
   ],
-  "our_dial": [
-    {
-      "lam_cost": 1.0,
-      "quality_vs_best_single": 0.9375907111756168,
-      "savings_vs_best_single": 0.6534440573267144
-    },
-    {
-      "lam_cost": 0.7,
-      "quality_vs_best_single": 0.9559748427672955,
-      "savings_vs_best_single": 0.5500886731344438
-    },
-    {
+  "best_by_family": {
+    "matrix": {
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.5",
+      "family": "matrix",
+      "quality": 0.7962066182405165,
+      "cost_per_call_usd": 0.0028788470085552866,
+      "quality_vs_best_single": 0.9545234639574262,
+      "savings_vs_best_single": 0.5941964575567136,
       "lam_cost": 0.5,
-      "quality_vs_best_single": 0.972907595549105,
-      "savings_vs_best_single": 0.42689365655171485
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": 0.5582483087285702,
+      "margin_vs_us": 0.035948148828143345,
+      "verdict": "beats us"
     },
-    {
-      "lam_cost": 0.4,
-      "quality_vs_best_single": 0.9743589743589743,
-      "savings_vs_best_single": 0.3613044939329264
-    },
-    {
-      "lam_cost": 0.3,
+    "knn": {
+      "policy": "k-NN retrieval (k=32), lam_c=0.2",
+      "family": "knn",
+      "quality": 0.8155770782889427,
+      "cost_per_call_usd": 0.005351900845520581,
       "quality_vs_best_single": 0.9777455249153362,
-      "savings_vs_best_single": 0.28290642373714037
-    },
-    {
-      "lam_cost": 0.25,
-      "quality_vs_best_single": 0.9859700048379294,
-      "savings_vs_best_single": 0.24465118799436192
-    },
-    {
-      "lam_cost": 0.05,
-      "quality_vs_best_single": 0.9927431059506531,
-      "savings_vs_best_single": -0.840560567312155
-    },
-    {
-      "lam_cost": 0.1,
-      "quality_vs_best_single": 0.9937106918238993,
-      "savings_vs_best_single": -0.20238154682942544
-    },
-    {
+      "savings_vs_best_single": 0.2455936993305622,
       "lam_cost": 0.2,
-      "quality_vs_best_single": 0.9937106918238993,
-      "savings_vs_best_single": 0.2008912773516366
-    },
-    {
-      "lam_cost": 0.15,
-      "quality_vs_best_single": 0.9946782776971456,
-      "savings_vs_best_single": 0.09238369738379593
+      "models_used": 11,
+      "our_savings_at_matched_quality": 0.28290642373714037,
+      "margin_vs_us": -0.03731272440657818,
+      "verdict": "loses to us"
     }
+  },
+  "best_by_family_unrestricted": {
+    "cascade": {
+      "policy": "cascade (FrugalGPT-style), tau=0.7",
+      "family": "cascade",
+      "quality": 0.804681194511703,
+      "cost_per_call_usd": 0.009238171901937046,
+      "quality_vs_best_single": 0.9646831156265118,
+      "savings_vs_best_single": -0.302216780664359,
+      "tau": 0.7,
+      "mean_attempts": 4.832929782082324,
+      "wasted_spend_share": 0.4545194086136811,
+      "our_savings_at_matched_quality": 0.48673123603475493,
+      "margin_vs_us": -0.7889480166991139,
+      "verdict": "loses to us"
+    },
+    "matrix": {
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.05",
+      "family": "matrix",
+      "quality": 0.8260694108151735,
+      "cost_per_call_usd": 0.009287952231234867,
+      "quality_vs_best_single": 0.9903241412675374,
+      "savings_vs_best_single": -0.30923383781015934,
+      "lam_cost": 0.05,
+      "bridge_r2": 0.14307386992060245,
+      "our_savings_at_matched_quality": -0.4529849404169629,
+      "margin_vs_us": 0.14375110260680357,
+      "verdict": "beats us"
+    },
+    "hybrid": {
+      "policy": "HybridLLM-style, gap >= 0.2",
+      "family": "hybrid",
+      "quality": 0.8010492332526231,
+      "cost_per_call_usd": 0.01736771377029863,
+      "quality_vs_best_single": 0.9603289791969037,
+      "savings_vs_best_single": -1.4481605834500804,
+      "threshold": 0.2,
+      "large_share": 0.7167070217917676,
+      "our_savings_at_matched_quality": 0.5184099545845985,
+      "margin_vs_us": -1.966570538034679,
+      "verdict": "loses to us"
+    },
+    "knn": {
+      "policy": "k-NN retrieval (k=32), lam_c=0.2",
+      "family": "knn",
+      "quality": 0.8155770782889427,
+      "cost_per_call_usd": 0.005351900845520581,
+      "quality_vs_best_single": 0.9777455249153362,
+      "savings_vs_best_single": 0.2455936993305622,
+      "lam_cost": 0.2,
+      "models_used": 11,
+      "our_savings_at_matched_quality": 0.28290642373714037,
+      "margin_vs_us": -0.03731272440657818,
+      "verdict": "loses to us"
+    }
+  },
+  "useful_quality_floor": 0.95,
+  "families_with_no_useful_point": [
+    "cascade",
+    "hybrid"
   ],
   "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
   "n_test_items": 1239,
-  "beaten_by": [],
-  "tied_with": [
-    "matrix factorisation, rank 8",
-    "matrix factorisation, rank 16"
+  "families_compared": [
+    "cascade",
+    "cascade-oracle",
+    "classifier",
+    "hybrid",
+    "knn",
+    "matrix",
+    "no-routing"
   ],
-  "reading": "Compared at matched quality rather than a fixed bar: no strategy beats this router; 2 is within 2 points of it (matrix factorisation, rank 8, matrix factorisation, rank 16). Every cascade variant loses badly because it pays for each attempt \u2014 at \u03c4=0.8 it holds 98.5% of quality and spends 4.6x what we do."
+  "beaten_by": [
+    "matrix"
+  ],
+  "tied_with": [],
+  "reading": "Six published families swept across their own dials and compared to ours at matched quality. Only points that actually save money at >=95% quality count \u2014 beating us while spending more than the do-nothing policy is not a comparison. Beaten by: matrix. None ties it. No useful operating point at all: cascade, hybrid. Cascades lose structurally because they pay for every attempt. ONE SPLIT: the beaten-by and tied verdicts here are a single train/test split and do not survive on their own \u2014 over eight splits the margins move by more than they are worth. Read chutes/22_baseline_margins.json before quoting either. The 'no useful operating point' verdicts are the ones that hold on every split, because their cause is structural.",
+  "single_split_caveat": "beats/ties verdicts are measured on one split; see chutes/22_baseline_margins.json for the interval and the split spread"
 }

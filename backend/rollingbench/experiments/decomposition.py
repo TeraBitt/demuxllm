@@ -437,6 +437,51 @@ def tune_gammas(
     }
 
 
+def paired_verdict(diffs: np.ndarray, what: str, alpha: float = 0.05) -> dict:
+    """Paired difference against zero, by a t-test rather than a 2-SE rule.
+
+    This used to read `mean > 2 * se`, which is the normal approximation. With
+    eight seeds it is the wrong critical value — t(0.975, 7) is 2.365, not 1.96 —
+    and the gap is not academic: it is exactly wide enough to have called the
+    high-drift γ-decomposition arm "supported" at mean/se = 2.04, where the
+    correct test gives p = 0.08. Small-n is the whole regime here, so the
+    approximation that only bites at small n is the one that must not be used.
+
+    `supported` keeps the directional requirement — the claims are all of the
+    form "X beats Y", so a significant difference the wrong way is not support —
+    but the significance half is now the two-sided p, which is the conservative
+    reading and the one a correction procedure can consume.
+    """
+    from scipy import stats
+
+    n = len(diffs)
+    mean = float(diffs.mean())
+    sd = float(diffs.std(ddof=1)) if n > 1 else 0.0
+    se = sd / np.sqrt(n) if n > 1 and sd > 0 else float("inf")
+    t_stat = mean / se if np.isfinite(se) and se > 0 else 0.0
+    p = float(2 * stats.t.sf(abs(t_stat), df=n - 1)) if n > 1 and se > 0 else 1.0
+    t_crit = float(stats.t.ppf(1 - alpha / 2, df=n - 1)) if n > 1 else float("inf")
+    supported = bool(mean > 0 and sd > 0 and p <= alpha)
+    return {
+        "claim": what,
+        "mean_regret_reduction": mean,
+        "sd_across_seeds": sd,
+        "std_error": float(se),
+        "n_seeds": int(n),
+        "t": float(t_stat),
+        "t_critical_two_sided": t_crit,
+        "p_value": p,
+        "test": f"two-sided paired t against zero, df={n - 1}, alpha={alpha}",
+        "supported": supported,
+        "reading": (
+            f"{what}: reduces mean regret by {mean:+.4f} ± {se:.4f} (SE over "
+            f"{n} seeds), t = {t_stat:+.2f} against a critical {t_crit:.2f}, "
+            f"p = {p:.3f} — "
+            f"{'supported' if supported else 'NOT distinguishable from noise'}"
+        ),
+    }
+
+
 def replicate(
     lm: LabelMatrix,
     X: np.ndarray,
@@ -494,22 +539,6 @@ def replicate(
     paired_dec = np.array(per_arm[shared]) - np.array(per_arm[dec])
     paired_read = np.array(per_arm[learned]) - np.array(per_arm[shared])
 
-    def verdict(diffs: np.ndarray, what: str) -> dict:
-        mean, sd = float(diffs.mean()), float(diffs.std(ddof=1)) if len(diffs) > 1 else 0.0
-        se = sd / np.sqrt(len(diffs)) if len(diffs) > 1 else float("inf")
-        supported = bool(mean > 0 and sd > 0 and mean > 2 * se)
-        return {
-            "claim": what,
-            "mean_regret_reduction": mean,
-            "sd_across_seeds": sd,
-            "std_error": float(se),
-            "supported": supported,
-            "reading": (
-                f"{what}: reduces mean regret by {mean:+.4f} ± {se:.4f} (SE over "
-                f"{len(diffs)} seeds) — {'supported' if supported else 'NOT distinguishable from noise'}"
-            ),
-        }
-
     # Paired transient comparison: for each shock kind, does one arm absorb it with
     # less excess regret than another, across seeds?
     transient = {}
@@ -538,6 +567,6 @@ def replicate(
         "gammas": {"shared": gamma_shared, "quality": gamma_quality, "tokens": gamma_tokens},
         "per_arm": stats,
         "transient_by_shock_kind": transient,
-        "decomposition": verdict(paired_dec, "component-wise γ_q/γ_t vs one shared γ"),
-        "read_vs_learn": verdict(paired_read, "reading price live vs fitting it"),
+        "decomposition": paired_verdict(paired_dec, "component-wise γ_q/γ_t vs one shared γ"),
+        "read_vs_learn": paired_verdict(paired_read, "reading price live vs fitting it"),
     }

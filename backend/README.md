@@ -33,6 +33,15 @@ claims, the coverage finding replicated on a disjoint pool, and the published-ro
 baselines that were missing. Two of those corrections contradicted earlier claims, and both
 were fixed at source.
 
+Then **`PUBLISHING.md`**, which re-ran all of that at n > 1 and is where the package
+actually turned. The coverage finding stops being a replication and becomes a **cause**:
+present in 15 of 15 pools with uneven coverage, absent in 4 of 4 without, still there with
+the training-set size held fixed, and dialled up and down by changing nothing but the
+observation mask. It is also twice the size first reported. Going the other way, it
+retracts two things this repository had already published — a baseline that beat us on one
+split and does not across eight, and a decay effect called significant by a rule that is
+wrong at n = 8. Both fixed at source.
+
 Then `notebooks/09_chutes_pool.ipynb` for the pool the product actually serves,
 `07_verdicts.ipynb` for the research verdicts, `01`→`06` for the working, and `08` for
 the loss curves and how the model was sized.
@@ -133,10 +142,13 @@ before the projection ever saw it. (The first pass at this got it wrong: on a na
 the sweep pointed at d ≈ 108 and it took four splits at the wider hash to show the gain
 belonged to the encoder, not the dimension. Notebook 08 records both.)
 
-**Contribution 1 is not carrying its weight.** Per-component decay (γ_q, γ_t) is
-detectable only under continuous drift engineered to favour it (+0.0021 ± 0.0010,
-2.0 SE) and absent under the isolated-shock schedule
-(-0.0005 ± 0.0006) — while doubling the Gram state the artifact must carry.
+**Contribution 1 is not carrying its weight.** Per-component decay (γ_q, γ_t) is not
+detectable in either regime — +0.0021 ± 0.0010 under continuous drift engineered to
+favour it, −0.0005 ± 0.0006 under the isolated-shock schedule — while doubling the Gram
+state the artifact must carry. *Corrected: the drift arm was previously reported as
+detectable at "2.0 SE". That used a normal approximation on eight seeds, where the
+critical value is t(0.975, 7) = 2.365; the two-sided t-test gives p = 0.081. See
+`PUBLISHING.md` §5.*
 Separately, §8.4's suggested γ ≈ 0.999 is *worse* than no forgetting at all on this corpus.
 The read-versus-learn half (1b) is worth keeping, for a reason the proposal does not give: a
 learned-cost target conflates quality and cost, so a quality regression contaminates the
@@ -204,15 +216,21 @@ enters the argmax. Calibration is a pipeline stage now, not a constant: the dial
 to the loosest value that still holds 99% of the best single model's quality, which is
 λ_c = 0.2 here. `tests/test_chutes.py` pins the failure so it cannot quietly return.
 
-**Ten times more training data made the router worse.** Training on every graded item
-(23,795) instead of the fully-observed core (2,302) costs **twelve points** of quality
-retention — 88.1% against 100.3%. The columns are graded on different task mixes, so
-their weights are fitted over different regions of feature space and stop being
-comparable at the argmax, and the small open models — run on 22 tasks including easy
-ones the large models never saw — extrapolate confidently onto hard items. Coverage has
-to be shared across columns, or more data is a liability. This is the same coverage
-pathology the shared-Gram result above is about, arriving through the training set
-instead of through the Gram matrix.
+**Uneven coverage made the router worse, and ten times the data did not save it.**
+Training on every graded item (23,795) instead of the fully-observed core (2,302) costs
+**twelve points** of quality retention — 88.1% against 100.3%. The columns are graded on
+different task mixes, so their weights are fitted over different regions of feature space
+and stop being comparable at the argmax, and the small open models — run on 22 tasks
+including easy ones the large models never saw — extrapolate confidently onto hard items.
+This is the same coverage pathology the shared-Gram result above is about, arriving
+through the training set instead of through the Gram matrix.
+
+The framing above was originally "ten times the data made it worse", which conflated two
+effects with opposite signs. A third arm — the same unevenly covered items, **cut to the
+dense arm's size** — retains 85.9%, so the gap is **+14.5 points at equal n**, larger than
+with ten times the data. The volume was partly *compensating*. On two further pools the
+same holds, and the effect can be dialled up and down by changing nothing but the
+observation mask: `PUBLISHING.md` §1.
 
 **470 cells were failed calls wearing the costume of measurements.** Zero input tokens,
 zero output tokens, and a score of exactly 0.0 where every other cell averages 0.60.
@@ -320,12 +338,17 @@ scripts/
   export_frontend.py    emit the measured DECAY_SERIES for src/lib/data.ts
 notebooks/              01…10, executed, with figures embedded
                         09 is the product's pool, 10 the statistics; 01–08 RouterBench
+  publish_close.py      the second pass over PUBLISHABILITY.md §6 (`make publish`)
+  measure_latency.py    timed endpoint probe — latency in seconds, not tokens
 RESULTS.md              what we got, and how far it is from shippable
 PUBLISHABILITY.md       what each finding will bear, graded by evidence tier
 RIGOR.md                the watch-list, actioned — CIs, corrections, replication
+PUBLISHING.md           the same list re-run at n > 1: one cause found, two retractions
+GRADED_RUN.md           the paid run — 4 of 13 slots measured on a real endpoint
+PM_UPDATE.md            the same story for a product manager, step by step
 artifacts/              every number the analysis quotes, as JSON
   chutes/               the Chutes pool, one artifact per pipeline stage
-tests/                  71 tests, each pinning a property a claim depends on
+tests/                  119 tests, each pinning a property a claim depends on
 ```
 
 The compute split matters: `run_all.py` does the work once and writes JSON; the notebooks

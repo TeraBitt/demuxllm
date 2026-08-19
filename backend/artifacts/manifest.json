@@ -10,13 +10,6 @@
     "staleness"
   ],
   "ran_this_invocation": [
-    "overview",
-    "scaling",
-    "frontier",
-    "staleness",
-    "gram",
-    "metric",
-    "coldstart",
     "decomposition"
   ],
   "quick": false,
@@ -38,5 +31,5 @@
   "feature_dim": 64,
   "n_train": 25000,
   "n_test": 11497,
-  "elapsed_seconds": 797.0
+  "elapsed_seconds": 126.8
 }

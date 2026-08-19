@@ -1,0 +1,173 @@
+{
+  "reference_seed": 0,
+  "n_test_items": 1239,
+  "useful_quality_floor": 0.95,
+  "item_bootstrap": {
+    "matrix": {
+      "policy": "matrix factorisation (RouteLLM-style), lam_c=0.5",
+      "margin_point_estimate": 0.035948148828143345,
+      "mean": 0.05850271386308635,
+      "lo": -0.05293606094262909,
+      "hi": 0.2595360832492234,
+      "se": 0.07856769529272001,
+      "draws_in_range": 1871,
+      "n_boot": 2000,
+      "p_beats_us": 0.7781934794227686,
+      "interval_excludes_zero": false
+    },
+    "knn": {
+      "policy": "k-NN retrieval (k=32), lam_c=0.2",
+      "margin_point_estimate": -0.03731272440657818,
+      "mean": -0.008539901616519774,
+      "lo": -0.29197511222810796,
+      "hi": 0.816623676487367,
+      "se": 0.2547871602550288,
+      "draws_in_range": 1960,
+      "n_boot": 2000,
+      "p_beats_us": 0.3025510204081633,
+      "interval_excludes_zero": false
+    }
+  },
+  "across_splits": {
+    "matrix": {
+      "n_splits_with_a_useful_point": 7,
+      "of_seeds": 8,
+      "mean": -0.06572511066435979,
+      "sd": 0.0776507307348938,
+      "min": -0.16676508544691754,
+      "max": 0.035948148828143345,
+      "beats_us_in": 2,
+      "values": [
+        0.035948148828143345,
+        -0.139534234434602,
+        -0.10117642756709366,
+        -0.16676508544691754,
+        0.02649465292941,
+        -0.06951347478538306,
+        -0.04552935417407561
+      ]
+    },
+    "knn": {
+      "n_splits_with_a_useful_point": 8,
+      "of_seeds": 8,
+      "mean": -0.0010326356272508871,
+      "sd": 0.18420805537709356,
+      "min": -0.19282857209342985,
+      "max": 0.4245482463339387,
+      "beats_us_in": 2,
+      "values": [
+        -0.03731272440657818,
+        -0.09345969082908467,
+        -0.02987004870903398,
+        -0.19282857209342985,
+        0.023753100801865434,
+        0.4245482463339387,
+        -0.011449489546720149,
+        -0.09164190656896437
+      ]
+    }
+  },
+  "per_seed": [
+    {
+      "seed": 0,
+      "beaten_by": [
+        "matrix"
+      ],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid"
+      ],
+      "matrix": 0.035948148828143345,
+      "knn": -0.03731272440657818
+    },
+    {
+      "seed": 1,
+      "beaten_by": [],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid"
+      ],
+      "matrix": -0.139534234434602,
+      "knn": -0.09345969082908467
+    },
+    {
+      "seed": 2,
+      "beaten_by": [],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid",
+        "no-routing"
+      ],
+      "matrix": -0.10117642756709366,
+      "knn": -0.02987004870903398
+    },
+    {
+      "seed": 3,
+      "beaten_by": [],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid"
+      ],
+      "matrix": -0.16676508544691754,
+      "knn": -0.19282857209342985
+    },
+    {
+      "seed": 4,
+      "beaten_by": [
+        "matrix",
+        "knn"
+      ],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid",
+        "no-routing"
+      ],
+      "matrix": 0.02649465292941,
+      "knn": 0.023753100801865434
+    },
+    {
+      "seed": 5,
+      "beaten_by": [
+        "knn"
+      ],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid"
+      ],
+      "matrix": -0.06951347478538306,
+      "knn": 0.4245482463339387
+    },
+    {
+      "seed": 6,
+      "beaten_by": [],
+      "tied_with": [
+        "knn"
+      ],
+      "no_useful_point": [
+        "cascade",
+        "hybrid",
+        "matrix"
+      ],
+      "knn": -0.011449489546720149
+    },
+    {
+      "seed": 7,
+      "beaten_by": [],
+      "tied_with": [],
+      "no_useful_point": [
+        "cascade",
+        "hybrid",
+        "no-routing"
+      ],
+      "matrix": -0.04552935417407561,
+      "knn": -0.09164190656896437
+    }
+  ],
+  "reading": "The headline negative result \u2014 matrix factorisation +3.6% against us at matched quality \u2014 carries an item-bootstrap interval of [-5.3%, +26.0%] and is positive in 78% of draws. Across 8 training splits it is -6.6% \u00b1 7.8% (sd), ranging -16.7% to +3.6%, and clears the 2-point margin in 2 of 7 splits where it had a useful operating point at all. The interval contains zero \u2014 the point estimate overstates how settled this is."
+}

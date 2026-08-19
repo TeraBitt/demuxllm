@@ -1,0 +1,470 @@
+{
+ "proxy_backed": false,
+ "trained_on": "our own measurements, four real checkpoints",
+ "n_items": 55,
+ "n_models": 4,
+ "feature_dim": 48,
+ "calibration": {
+  "lam_cost": 1.6,
+  "ridge": 10.0,
+  "grid": [
+   {
+    "lam_cost": 0.0,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": 0.2951,
+     "sd": 0.1352,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9886,
+     "sd": 0.0516,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.0,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": 0.2716,
+     "sd": 0.1007,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9742,
+     "sd": 0.0416,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.0,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": 0.1514,
+     "sd": 0.1154,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.965,
+     "sd": 0.0479,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.0,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.0304,
+     "sd": 0.0828,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9896,
+     "sd": 0.0361,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": 0.3721,
+     "sd": 0.1003,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9792,
+     "sd": 0.0547,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": 0.3918,
+     "sd": 0.1564,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.95,
+     "sd": 0.0568,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": 0.3779,
+     "sd": 0.2054,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9552,
+     "sd": 0.052,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.2866,
+     "sd": 0.2668,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 0.9706,
+     "sd": 0.0397,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": -15.0592,
+     "sd": 9.1544,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0582,
+     "sd": 0.0341,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": -13.5266,
+     "sd": 8.6757,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0366,
+     "sd": 0.0325,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": -10.5172,
+     "sd": 6.7652,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0374,
+     "sd": 0.0333,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": -4.5336,
+     "sd": 5.2945,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0098,
+     "sd": 0.0229,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": -16.4472,
+     "sd": 5.6652,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0582,
+     "sd": 0.0341,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": -13.8103,
+     "sd": 4.7337,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0366,
+     "sd": 0.0325,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": -6.0338,
+     "sd": 3.7095,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0255,
+     "sd": 0.0315,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.0,
+     "sd": 0.0,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0,
+     "sd": 0.0,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": -12.4283,
+     "sd": 6.4799,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0484,
+     "sd": 0.0409,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": -7.9112,
+     "sd": 4.7499,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0331,
+     "sd": 0.0348,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": -2.1287,
+     "sd": 2.6777,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0101,
+     "sd": 0.0236,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.0,
+     "sd": 0.0,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0,
+     "sd": 0.0,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.8,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": -8.9992,
+     "sd": 5.8321,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0318,
+     "sd": 0.0513,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.8,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": -4.1803,
+     "sd": 4.2134,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0099,
+     "sd": 0.0353,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.8,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": -0.5422,
+     "sd": 1.2671,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0101,
+     "sd": 0.0236,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 0.8,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.0,
+     "sd": 0.0,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0,
+     "sd": 0.0,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 1.6,
+    "ridge": 0.1,
+    "savings_pct": {
+     "mean": -6.8685,
+     "sd": 5.0464,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.021,
+     "sd": 0.041,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 1.6,
+    "ridge": 1.0,
+    "savings_pct": {
+     "mean": -2.5539,
+     "sd": 3.2392,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0003,
+     "sd": 0.0276,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 1.6,
+    "ridge": 10.0,
+    "savings_pct": {
+     "mean": -0.3179,
+     "sd": 0.9097,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0049,
+     "sd": 0.017,
+     "n": 12
+    }
+   },
+   {
+    "lam_cost": 1.6,
+    "ridge": 100.0,
+    "savings_pct": {
+     "mean": 0.0,
+     "sd": 0.0,
+     "n": 12
+    },
+    "quality_ratio": {
+     "mean": 1.0,
+     "sd": 0.0,
+     "n": 12
+    }
+   }
+  ]
+ },
+ "headline_over_splits": {
+  "savings_vs_best_single_pct": {
+   "mean": -0.3179,
+   "sd": 0.9097,
+   "n": 12
+  },
+  "quality_vs_best_single": {
+   "mean": 1.0049,
+   "sd": 0.017,
+   "n": 12
+  },
+  "router_quality": {
+   "mean": 0.8421,
+   "sd": 0.0744,
+   "n": 12
+  },
+  "router_cost": {
+   "mean": 0.0006,
+   "sd": 0.0005,
+   "n": 12
+  },
+  "oracle_quality": {
+   "mean": 0.9474,
+   "sd": 0.0317,
+   "n": 12
+  }
+ },
+ "n_splits": 12,
+ "traffic_share": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.9912,
+  "moonshotai/Kimi-K2.6-TEE": 0.0,
+  "moonshotai/Kimi-K3-TEE": 0.0044,
+  "zai-org/GLM-5.2-TEE": 0.0044
+ },
+ "best_single_by_split": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 12
+ },
+ "per_model": {
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+   "accuracy": 0.8182,
+   "cost_per_call": 0.00045,
+   "mean_tokens_out": 1526.9
+  },
+  "moonshotai/Kimi-K2.6-TEE": {
+   "accuracy": 0.8909,
+   "cost_per_call": 0.014418,
+   "mean_tokens_out": 4212.0
+  },
+  "moonshotai/Kimi-K3-TEE": {
+   "accuracy": 0.8727,
+   "cost_per_call": 0.017457,
+   "mean_tokens_out": 1114.2
+  },
+  "zai-org/GLM-5.2-TEE": {
+   "accuracy": 0.8909,
+   "cost_per_call": 0.014181,
+   "mean_tokens_out": 3535.3
+  }
+ },
+ "artifact": {
+  "path": "/home/yogesh/Documents/work/demuxllm/backend/artifacts/grading/router_real.npz",
+  "bytes": 542740,
+  "in_memory_bytes": 75280
+ },
+ "caveat": "n=55 items, 4 of 13 slots, 4 of 9 benchmarks, and the item set is the subset every model answered without truncating \u2014 which skews easy. Quote the spread, never the point estimate."
+}

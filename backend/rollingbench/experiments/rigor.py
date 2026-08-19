@@ -21,6 +21,10 @@ This module fixes what can be fixed with compute rather than money:
 What it cannot fix: the labels are still stand-ins, and there is still no timed
 endpoint. Both need spending, not arithmetic.
 
+Every function here answers "is the effect there?" at n = 1 — one replication, one
+split, one family. `publish.py` is the second pass that asks how big each one is and
+whether it moves when the mechanism says it should, and two of the answers changed.
+
 A note on the bootstrap. Items are resampled, not cells, because the unit of
 independence is the question — the same prompt answered by thirteen models is one
 observation, and resampling cells would treat it as thirteen and shrink every
@@ -236,44 +240,77 @@ REPLICATION_POOL: tuple[str, ...] = (
 )
 
 
-def replicate_coverage_bias(
-    cache=None, *, seed: int = 0, lams: tuple[float, ...] = (1.0, 10.0, 100.0),
+def coverage_bias_for_pool(
+    models: list[str],
+    *,
+    cache=None,
+    seed: int = 0,
+    lams: tuple[float, ...] = (1.0, 10.0, 100.0),
 ) -> dict:
-    """Re-run the dense-vs-union ablation on a disjoint pool.
+    """The dense-vs-union ablation on an arbitrary thirteen-model pool.
 
-    The original finding — training on ten times the data costs twelve points of
-    quality retention — is the most novel thing in this repository and was measured
-    once, on one pool. This is the cheapest possible replication: same corpus,
-    same code path, thirteen different models.
+    Factored out of `replicate_coverage_bias` so the same code path can be pointed at
+    any pool — which is what `publish.coverage_bias_dose_response` needs in order to
+    ask whether the effect tracks coverage asymmetry or is a property of one pool.
+
+    Thirteen columns exactly, because the price ladder and `pool_state` are the
+    Chutes catalogue's and are indexed positionally. Prices do not enter the
+    comparison — both arms run at ``lam_cost = 0``, where the cost term drops out of
+    the argmax — but `decide` still needs a table of the right length.
     """
+    from ..catalog import CHUTES_CATALOG as _CAT
+
+    if len(models) != len(_CAT):
+        raise ValueError(
+            f"pool must have {len(_CAT)} columns to reuse the catalogue price ladder, "
+            f"got {len(models)}")
+    if len(set(models)) != len(models):
+        raise ValueError("pool contains a duplicated column")
+
+    lm, tokens_in = load_pool_matrix(models, cache=cache)
+    out = dense_union_ablation(lm, tokens_in, seed=seed, lams=lams)
+    # The ablation reports the columns it routed over, which are catalogue slots. The
+    # caller asked about source models, and which ones they were is the whole point of
+    # a replication, so name them.
+    out["pool"] = list(models)
+    out["columns"] = list(lm.model_ids)
+    return out
+
+
+def load_pool_matrix(models: list[str], *, cache=None):
+    """A thirteen-column matrix for an arbitrary pool, priced off the catalogue ladder."""
     from ..data import llmrouterbench
-    from ..data.cache import features_for
-    from ..catalog import CHUTES_PROXY
+    from ..catalog import CHUTES_CATALOG as _CAT
 
-    overlap = set(REPLICATION_POOL) & {b.proxy_id for b in CHUTES_PROXY}
-    if overlap:
-        raise ValueError(f"replication pool is not disjoint: {sorted(overlap)}")
-
-    lm = (llmrouterbench.load(cache, models=list(REPLICATION_POOL)) if cache
-          else llmrouterbench.load(models=list(REPLICATION_POOL)))
-    tokens_in = (llmrouterbench.tokens_in_for(cache, models=list(REPLICATION_POOL))
-                 if cache else llmrouterbench.tokens_in_for(models=list(REPLICATION_POOL)))
+    kw = {"cache": cache} if cache is not None else {}
+    lm = llmrouterbench.load(models=list(models), **kw)
+    tokens_in = llmrouterbench.tokens_in_for(models=list(models), **kw)
     keep = np.flatnonzero(lm.observed.any(axis=1))
     lm, tokens_in = lm.subset_items(keep), tokens_in[keep]
 
     failed = lm.observed & (tokens_in <= 0) & (lm.tokens_out <= 0)
     lm.observed = lm.observed & ~failed
 
-    # Prices are irrelevant to this comparison — the ablation is run at lam_cost = 0,
-    # where the cost term drops out of the argmax entirely — but `decide` needs a
-    # table, so the Chutes ladder is reused for its shape.
-    price_in = np.array([m.in_per_1m for m in CHUTES_CATALOG])
-    price_out = np.array([m.out_per_1m for m in CHUTES_CATALOG])
+    price_in = np.array([m.in_per_1m for m in _CAT])
+    price_out = np.array([m.out_per_1m for m in _CAT])
     lm.cost = np.where(
         lm.observed,
         (tokens_in / 1e6) * price_in[None, :] + (lm.tokens_out / 1e6) * price_out[None, :],
         0.0)
-    lm.model_ids = [m.id for m in CHUTES_CATALOG]
+    lm.model_ids = [m.id for m in _CAT]
+    return lm, tokens_in
+
+
+def dense_union_ablation(lm, tokens_in, *, seed: int = 0,
+                         lams: tuple[float, ...] = (1.0, 10.0, 100.0)) -> dict:
+    """Train on the fully-observed core, on everything, and on a size-matched sample.
+
+    Three arms, because two cannot answer the question. `dense` and `union` differ in
+    both coverage and size, so a gap between them is equally consistent with "uneven
+    coverage hurts" and "more data hurts". `union_matched_n` holds the size at the
+    dense arm's and varies only the coverage.
+    """
+    from ..data.cache import features_for
 
     train, test = split(lm, seed=seed)
     X, _ = features_for(lm, fit_idx=train, verbose=False)
@@ -285,9 +322,21 @@ def replicate_coverage_bias(
     fc = frontier_reference_column(lm.quality[_dense(lm, np.arange(lm.n_items))])
     base = float(q[:, fc].mean())
 
+    tr_dense, _ = split(lm, seed=seed, train_on="dense")
+    tr_union, _ = split(lm, seed=seed, train_on="union")
+    # The arm that decides what the effect is *about*. `union` differs from `dense`
+    # in two ways at once — it is unevenly covered and it is ten times larger — so a
+    # gap between them is consistent with "uneven coverage hurts" and equally with
+    # "more data hurts". This third arm holds the size fixed and varies only the
+    # coverage: a random subset of the union training items, exactly as many as the
+    # dense arm gets. If the gap survives here it is not about quantity.
+    rng_sub = np.random.default_rng(seed + 977)
+    tr_matched = (np.sort(rng_sub.choice(tr_union, size=len(tr_dense), replace=False))
+                  if len(tr_union) > len(tr_dense) else tr_union)
+    train_sets = {"dense": tr_dense, "union": tr_union, "union_matched_n": tr_matched}
+
     arms = []
-    for mode in ("dense", "union"):
-        tr, _ = split(lm, seed=seed, train_on=mode)
+    for mode, tr in train_sets.items():
         for lam in lams:
             r, _ = train_router(lm, X, tr, lam_cost=0.0, lam=lam)
             choice = r.decide(X[test], ps, tokens_in=tin).choice
@@ -295,20 +344,76 @@ def replicate_coverage_bias(
             arms.append({
                 "train_on": mode, "ridge_lam": lam,
                 "train_items": int(len(tr)),
+                "dense_share_of_train": float(
+                    lm.observed[tr].all(axis=1).mean()) if len(tr) else 0.0,
                 "val_brier": float(((pred - q) ** 2).mean()),
                 "quality_vs_frontier": float(q[rows_idx, choice].mean() / max(base, 1e-12)),
             })
 
     best = {m: max((a for a in arms if a["train_on"] == m),
-                   key=lambda a: a["quality_vs_frontier"]) for m in ("dense", "union")}
-    gap = best["dense"]["quality_vs_frontier"] - best["union"]["quality_vs_frontier"]
+                   key=lambda a: a["quality_vs_frontier"]) for m in train_sets}
+    dense_items = int(lm.observed.all(axis=1).sum())
+    union_items = int(lm.observed.any(axis=1).sum())
+    # The dose. Coverage is asymmetric exactly to the extent that the union of graded
+    # items exceeds their intersection; a pool whose columns were all graded on the
+    # same tasks has a ratio of 1 and, by the mechanism, no effect to find.
     return {
-        "pool": list(REPLICATION_POOL),
-        "disjoint_from_chutes_proxies": True,
-        "dense_core_items": int(lm.observed.all(axis=1).sum()),
+        "pool": list(lm.model_ids),
+        "n_models": lm.n_models,
+        "dense_core_items": dense_items,
+        "union_items": union_items,
+        "coverage_asymmetry": float(1.0 - dense_items / max(union_items, 1)),
         "arms": arms,
         "dense_best": best["dense"], "union_best": best["union"],
-        "gap_points": gap,
+        "union_matched_n_best": best["union_matched_n"],
+        "gap_points": best["dense"]["quality_vs_frontier"]
+                      - best["union"]["quality_vs_frontier"],
+        "gap_at_matched_n": best["dense"]["quality_vs_frontier"]
+                            - best["union_matched_n"]["quality_vs_frontier"],
+    }
+
+
+#: Thirteen models sharing no column with `CHUTES_PROXY`, in the same shape: some
+#: graded on 22 tasks, some on 14, so the coverage asymmetry that produced the
+#: original finding is present here too. If the finding is real it reappears; if it
+#: was a property of the particular thirteen, it does not.
+REPLICATION_POOL: tuple[str, ...] = (
+    # large, 14-task coverage
+    "claude-sonnet-4", "deepseek-r1-0528", "deepseek-v3-0324",
+    "gemini-2.5-flash", "gpt-5-chat",
+    # small, 22-task coverage
+    "GLM-Z1-9B-0414", "MiniCPM4.1-8B", "Intern-S1-mini",
+    "Llama-3.1-Nemotron-Nano-8B-v1", "DeepSeek-R1-Distill-Qwen-7B",
+    "OpenThinker3-7B", "granite-3.3-8b-instruct", "internlm3-8b-instruct",
+)
+
+
+def replicate_coverage_bias(
+    cache=None, *, seed: int = 0, lams: tuple[float, ...] = (1.0, 10.0, 100.0),
+) -> dict:
+    """Re-run the dense-vs-union ablation on a disjoint pool.
+
+    The original finding — training on ten times the data costs twelve points of
+    quality retention — is the most novel thing in this repository and was measured
+    once, on one pool. This is the cheapest possible replication: same corpus,
+    same code path, thirteen different models.
+
+    One replication answers "is it real here too". It does not answer "how large is
+    it, and does it track the mechanism" — for that see
+    `publish.coverage_bias_dose_response`, which runs this over a designed sweep of
+    pools including two arms where the mechanism predicts no effect at all.
+    """
+    from ..catalog import CHUTES_PROXY
+
+    overlap = set(REPLICATION_POOL) & {b.proxy_id for b in CHUTES_PROXY}
+    if overlap:
+        raise ValueError(f"replication pool is not disjoint: {sorted(overlap)}")
+
+    out = coverage_bias_for_pool(list(REPLICATION_POOL), cache=cache, seed=seed, lams=lams)
+    gap = out["gap_points"]
+    best = {"dense": out["dense_best"], "union": out["union_best"]}
+    out.update({
+        "disjoint_from_chutes_proxies": True,
         "replicates": bool(gap > 0),
         "reading": (
             f"On thirteen models sharing no column with the first pool, dense-core "
@@ -317,9 +422,14 @@ def replicate_coverage_bias(
             f"{best['union']['quality_vs_frontier']:.1%} on "
             f"{best['union']['train_items']:,}. The finding "
             f"{'replicates' if gap > 0 else 'does NOT replicate'} — gap "
-            f"{gap:+.1%} against the original +12.2%."
+            f"{gap:+.1%} against the original +12.2%. Held at the dense arm's own "
+            f"size, so that only the coverage differs, the unevenly covered arm "
+            f"retains {out['union_matched_n_best']['quality_vs_frontier']:.1%} and the "
+            f"gap is {out['gap_at_matched_n']:+.1%} — the effect is coverage, not "
+            f"quantity."
         ),
-    }
+    })
+    return out
 
 
 # --------------------------------------------------------------- workload mix --
@@ -392,7 +502,8 @@ def workload_mix(
             f"model. Reweighted to {mostly_easy['easy_share']:.0%} easy traffic it is "
             f"{mostly_easy['savings_vs_best_single']:.1%} cheaper, with the open tier "
             f"carrying {mostly_easy['open_tier_share']:.1%} against "
-            f"{all_hard['open_tier_share']:.1%}. The headline figures are measured "
-            f"where routing is hardest."
+            f"{all_hard['open_tier_share']:.1%}. Savings are flat across the range, so "
+            f"the headline is robust to workload mix rather than a conservative lower "
+            f"bound for it — see RIGOR.md §4, which retracts the earlier claim."
         ),
     }

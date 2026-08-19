@@ -7,17 +7,17 @@
       "cached_in_per_1m": 0.010399999999999998,
       "ctx": 40960
     },
-    "Qwen/Qwen3.5-397B-A17B-TEE": {
+    "Qwen/Qwen3.8-27B-TEE": {
       "in_per_1m": 0.45,
-      "out_per_1m": 3.0,
+      "out_per_1m": 3.2,
       "cached_in_per_1m": 0.04499999999999999,
       "ctx": 262144
     },
-    "zai-org/GLM-5.1-TEE": {
-      "in_per_1m": 0.98,
-      "out_per_1m": 3.08,
-      "cached_in_per_1m": 0.09799999999999998,
-      "ctx": 202752
+    "Qwen/Qwen3.6-27B-TEE": {
+      "in_per_1m": 0.3,
+      "out_per_1m": 2.0,
+      "cached_in_per_1m": 0.029999999999999992,
+      "ctx": 262144
     },
     "google/gemma-4-31B-turbo-TEE": {
       "in_per_1m": 0.12,
@@ -25,16 +25,22 @@
       "cached_in_per_1m": 0.011999999999999997,
       "ctx": 131072
     },
+    "zai-org/GLM-5.1-TEE": {
+      "in_per_1m": 0.98,
+      "out_per_1m": 3.08,
+      "cached_in_per_1m": 0.09799999999999998,
+      "ctx": 202752
+    },
     "deepseek-ai/DeepSeek-V3.2-TEE": {
       "in_per_1m": 1.0,
       "out_per_1m": 1.0,
       "cached_in_per_1m": 0.09999999999999998,
       "ctx": 131072
     },
-    "Qwen/Qwen3.6-27B-TEE": {
-      "in_per_1m": 0.3,
-      "out_per_1m": 2.0,
-      "cached_in_per_1m": 0.029999999999999992,
+    "moonshotai/Kimi-K2.6-TEE": {
+      "in_per_1m": 0.58,
+      "out_per_1m": 3.4,
+      "cached_in_per_1m": 0.05799999999999998,
       "ctx": 262144
     },
     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
@@ -43,22 +49,16 @@
       "cached_in_per_1m": 0.013999999999999999,
       "ctx": 1048576
     },
-    "moonshotai/Kimi-K2.6-TEE": {
-      "in_per_1m": 0.58,
-      "out_per_1m": 3.4,
-      "cached_in_per_1m": 0.05799999999999998,
-      "ctx": 262144
-    },
-    "unsloth/Mistral-Nemo-Instruct-2407-TEE": {
-      "in_per_1m": 0.0245,
-      "out_per_1m": 0.0978,
-      "cached_in_per_1m": 0.0024499999999999995,
-      "ctx": null
-    },
     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
       "in_per_1m": 0.2989,
       "out_per_1m": 1.1957,
       "cached_in_per_1m": 0.029889999999999993,
+      "ctx": 262144
+    },
+    "Qwen/Qwen3.5-397B-A17B-TEE": {
+      "in_per_1m": 0.45,
+      "out_per_1m": 3.0,
+      "cached_in_per_1m": 0.04499999999999999,
       "ctx": 262144
     },
     "moonshotai/Kimi-K3-TEE": {
@@ -66,6 +66,12 @@
       "out_per_1m": 15.0,
       "cached_in_per_1m": 0.29999999999999993,
       "ctx": 1048576
+    },
+    "unsloth/Mistral-Nemo-Instruct-2407-TEE": {
+      "in_per_1m": 0.0245,
+      "out_per_1m": 0.0978,
+      "cached_in_per_1m": 0.0024499999999999995,
+      "ctx": null
     },
     "zai-org/GLM-5.2-TEE": {
       "in_per_1m": 1.25,
@@ -84,8 +90,10 @@
     "in_sync": true,
     "drift": [],
     "missing_from_live": [],
-    "served_live_but_not_in_catalogue": [],
-    "live_model_count": 13,
+    "served_live_but_not_in_catalogue": [
+      "Qwen/Qwen3.8-27B-TEE"
+    ],
+    "live_model_count": 14,
     "catalogue_model_count": 13
   },
   "shock": {

@@ -43,6 +43,7 @@ from ..catalog import (
     ProxyBinding,
     by_id,
     check_proxy_table,
+    proxy_for,
     proxy_ids,
 )
 from ..data import llmrouterbench
@@ -153,7 +154,17 @@ def coverage_ablation(lm: LabelMatrix, X: np.ndarray, tokens_in: np.ndarray,
                       seed: int = 0, lams: tuple[float, ...] = (1.0, 10.0, 100.0)) -> dict:
     """Does training on ten times the data help? Measured, because it does not.
 
-    Same held-out items in both arms; only the training set differs.
+    Same held-out items in every arm; only the training set differs.
+
+    Three arms, not two. `dense` and `union` differ in *both* their coverage and their
+    size, so a gap between them is equally consistent with "uneven coverage hurts" and
+    with "more data hurts" — and those have opposite implications for what to do about
+    it. `union_matched_n` trains on a random subset of the union items of exactly the
+    dense arm's size, so the quantity is held fixed and only the coverage varies. It is
+    the arm that says which of the two explanations is right, and on both pools where
+    this has been run the answer is coverage: the gap is *larger* at equal n, because
+    the union arm's extra volume was partly compensating for the damage. See
+    `publish.coverage_bias_dose_response` for the full argument.
     """
     _, test = split(lm, seed=seed)
     ps = pool_state()
@@ -163,9 +174,15 @@ def coverage_ablation(lm: LabelMatrix, X: np.ndarray, tokens_in: np.ndarray,
     frontier_col = frontier_reference_column(lm.quality[_dense(lm, np.arange(lm.n_items))])
     base = float(q[:, frontier_col].mean())
 
+    tr_dense, _ = split(lm, seed=seed, train_on="dense")
+    tr_union, _ = split(lm, seed=seed, train_on="union")
+    rng_sub = np.random.default_rng(seed + 977)
+    tr_matched = (np.sort(rng_sub.choice(tr_union, size=len(tr_dense), replace=False))
+                  if len(tr_union) > len(tr_dense) else tr_union)
+    train_sets = {"dense": tr_dense, "union": tr_union, "union_matched_n": tr_matched}
+
     arms = []
-    for mode in ("dense", "union"):
-        train, _ = split(lm, seed=seed, train_on=mode)
+    for mode, train in train_sets.items():
         for lam in lams:
             r, _ = train_router(lm, X, train, lam_cost=0.0, lam=lam)
             pred = r.quality.predict(X[test])
@@ -175,21 +192,35 @@ def coverage_ablation(lm: LabelMatrix, X: np.ndarray, tokens_in: np.ndarray,
                 "ridge_lam": lam,
                 "train_items": int(len(train)),
                 "train_cells": int(lm.observed[train].sum()),
+                "dense_share_of_train": float(lm.observed[train].all(axis=1).mean()),
                 "val_brier": float(((pred - q) ** 2).mean()),
                 "quality_at_lam_cost_0": float(q[rows, choice].mean()),
                 "quality_vs_frontier": float(q[rows, choice].mean() / max(base, 1e-12)),
             })
     best = {m: max((a for a in arms if a["train_on"] == m),
-                   key=lambda a: a["quality_vs_frontier"]) for m in ("dense", "union")}
+                   key=lambda a: a["quality_vs_frontier"]) for m in train_sets}
+    gap = (best["dense"]["quality_vs_frontier"]
+           - best["union"]["quality_vs_frontier"])
+    gap_n = (best["dense"]["quality_vs_frontier"]
+             - best["union_matched_n"]["quality_vs_frontier"])
     return {
         "arms": arms,
         "frontier_model": lm.model_ids[frontier_col],
+        "gap_points": gap,
+        "gap_at_matched_n": gap_n,
+        "cause": "coverage" if gap_n >= gap else "data volume",
         "reading": (
             f"dense-core training retains {best['dense']['quality_vs_frontier']:.1%} of "
             f"frontier quality on {best['dense']['train_items']:,} items; the union arm "
             f"has {best['union']['train_items'] / max(best['dense']['train_items'], 1):.0f}x "
-            f"the items and retains {best['union']['quality_vs_frontier']:.1%}. Uneven "
-            f"coverage across columns costs more than the extra data buys."
+            f"the items and retains {best['union']['quality_vs_frontier']:.1%}, a gap of "
+            f"{gap:+.1%}. Held at the dense arm's own size, so that only the coverage "
+            f"differs, it retains {best['union_matched_n']['quality_vs_frontier']:.1%} and "
+            f"the gap is {gap_n:+.1%} — "
+            + ("larger, so the extra data was partly compensating and the cause is the "
+               "uneven coverage, not the volume."
+               if gap_n >= gap else
+               "smaller, so part of the effect really is about training on more items.")
         ),
     }
 
@@ -209,10 +240,19 @@ def _dense(lm: LabelMatrix, idx: np.ndarray) -> np.ndarray:
     return d
 
 
-def pool_state() -> PoolState:
+def pool_state(slots: list[str] | None = None) -> PoolState:
+    """Live-lane prices for the pool being routed over.
+
+    `slots` names a sub-pool in column order, for the case where only part of the
+    catalogue is being evaluated — a graded run that could only reach four of the
+    thirteen endpoints, say. Defaulting to the full catalogue keeps every existing
+    caller unchanged; passing the wrong length here is a silent mis-pricing, so the
+    ids are resolved through `by_id` rather than positionally.
+    """
+    pool = CHUTES_CATALOG if slots is None else tuple(by_id(CHUTES_CATALOG, s) for s in slots)
     return PoolState(
-        price_in=np.array([m.in_per_1m for m in CHUTES_CATALOG]),
-        price_out=np.array([m.out_per_1m for m in CHUTES_CATALOG]),
+        price_in=np.array([m.in_per_1m for m in pool]),
+        price_out=np.array([m.out_per_1m for m in pool]),
     )
 
 
@@ -281,10 +321,14 @@ def evaluate(
     *,
     lam_cost: float = 0.05,
     seed: int = 0,
+    ps: PoolState | None = None,
 ) -> dict:
-    """Router against every baseline a reader would reasonably ask about."""
+    """Router against every baseline a reader would reasonably ask about.
+
+    `ps` overrides the price lane, for pools that are a subset of the catalogue.
+    """
     r, _ = train_router(lm, X, train, lam_cost=lam_cost)
-    ps = pool_state()
+    ps = ps if ps is not None else pool_state(list(lm.model_ids))
     tin = _tokens_in_per_item(tokens_in, lm.observed)[test]
 
     q, c = lm.quality[test], lm.cost[test]
@@ -987,28 +1031,122 @@ def cross_validate(
     }
 
 
-def save_artifact(router: RidgeLinUCBRouter, lm: LabelMatrix, path) -> dict:
+def load_artifact(path):
+    """Reconstruct a routable engine from disk. No corpus, no refit.
+
+    Returns `(router, feature_map, pool, model_ids)` — everything a gateway needs to
+    turn a prompt into a model choice:
+
+        router, fm, pool, ids = load_artifact("router_real.npz")
+        x = fm.transform([prompt])
+        choice = router.decide(x, pool).choice
+
+    The lanes store A and B, not the solved weights, because σ needs A. Only W and A
+    are written, so B is recovered as `A @ W` — exact up to the solve, and asserted
+    against the saved W on load rather than trusted.
+
+    Raises if the artifact predates `feature_map=` and therefore cannot transform a
+    prompt. That is deliberate: an engine that silently cannot compute its own inputs
+    is worse than one that refuses to load, because the failure surfaces as a
+    dimension error somewhere in a request path instead of here.
+    """
+    from pathlib import Path
+
+    from ..features import FeatureMap
+
+    z = np.load(Path(path), allow_pickle=True)
+    ids = [str(m) for m in z["model_ids"]]
+    k, d = len(ids), int(z["quality_W"].shape[0])
+
+    if "fm_basis" not in z:
+        raise ValueError(
+            f"{path} carries no feature map, so it cannot transform a prompt. "
+            "Re-save with save_artifact(..., feature_map=fm).")
+    fm = FeatureMap(n_components=int(z["fm_n_components"]),
+                    n_buckets=int(z["fm_n_buckets"]))
+    fm._mean, fm._basis, fm._scale = z["fm_mean"], z["fm_basis"], z["fm_scale"]
+
+    cfg = RouterConfig(lam=float(z["cfg_lam"]), alpha=float(z["cfg_alpha"]),
+                       lam_cost=float(z["cfg_lam_cost"]),
+                       ref_model=(None if int(z["cfg_ref_model"]) < 0
+                                  else int(z["cfg_ref_model"])))
+    r = RidgeLinUCBRouter(d, k, cfg)
+    for lane, wk, ak in ((r.quality, "quality_W", "quality_A"),
+                         (r.tokens, "tokens_W", "tokens_A")):
+        W = z[wk].astype(np.float64)
+        lane.A_m = z[ak].astype(np.float64)
+        lane.B = np.stack([lane.A_m[m] @ W[:, m] for m in range(k)], axis=1)
+        lane._W = None
+        assert np.allclose(lane.W, W, atol=1e-3), "weights did not survive the round trip"
+    r.counts = z["counts"]
+
+    pool = PoolState(price_in=z["price_in"], price_out=z["price_out"])
+    return r, fm, pool, ids
+
+
+def save_artifact(router: RidgeLinUCBRouter, lm: LabelMatrix, path,
+                  feature_map=None) -> dict:
     """Write the trained policy — the thing a gateway would actually load.
 
     Stored as the solved weights plus the Gram matrices, because σ needs A and a
     gateway that cannot compute σ cannot explore.
+
+    Every array is indexed by **this matrix's** columns, not by the catalogue. That
+    distinction only shows up when the pool is a subset — a graded run that reached
+    four of the thirteen slots writes four weight columns, and a price vector of
+    thirteen taken from the catalogue would silently pair column 1 with slot 1's
+    price. Prices and the proxy list are resolved through `lm.model_ids` for that
+    reason, and the lengths are asserted before anything is written: a gateway that
+    loads a mismatched artifact does not crash, it just bills the wrong model.
     """
     from pathlib import Path
+
+    pool = [by_id(CHUTES_CATALOG, m) for m in lm.model_ids]
+    k = len(lm.model_ids)
+    assert router.quality.W.shape[1] == k, (
+        f"weights have {router.quality.W.shape[1]} columns, pool has {k}")
+
+    proxies = []
+    for m in lm.model_ids:
+        try:
+            proxies.append(proxy_for(m).proxy_id)
+        except KeyError:                      # measured directly; nothing stood in
+            proxies.append("")
+
+    # φ is part of the engine, not a detail of how it was trained: weights are
+    # meaningless against features computed by a different projection, and the
+    # projection's rank depends on how many items it was fitted on. Shipping them
+    # apart is how you get a dimension error in a request path.
+    fm_arrays = {}
+    if feature_map is not None:
+        fm_arrays = {
+            "fm_mean": feature_map._mean, "fm_basis": feature_map._basis,
+            "fm_scale": feature_map._scale,
+            "fm_n_components": int(feature_map.n_components),
+            "fm_n_buckets": int(feature_map.n_buckets),
+        }
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
         path,
         model_ids=np.array(lm.model_ids, dtype=object),
-        proxy_ids=np.array(proxy_ids(), dtype=object),
+        proxy_ids=np.array(proxies, dtype=object),
         quality_W=router.quality.W.astype(np.float32),
         tokens_W=router.tokens.W.astype(np.float32),
         quality_A=router.quality.A_m.astype(np.float32),
         tokens_A=router.tokens.A_m.astype(np.float32),
         counts=router.counts,
-        price_in=np.array([m.in_per_1m for m in CHUTES_CATALOG]),
-        price_out=np.array([m.out_per_1m for m in CHUTES_CATALOG]),
+        price_in=np.array([m.in_per_1m for m in pool]),
+        price_out=np.array([m.out_per_1m for m in pool]),
+        # The config the weights were fitted under. Without it a reload has to guess
+        # lam_cost, and lam_cost is the dial that decides every routing choice.
+        cfg_lam=float(router.cfg.lam),
+        cfg_alpha=float(router.cfg.alpha),
+        cfg_lam_cost=float(router.cfg.lam_cost),
+        cfg_ref_model=int(-1 if router.cfg.ref_model is None else router.cfg.ref_model),
         allow_pickle=True,
+        **fm_arrays,
     )
     return {"path": str(path), "bytes": int(path.stat().st_size),
             "in_memory_bytes": int(router.artifact_bytes())}

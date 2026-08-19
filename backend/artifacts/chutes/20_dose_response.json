@@ -1,0 +1,1122 @@
+{
+  "roster": {
+    "broad": {
+      "DeepHermes-3-Llama-3-8B-Preview": 22,
+      "DeepSeek-R1-Distill-Qwen-7B": 22,
+      "Qwen2.5-Coder-7B-Instruct": 22,
+      "Llama-3.1-8B-Instruct": 22,
+      "MiniCPM4.1-8B": 22,
+      "MiMo-7B-RL-0530": 22,
+      "OpenThinker3-7B": 22,
+      "internlm3-8b-instruct": 22,
+      "Fin-R1": 22,
+      "cogito-v1-preview-llama-8B": 22,
+      "glm-4-9b-chat": 22,
+      "GLM-Z1-9B-0414": 22,
+      "Llama-3.1-Nemotron-Nano-8B-v1": 22,
+      "Intern-S1-mini": 22,
+      "gemma-2-9b-it": 22,
+      "Llama-3.1-8B-UltraMedical": 22,
+      "Qwen3-8B": 22,
+      "granite-3.3-8b-instruct": 22,
+      "DeepSeek-R1-0528-Qwen3-8B": 22,
+      "NVIDIA-Nemotron-Nano-9B-v2": 22
+    },
+    "narrow": {
+      "qwen3-235b-a22b-2507": 14,
+      "deepseek-v3.1-terminus": 14,
+      "gemini-2.5-flash": 14,
+      "claude-sonnet-4": 14,
+      "gemini-2.5-pro": 14,
+      "kimi-k2-0905": 14,
+      "qwen3-235b-a22b-thinking-2507": 14,
+      "gpt-5-chat": 14,
+      "intern-s1": 14,
+      "gpt-5": 14,
+      "deepseek-r1-0528": 14,
+      "deepseek-v3-0324": 14,
+      "glm-4.6": 14
+    },
+    "threshold_tasks": 20,
+    "separation": "broad columns are graded on 22\u201322 tasks, narrow ones on 14\u201314; nothing sits between."
+  },
+  "dose_response": {
+    "n_pools": 19,
+    "levels": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13
+    ],
+    "pools_per_level": 3,
+    "seed": 0,
+    "rows": [
+      {
+        "n_narrow": 0,
+        "pool": [
+          "Fin-R1",
+          "MiniCPM4.1-8B",
+          "MiMo-7B-RL-0530",
+          "DeepSeek-R1-0528-Qwen3-8B",
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "cogito-v1-preview-llama-8B",
+          "DeepSeek-R1-Distill-Qwen-7B",
+          "Intern-S1-mini",
+          "Qwen3-8B",
+          "OpenThinker3-7B",
+          "GLM-Z1-9B-0414",
+          "Llama-3.1-Nemotron-Nano-8B-v1",
+          "Qwen2.5-Coder-7B-Instruct"
+        ],
+        "coverage_asymmetry": 0.00012919062076088839,
+        "dense_core_items": 15479,
+        "union_items": 15481,
+        "dense_train_items": 10061,
+        "union_train_items": 10063,
+        "union_over_dense_train": 1.000198787396879,
+        "dense_quality_retained": 1.0239339752407153,
+        "union_quality_retained": 1.0242090784044016,
+        "union_matched_n_quality_retained": 1.0242090784044016,
+        "gap_points": -0.0002751031636862855,
+        "gap_at_matched_n": -0.0002751031636862855
+      },
+      {
+        "n_narrow": 0,
+        "pool": [
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "Qwen2.5-Coder-7B-Instruct",
+          "OpenThinker3-7B",
+          "cogito-v1-preview-llama-8B",
+          "glm-4-9b-chat",
+          "MiMo-7B-RL-0530",
+          "Intern-S1-mini",
+          "GLM-Z1-9B-0414",
+          "Llama-3.1-8B-Instruct",
+          "DeepSeek-R1-Distill-Qwen-7B",
+          "Llama-3.1-8B-UltraMedical",
+          "granite-3.3-8b-instruct",
+          "gemma-2-9b-it"
+        ],
+        "coverage_asymmetry": 0.0002583812415218878,
+        "dense_core_items": 15477,
+        "union_items": 15481,
+        "dense_train_items": 10060,
+        "union_train_items": 10064,
+        "union_over_dense_train": 1.0003976143141153,
+        "dense_quality_retained": 1.0349948536979856,
+        "union_quality_retained": 1.0355830024996324,
+        "union_matched_n_quality_retained": 1.0355830024996324,
+        "gap_points": -0.000588148801646815,
+        "gap_at_matched_n": -0.000588148801646815
+      },
+      {
+        "n_narrow": 0,
+        "pool": [
+          "OpenThinker3-7B",
+          "GLM-Z1-9B-0414",
+          "gemma-2-9b-it",
+          "cogito-v1-preview-llama-8B",
+          "Intern-S1-mini",
+          "MiniCPM4.1-8B",
+          "glm-4-9b-chat",
+          "Llama-3.1-8B-UltraMedical",
+          "MiMo-7B-RL-0530",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "Llama-3.1-8B-Instruct",
+          "granite-3.3-8b-instruct",
+          "Llama-3.1-Nemotron-Nano-8B-v1"
+        ],
+        "coverage_asymmetry": 0.0011627155868484396,
+        "dense_core_items": 15463,
+        "union_items": 15481,
+        "dense_train_items": 10051,
+        "union_train_items": 10069,
+        "union_over_dense_train": 1.0017908665804398,
+        "dense_quality_retained": 1.0314373446410294,
+        "union_quality_retained": 1.029682702149437,
+        "union_matched_n_quality_retained": 1.0298289223570696,
+        "gap_points": 0.0017546424915924064,
+        "gap_at_matched_n": 0.0016084222839598539
+      },
+      {
+        "n_narrow": 13,
+        "pool": [
+          "deepseek-r1-0528",
+          "gemini-2.5-pro",
+          "deepseek-v3-0324",
+          "deepseek-v3.1-terminus",
+          "intern-s1",
+          "glm-4.6",
+          "claude-sonnet-4",
+          "gpt-5-chat",
+          "kimi-k2-0905",
+          "qwen3-235b-a22b-thinking-2507",
+          "gpt-5",
+          "gemini-2.5-flash",
+          "qwen3-235b-a22b-2507"
+        ],
+        "coverage_asymmetry": 0.15501831501831498,
+        "dense_core_items": 11534,
+        "union_items": 13650,
+        "dense_train_items": 7497,
+        "union_train_items": 9613,
+        "union_over_dense_train": 1.2822462318260637,
+        "dense_quality_retained": 1.0257951900698214,
+        "union_quality_retained": 1.0292862684251358,
+        "union_matched_n_quality_retained": 1.019200930954228,
+        "gap_points": -0.00349107835531437,
+        "gap_at_matched_n": 0.006594259115593415
+      },
+      {
+        "n_narrow": 4,
+        "pool": [
+          "intern-s1",
+          "deepseek-v3-0324",
+          "gpt-5-chat",
+          "glm-4.6",
+          "Intern-S1-mini",
+          "gemma-2-9b-it",
+          "Qwen2.5-Coder-7B-Instruct",
+          "cogito-v1-preview-llama-8B",
+          "Qwen3-8B",
+          "glm-4-9b-chat",
+          "Llama-3.1-8B-UltraMedical",
+          "DeepSeek-R1-Distill-Qwen-7B",
+          "DeepHermes-3-Llama-3-8B-Preview"
+        ],
+        "coverage_asymmetry": 0.8432132300071902,
+        "dense_core_items": 3925,
+        "union_items": 25034,
+        "dense_train_items": 2551,
+        "union_train_items": 23660,
+        "union_over_dense_train": 9.274794198353586,
+        "dense_quality_retained": 1.03205791106515,
+        "union_quality_retained": 0.8500517063081695,
+        "union_matched_n_quality_retained": 0.7962771458117891,
+        "gap_points": 0.18200620475698048,
+        "gap_at_matched_n": 0.2357807652533609
+      },
+      {
+        "n_narrow": 2,
+        "pool": [
+          "deepseek-r1-0528",
+          "qwen3-235b-a22b-2507",
+          "GLM-Z1-9B-0414",
+          "glm-4-9b-chat",
+          "MiniCPM4.1-8B",
+          "MiMo-7B-RL-0530",
+          "OpenThinker3-7B",
+          "Llama-3.1-8B-UltraMedical",
+          "Llama-3.1-8B-Instruct",
+          "Fin-R1",
+          "cogito-v1-preview-llama-8B",
+          "internlm3-8b-instruct",
+          "Intern-S1-mini"
+        ],
+        "coverage_asymmetry": 0.8435727410721419,
+        "dense_core_items": 3916,
+        "union_items": 25034,
+        "dense_train_items": 2545,
+        "union_train_items": 23663,
+        "union_over_dense_train": 9.297838899803537,
+        "dense_quality_retained": 1.0318315377081293,
+        "union_quality_retained": 0.827130264446621,
+        "union_matched_n_quality_retained": 0.7688540646425074,
+        "gap_points": 0.20470127326150833,
+        "gap_at_matched_n": 0.2629774730656219
+      },
+      {
+        "n_narrow": 2,
+        "pool": [
+          "glm-4.6",
+          "gemini-2.5-flash",
+          "GLM-Z1-9B-0414",
+          "Intern-S1-mini",
+          "Llama-3.1-8B-Instruct",
+          "glm-4-9b-chat",
+          "gemma-2-9b-it",
+          "granite-3.3-8b-instruct",
+          "Qwen3-8B",
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "OpenThinker3-7B",
+          "Llama-3.1-8B-UltraMedical",
+          "Llama-3.1-Nemotron-Nano-8B-v1"
+        ],
+        "coverage_asymmetry": 0.8436126867460254,
+        "dense_core_items": 3915,
+        "union_items": 25034,
+        "dense_train_items": 2545,
+        "union_train_items": 23664,
+        "union_over_dense_train": 9.298231827111984,
+        "dense_quality_retained": 0.9945385035499726,
+        "union_quality_retained": 0.8230475150191152,
+        "union_matched_n_quality_retained": 0.7678864008738394,
+        "gap_points": 0.17149098853085742,
+        "gap_at_matched_n": 0.22665210267613323
+      },
+      {
+        "n_narrow": 2,
+        "pool": [
+          "gpt-5",
+          "kimi-k2-0905",
+          "DeepSeek-R1-0528-Qwen3-8B",
+          "GLM-Z1-9B-0414",
+          "glm-4-9b-chat",
+          "cogito-v1-preview-llama-8B",
+          "Llama-3.1-8B-Instruct",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "Qwen2.5-Coder-7B-Instruct",
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "MiMo-7B-RL-0530",
+          "granite-3.3-8b-instruct",
+          "DeepSeek-R1-Distill-Qwen-7B"
+        ],
+        "coverage_asymmetry": 0.843652632419909,
+        "dense_core_items": 3914,
+        "union_items": 25034,
+        "dense_train_items": 2544,
+        "union_train_items": 23664,
+        "union_over_dense_train": 9.30188679245283,
+        "dense_quality_retained": 1.005499541704858,
+        "union_quality_retained": 0.8560953253895509,
+        "union_matched_n_quality_retained": 0.8267644362969753,
+        "gap_points": 0.1494042163153071,
+        "gap_at_matched_n": 0.17873510540788273
+      },
+      {
+        "n_narrow": 4,
+        "pool": [
+          "gpt-5",
+          "qwen3-235b-a22b-2507",
+          "kimi-k2-0905",
+          "gemini-2.5-flash",
+          "Fin-R1",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "internlm3-8b-instruct",
+          "MiniCPM4.1-8B",
+          "Llama-3.1-8B-UltraMedical",
+          "Llama-3.1-Nemotron-Nano-8B-v1",
+          "DeepSeek-R1-0528-Qwen3-8B",
+          "gemma-2-9b-it",
+          "DeepHermes-3-Llama-3-8B-Preview"
+        ],
+        "coverage_asymmetry": 0.8447711112886475,
+        "dense_core_items": 3886,
+        "union_items": 25034,
+        "dense_train_items": 2526,
+        "union_train_items": 23674,
+        "union_over_dense_train": 9.372129849564528,
+        "dense_quality_retained": 1.0082417582417582,
+        "union_quality_retained": 0.8772893772893773,
+        "union_matched_n_quality_retained": 0.8443223443223443,
+        "gap_points": 0.13095238095238093,
+        "gap_at_matched_n": 0.1639194139194139
+      },
+      {
+        "n_narrow": 4,
+        "pool": [
+          "gemini-2.5-pro",
+          "deepseek-r1-0528",
+          "gpt-5",
+          "glm-4.6",
+          "granite-3.3-8b-instruct",
+          "Llama-3.1-Nemotron-Nano-8B-v1",
+          "MiMo-7B-RL-0530",
+          "Intern-S1-mini",
+          "Fin-R1",
+          "Llama-3.1-8B-Instruct",
+          "gemma-2-9b-it",
+          "Llama-3.1-8B-UltraMedical",
+          "Qwen2.5-Coder-7B-Instruct"
+        ],
+        "coverage_asymmetry": 0.8483662219381641,
+        "dense_core_items": 3796,
+        "union_items": 25034,
+        "dense_train_items": 2467,
+        "union_train_items": 23705,
+        "union_over_dense_train": 9.608836643696797,
+        "dense_quality_retained": 1.002307337332718,
+        "union_quality_retained": 0.8726349792339639,
+        "union_matched_n_quality_retained": 0.8181818181818181,
+        "gap_points": 0.1296723580987541,
+        "gap_at_matched_n": 0.18412551915089992
+      },
+      {
+        "n_narrow": 8,
+        "pool": [
+          "gemini-2.5-flash",
+          "gpt-5",
+          "claude-sonnet-4",
+          "kimi-k2-0905",
+          "deepseek-v3-0324",
+          "intern-s1",
+          "qwen3-235b-a22b-2507",
+          "gemini-2.5-pro",
+          "Fin-R1",
+          "Qwen3-8B",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "glm-4-9b-chat",
+          "granite-3.3-8b-instruct"
+        ],
+        "coverage_asymmetry": 0.849850209706411,
+        "dense_core_items": 3759,
+        "union_items": 25035,
+        "dense_train_items": 2443,
+        "union_train_items": 23719,
+        "union_over_dense_train": 9.708964388047482,
+        "dense_quality_retained": 1.0105698529411764,
+        "union_quality_retained": 0.8727022058823529,
+        "union_matched_n_quality_retained": 0.8400735294117647,
+        "gap_points": 0.13786764705882348,
+        "gap_at_matched_n": 0.1704963235294117
+      },
+      {
+        "n_narrow": 6,
+        "pool": [
+          "qwen3-235b-a22b-thinking-2507",
+          "glm-4.6",
+          "deepseek-r1-0528",
+          "kimi-k2-0905",
+          "deepseek-v3.1-terminus",
+          "qwen3-235b-a22b-2507",
+          "cogito-v1-preview-llama-8B",
+          "MiniCPM4.1-8B",
+          "internlm3-8b-instruct",
+          "gemma-2-9b-it",
+          "Qwen2.5-Coder-7B-Instruct",
+          "Llama-3.1-8B-UltraMedical",
+          "DeepSeek-R1-Distill-Qwen-7B"
+        ],
+        "coverage_asymmetry": 0.8554765518894304,
+        "dense_core_items": 3618,
+        "union_items": 25034,
+        "dense_train_items": 2352,
+        "union_train_items": 23768,
+        "union_over_dense_train": 10.105442176870747,
+        "dense_quality_retained": 0.9923845787720134,
+        "union_quality_retained": 0.880533079485959,
+        "union_matched_n_quality_retained": 0.8453117563065207,
+        "gap_points": 0.11185149928605431,
+        "gap_at_matched_n": 0.1470728224654927
+      },
+      {
+        "n_narrow": 6,
+        "pool": [
+          "gpt-5",
+          "qwen3-235b-a22b-thinking-2507",
+          "deepseek-v3.1-terminus",
+          "claude-sonnet-4",
+          "glm-4.6",
+          "gpt-5-chat",
+          "gemma-2-9b-it",
+          "Llama-3.1-8B-Instruct",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "Qwen3-8B",
+          "Qwen2.5-Coder-7B-Instruct",
+          "MiMo-7B-RL-0530",
+          "granite-3.3-8b-instruct"
+        ],
+        "coverage_asymmetry": 0.8555222688236469,
+        "dense_core_items": 3617,
+        "union_items": 25035,
+        "dense_train_items": 2351,
+        "union_train_items": 23769,
+        "union_over_dense_train": 10.110165886856656,
+        "dense_quality_retained": 1.0028301886792454,
+        "union_quality_retained": 0.8476415094339623,
+        "union_matched_n_quality_retained": 0.8339622641509434,
+        "gap_points": 0.15518867924528312,
+        "gap_at_matched_n": 0.16886792452830202
+      },
+      {
+        "n_narrow": 10,
+        "pool": [
+          "gemini-2.5-flash",
+          "qwen3-235b-a22b-2507",
+          "gpt-5",
+          "kimi-k2-0905",
+          "intern-s1",
+          "glm-4.6",
+          "gpt-5-chat",
+          "deepseek-r1-0528",
+          "deepseek-v3-0324",
+          "qwen3-235b-a22b-thinking-2507",
+          "Llama-3.1-8B-UltraMedical",
+          "gemma-2-9b-it",
+          "cogito-v1-preview-llama-8B"
+        ],
+        "coverage_asymmetry": 0.8559159543021491,
+        "dense_core_items": 3607,
+        "union_items": 25034,
+        "dense_train_items": 2345,
+        "union_train_items": 23772,
+        "union_over_dense_train": 10.137313432835821,
+        "dense_quality_retained": 0.995260663507109,
+        "union_quality_retained": 0.9080568720379146,
+        "union_matched_n_quality_retained": 0.8957345971563981,
+        "gap_points": 0.08720379146919433,
+        "gap_at_matched_n": 0.09952606635071082
+      },
+      {
+        "n_narrow": 6,
+        "pool": [
+          "gemini-2.5-pro",
+          "intern-s1",
+          "deepseek-r1-0528",
+          "gemini-2.5-flash",
+          "qwen3-235b-a22b-thinking-2507",
+          "deepseek-v3-0324",
+          "DeepSeek-R1-Distill-Qwen-7B",
+          "MiniCPM4.1-8B",
+          "MiMo-7B-RL-0530",
+          "cogito-v1-preview-llama-8B",
+          "Fin-R1",
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "GLM-Z1-9B-0414"
+        ],
+        "coverage_asymmetry": 0.8581129663657425,
+        "dense_core_items": 3552,
+        "union_items": 25034,
+        "dense_train_items": 2309,
+        "union_train_items": 23791,
+        "union_over_dense_train": 10.303594629709831,
+        "dense_quality_retained": 0.9836930455635491,
+        "union_quality_retained": 0.8517985611510792,
+        "union_matched_n_quality_retained": 0.829736211031175,
+        "gap_points": 0.13189448441246987,
+        "gap_at_matched_n": 0.15395683453237408
+      },
+      {
+        "n_narrow": 8,
+        "pool": [
+          "qwen3-235b-a22b-2507",
+          "qwen3-235b-a22b-thinking-2507",
+          "gpt-5",
+          "glm-4.6",
+          "kimi-k2-0905",
+          "gemini-2.5-pro",
+          "gpt-5-chat",
+          "claude-sonnet-4",
+          "MiMo-7B-RL-0530",
+          "DeepHermes-3-Llama-3-8B-Preview",
+          "DeepSeek-R1-0528-Qwen3-8B",
+          "granite-3.3-8b-instruct",
+          "glm-4-9b-chat"
+        ],
+        "coverage_asymmetry": 0.8582784102256841,
+        "dense_core_items": 3548,
+        "union_items": 25035,
+        "dense_train_items": 2306,
+        "union_train_items": 23793,
+        "union_over_dense_train": 10.31786643538595,
+        "dense_quality_retained": 1.01104707012488,
+        "union_quality_retained": 0.904899135446686,
+        "union_matched_n_quality_retained": 0.8866474543707973,
+        "gap_points": 0.10614793467819394,
+        "gap_at_matched_n": 0.12439961575408265
+      },
+      {
+        "n_narrow": 8,
+        "pool": [
+          "intern-s1",
+          "qwen3-235b-a22b-2507",
+          "gpt-5",
+          "qwen3-235b-a22b-thinking-2507",
+          "deepseek-r1-0528",
+          "deepseek-v3-0324",
+          "kimi-k2-0905",
+          "gemini-2.5-pro",
+          "MiniCPM4.1-8B",
+          "GLM-Z1-9B-0414",
+          "NVIDIA-Nemotron-Nano-9B-v2",
+          "cogito-v1-preview-llama-8B",
+          "MiMo-7B-RL-0530"
+        ],
+        "coverage_asymmetry": 0.8584724774306942,
+        "dense_core_items": 3543,
+        "union_items": 25034,
+        "dense_train_items": 2303,
+        "union_train_items": 23794,
+        "union_over_dense_train": 10.331741207121146,
+        "dense_quality_retained": 1.0135790494665373,
+        "union_quality_retained": 0.8918525703200777,
+        "union_matched_n_quality_retained": 0.8884578079534433,
+        "gap_points": 0.12172647914645962,
+        "gap_at_matched_n": 0.125121241513094
+      },
+      {
+        "n_narrow": 10,
+        "pool": [
+          "deepseek-r1-0528",
+          "kimi-k2-0905",
+          "intern-s1",
+          "qwen3-235b-a22b-2507",
+          "qwen3-235b-a22b-thinking-2507",
+          "gemini-2.5-flash",
+          "gpt-5",
+          "deepseek-v3-0324",
+          "gemini-2.5-pro",
+          "glm-4.6",
+          "glm-4-9b-chat",
+          "Intern-S1-mini",
+          "Llama-3.1-8B-Instruct"
+        ],
+        "coverage_asymmetry": 0.8585923144523449,
+        "dense_core_items": 3540,
+        "union_items": 25034,
+        "dense_train_items": 2301,
+        "union_train_items": 23795,
+        "union_over_dense_train": 10.34115601912212,
+        "dense_quality_retained": 1.0110950313555234,
+        "union_quality_retained": 0.879401833092137,
+        "union_matched_n_quality_retained": 0.8745779064158224,
+        "gap_points": 0.13169319826338632,
+        "gap_at_matched_n": 0.13651712493970092
+      },
+      {
+        "n_narrow": 10,
+        "pool": [
+          "glm-4.6",
+          "gpt-5-chat",
+          "intern-s1",
+          "kimi-k2-0905",
+          "qwen3-235b-a22b-thinking-2507",
+          "gemini-2.5-flash",
+          "deepseek-v3-0324",
+          "qwen3-235b-a22b-2507",
+          "gpt-5",
+          "gemini-2.5-pro",
+          "internlm3-8b-instruct",
+          "MiMo-7B-RL-0530",
+          "NVIDIA-Nemotron-Nano-9B-v2"
+        ],
+        "coverage_asymmetry": 0.8588319884956459,
+        "dense_core_items": 3534,
+        "union_items": 25034,
+        "dense_train_items": 2297,
+        "union_train_items": 23797,
+        "union_over_dense_train": 10.36003482803657,
+        "dense_quality_retained": 0.9995196926032661,
+        "union_quality_retained": 0.9053794428434198,
+        "union_matched_n_quality_retained": 0.9005763688760807,
+        "gap_points": 0.09414024975984636,
+        "gap_at_matched_n": 0.0989433237271854
+      }
+    ],
+    "fit_on_coverage_asymmetry": {
+      "slope": 0.16592996356903428,
+      "intercept": -0.005399950302096857,
+      "r2": 0.7839891460084605,
+      "pearson_r": 0.8854316156589737
+    },
+    "fit_on_extra_training_data": {
+      "slope": 0.060290605276916244,
+      "intercept": -0.002121495073665412,
+      "r2": 0.7725987600293546,
+      "pearson_r": 0.8789759723845441
+    },
+    "fit_on_coverage_asymmetry_at_matched_n": {
+      "slope": 0.19779788225358047,
+      "intercept": -0.003876390318775152,
+      "r2": 0.7070888252644552,
+      "pearson_r": 0.8408857385307799
+    },
+    "controls": {
+      "definition": "pools whose coverage asymmetry is below 0.2",
+      "n": 4,
+      "mean_gap": -0.000649921957263766,
+      "max_abs_gap": 0.00349107835531437,
+      "mean_union_over_dense_train": 1.0711583750293745
+    },
+    "asymmetric": {
+      "definition": "pools whose coverage asymmetry is at least 0.6",
+      "n": 15,
+      "mean_gap": 0.13639609234903333,
+      "min_gap": 0.08720379146919433,
+      "replicated_in": 15,
+      "mean_gap_at_matched_n": 0.16513944378757775,
+      "min_gap_at_matched_n": 0.0989433237271854,
+      "replicated_at_matched_n_in": 15,
+      "matched_n_minus_union": 0.028743351438544472
+    },
+    "what_the_matched_n_arm_settles": "The union arm differs from the dense arm in two ways at once: its coverage is uneven and it is about ten times larger. Those two are nearly collinear across these pools \u2014 asymmetry and log extra data predict the gap about equally well \u2014 so the sweep alone cannot separate them. The matched-n arm can: it trains on a random subset of the union items of exactly the dense arm's size, so the quantity is held fixed and only the coverage varies.",
+    "reading": "Across 19 pools the gap tracks coverage asymmetry with r = +0.89 (slope +0.166 per unit of asymmetry). In the 4 control pools \u2014 columns graded on the same task mix, but the union arm still trained on 1.07\u00d7 the items \u2014 the mean gap is -0.1% and the largest in absolute value is 0.3%. In the 15 asymmetric pools it is +13.6%, positive in 15 of 15. Holding the amount of training data fixed and varying only the coverage, the gap is +16.5% \u2014 larger than with ten times the data, positive in 15 of 15. So more data is not the cause; it is a partial compensation for the damage that uneven coverage does."
+  },
+  "mask_sweep": {
+    "pool": [
+      "DeepHermes-3-Llama-3-8B-Preview",
+      "DeepSeek-R1-Distill-Qwen-7B",
+      "Qwen2.5-Coder-7B-Instruct",
+      "Llama-3.1-8B-Instruct",
+      "MiniCPM4.1-8B",
+      "MiMo-7B-RL-0530",
+      "OpenThinker3-7B",
+      "internlm3-8b-instruct",
+      "Fin-R1",
+      "cogito-v1-preview-llama-8B",
+      "glm-4-9b-chat",
+      "GLM-Z1-9B-0414",
+      "Llama-3.1-Nemotron-Nano-8B-v1"
+    ],
+    "n_thinned_columns": 6,
+    "fractions": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5,
+      0.65,
+      0.8
+    ],
+    "fractions_evaluated": [
+      0.0,
+      0.1,
+      0.2,
+      0.35,
+      0.5
+    ],
+    "skipped": [
+      {
+        "target_fraction_removed": 0.65,
+        "dense_core_items": 0,
+        "reason": "dense core below 300 items"
+      },
+      {
+        "target_fraction_removed": 0.8,
+        "dense_core_items": 0,
+        "reason": "dense core below 300 items"
+      }
+    ],
+    "min_dense_items": 300,
+    "seed": 0,
+    "rows": [
+      {
+        "target_fraction_removed": 0.0,
+        "thinned_columns": [
+          "Nemotron-3-Nano-Omni-30B-TEE",
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+          "google/gemma-4-31B-turbo-TEE",
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "deepseek-ai/DeepSeek-V3.2-TEE",
+          "zai-org/GLM-5.1-TEE"
+        ],
+        "removed": {
+          "Nemotron-3-Nano-Omni-30B-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          },
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          },
+          "google/gemma-4-31B-turbo-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          },
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          },
+          "deepseek-ai/DeepSeek-V3.2-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          },
+          "zai-org/GLM-5.1-TEE": {
+            "tasks_dropped": 0,
+            "share_removed": 0.0
+          }
+        },
+        "coverage_asymmetry": 0.0001937859311413881,
+        "dense_core_items": 15478,
+        "union_items": 15481,
+        "dense_train_items": 10061,
+        "union_train_items": 10064,
+        "dense_quality_retained": 1.0302270716602773,
+        "union_quality_retained": 1.0305219699203776,
+        "union_matched_n_quality_retained": 1.029932173400177,
+        "gap_points": -0.00029489826010031805,
+        "gap_at_matched_n": 0.00029489826010031805
+      },
+      {
+        "target_fraction_removed": 0.1,
+        "thinned_columns": [
+          "Nemotron-3-Nano-Omni-30B-TEE",
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+          "google/gemma-4-31B-turbo-TEE",
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "deepseek-ai/DeepSeek-V3.2-TEE",
+          "zai-org/GLM-5.1-TEE"
+        ],
+        "removed": {
+          "Nemotron-3-Nano-Omni-30B-TEE": {
+            "tasks_dropped": 3,
+            "share_removed": 0.1258316646211485
+          },
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+            "tasks_dropped": 2,
+            "share_removed": 0.1165945352367418
+          },
+          "google/gemma-4-31B-turbo-TEE": {
+            "tasks_dropped": 3,
+            "share_removed": 0.12001808668690653
+          },
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
+            "tasks_dropped": 2,
+            "share_removed": 0.14999031070344293
+          },
+          "deepseek-ai/DeepSeek-V3.2-TEE": {
+            "tasks_dropped": 3,
+            "share_removed": 0.1581293198113817
+          },
+          "zai-org/GLM-5.1-TEE": {
+            "tasks_dropped": 4,
+            "share_removed": 0.16684968671274467
+          }
+        },
+        "coverage_asymmetry": 0.4625024223241393,
+        "dense_core_items": 8321,
+        "union_items": 15481,
+        "dense_train_items": 5409,
+        "union_train_items": 12569,
+        "dense_quality_retained": 1.0281501340482575,
+        "union_quality_retained": 1.0056300268096516,
+        "union_matched_n_quality_retained": 1.012064343163539,
+        "gap_points": 0.02252010723860587,
+        "gap_at_matched_n": 0.01608579088471851
+      },
+      {
+        "target_fraction_removed": 0.2,
+        "thinned_columns": [
+          "Nemotron-3-Nano-Omni-30B-TEE",
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+          "google/gemma-4-31B-turbo-TEE",
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "deepseek-ai/DeepSeek-V3.2-TEE",
+          "zai-org/GLM-5.1-TEE"
+        ],
+        "removed": {
+          "Nemotron-3-Nano-Omni-30B-TEE": {
+            "tasks_dropped": 7,
+            "share_removed": 0.22685873005619792
+          },
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+            "tasks_dropped": 4,
+            "share_removed": 0.2610942445578451
+          },
+          "google/gemma-4-31B-turbo-TEE": {
+            "tasks_dropped": 8,
+            "share_removed": 0.26180479297203024
+          },
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
+            "tasks_dropped": 4,
+            "share_removed": 0.27078354111491504
+          },
+          "deepseek-ai/DeepSeek-V3.2-TEE": {
+            "tasks_dropped": 5,
+            "share_removed": 0.24429946385892384
+          },
+          "zai-org/GLM-5.1-TEE": {
+            "tasks_dropped": 5,
+            "share_removed": 0.24907951682707835
+          }
+        },
+        "coverage_asymmetry": 0.8181642012789871,
+        "dense_core_items": 2815,
+        "union_items": 15481,
+        "dense_train_items": 1830,
+        "union_train_items": 14496,
+        "dense_quality_retained": 1.061139896373057,
+        "union_quality_retained": 1.0341968911917099,
+        "union_matched_n_quality_retained": 1.0,
+        "gap_points": 0.02694300518134707,
+        "gap_at_matched_n": 0.061139896373056946
+      },
+      {
+        "target_fraction_removed": 0.35,
+        "thinned_columns": [
+          "Nemotron-3-Nano-Omni-30B-TEE",
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+          "google/gemma-4-31B-turbo-TEE",
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "deepseek-ai/DeepSeek-V3.2-TEE",
+          "zai-org/GLM-5.1-TEE"
+        ],
+        "removed": {
+          "Nemotron-3-Nano-Omni-30B-TEE": {
+            "tasks_dropped": 9,
+            "share_removed": 0.3721981784122473
+          },
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+            "tasks_dropped": 7,
+            "share_removed": 0.3866675279374717
+          },
+          "google/gemma-4-31B-turbo-TEE": {
+            "tasks_dropped": 12,
+            "share_removed": 0.4130870098830825
+          },
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
+            "tasks_dropped": 7,
+            "share_removed": 0.41121374588204895
+          },
+          "deepseek-ai/DeepSeek-V3.2-TEE": {
+            "tasks_dropped": 9,
+            "share_removed": 0.4167689425747691
+          },
+          "zai-org/GLM-5.1-TEE": {
+            "tasks_dropped": 7,
+            "share_removed": 0.3758801111039339
+          }
+        },
+        "coverage_asymmetry": 0.9054970609133777,
+        "dense_core_items": 1463,
+        "union_items": 15481,
+        "dense_train_items": 951,
+        "union_train_items": 14969,
+        "dense_quality_retained": 1.0041666666666667,
+        "union_quality_retained": 0.98125,
+        "union_matched_n_quality_retained": 0.925,
+        "gap_points": 0.022916666666666696,
+        "gap_at_matched_n": 0.07916666666666661
+      },
+      {
+        "target_fraction_removed": 0.5,
+        "thinned_columns": [
+          "Nemotron-3-Nano-Omni-30B-TEE",
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+          "google/gemma-4-31B-turbo-TEE",
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "deepseek-ai/DeepSeek-V3.2-TEE",
+          "zai-org/GLM-5.1-TEE"
+        ],
+        "removed": {
+          "Nemotron-3-Nano-Omni-30B-TEE": {
+            "tasks_dropped": 14,
+            "share_removed": 0.5644984174148957
+          },
+          "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": {
+            "tasks_dropped": 12,
+            "share_removed": 0.5062334474517151
+          },
+          "google/gemma-4-31B-turbo-TEE": {
+            "tasks_dropped": 15,
+            "share_removed": 0.536141076157871
+          },
+          "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": {
+            "tasks_dropped": 11,
+            "share_removed": 0.522446870357212
+          },
+          "deepseek-ai/DeepSeek-V3.2-TEE": {
+            "tasks_dropped": 12,
+            "share_removed": 0.5161165299399264
+          },
+          "zai-org/GLM-5.1-TEE": {
+            "tasks_dropped": 10,
+            "share_removed": 0.5112072863510109
+          }
+        },
+        "coverage_asymmetry": 0.9218396744396357,
+        "dense_core_items": 1210,
+        "union_items": 15481,
+        "dense_train_items": 786,
+        "union_train_items": 15057,
+        "dense_quality_retained": 0.9912663755458514,
+        "union_quality_retained": 0.9563318777292575,
+        "union_matched_n_quality_retained": 0.8820960698689956,
+        "gap_points": 0.03493449781659386,
+        "gap_at_matched_n": 0.10917030567685582
+      }
+    ],
+    "pearson_r_gap_vs_asymmetry": 0.9137673669806606,
+    "pearson_r_matched_n_vs_asymmetry": 0.9128251572143292,
+    "at_zero_removal": {
+      "asymmetry": 0.0001937859311413881,
+      "gap": -0.00029489826010031805,
+      "gap_at_matched_n": 0.00029489826010031805
+    },
+    "largest": {
+      "fraction_removed": 0.5,
+      "asymmetry": 0.9218396744396357,
+      "gap": 0.03493449781659386,
+      "gap_at_matched_n": 0.10917030567685582
+    },
+    "reading": "Thirteen columns that were all graded on the same tasks, with coverage progressively removed from 6 of them. At zero removal the gap is +0.0%; at 50% removal it is +10.9% with the training-set size held at the dense arm's, and +3.5% with the union arm keeping every item it has. Across the sweep the size-matched gap tracks the realised asymmetry at r = +0.91. Nothing varies here except which cells are observed \u2014 same models, same items, same prices \u2014 so the effect is caused by the coverage and not by anything about the pool. 2 of 7 levels are not reported: past 65% removal the dense core falls below 300 items and the comparison stops being between two trained routers."
+  },
+  "seed_stability": {
+    "pool": [
+      "claude-sonnet-4",
+      "deepseek-r1-0528",
+      "deepseek-v3-0324",
+      "gemini-2.5-flash",
+      "gpt-5-chat",
+      "GLM-Z1-9B-0414",
+      "MiniCPM4.1-8B",
+      "Intern-S1-mini",
+      "Llama-3.1-Nemotron-Nano-8B-v1",
+      "DeepSeek-R1-Distill-Qwen-7B",
+      "OpenThinker3-7B",
+      "granite-3.3-8b-instruct",
+      "internlm3-8b-instruct"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "gaps": [
+      0.19124877089478853,
+      0.1890962671905697,
+      0.1908212560386473,
+      0.19209604802401203,
+      0.20483711747285294
+    ],
+    "mean": 0.19361989192417411,
+    "sd": 0.006365257412866831,
+    "se": 0.0028466296538909356,
+    "positive_in": 5,
+    "reading": "Over 5 splits the gap is +19.4% \u00b1 0.6% (sd), positive in 5 of 5."
+  },
+  "first_replication": {
+    "pool": [
+      "claude-sonnet-4",
+      "deepseek-r1-0528",
+      "deepseek-v3-0324",
+      "gemini-2.5-flash",
+      "gpt-5-chat",
+      "GLM-Z1-9B-0414",
+      "MiniCPM4.1-8B",
+      "Intern-S1-mini",
+      "Llama-3.1-Nemotron-Nano-8B-v1",
+      "DeepSeek-R1-Distill-Qwen-7B",
+      "OpenThinker3-7B",
+      "granite-3.3-8b-instruct",
+      "internlm3-8b-instruct"
+    ],
+    "n_models": 13,
+    "dense_core_items": 3920,
+    "union_items": 25035,
+    "coverage_asymmetry": 0.8434192131016577,
+    "arms": [
+      {
+        "train_on": "dense",
+        "ridge_lam": 1.0,
+        "train_items": 2548,
+        "dense_share_of_train": 1.0,
+        "val_brier": 0.17711877780602434,
+        "quality_vs_frontier": 1.0329400196656833
+      },
+      {
+        "train_on": "dense",
+        "ridge_lam": 10.0,
+        "train_items": 2548,
+        "dense_share_of_train": 1.0,
+        "val_brier": 0.17725611280052683,
+        "quality_vs_frontier": 1.031465093411996
+      },
+      {
+        "train_on": "dense",
+        "ridge_lam": 100.0,
+        "train_items": 2548,
+        "dense_share_of_train": 1.0,
+        "val_brier": 0.17890532266764061,
+        "quality_vs_frontier": 1.0309734513274336
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 1.0,
+        "train_items": 23663,
+        "dense_share_of_train": 0.1076786544394202,
+        "val_brier": 0.21965521332887003,
+        "quality_vs_frontier": 0.8416912487708947
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 10.0,
+        "train_items": 23663,
+        "dense_share_of_train": 0.1076786544394202,
+        "val_brier": 0.2195712774374787,
+        "quality_vs_frontier": 0.839724680432645
+      },
+      {
+        "train_on": "union",
+        "ridge_lam": 100.0,
+        "train_items": 23663,
+        "dense_share_of_train": 0.1076786544394202,
+        "val_brier": 0.2199945380525813,
+        "quality_vs_frontier": 0.8289085545722713
+      },
+      {
+        "train_on": "union_matched_n",
+        "ridge_lam": 1.0,
+        "train_items": 2548,
+        "dense_share_of_train": 0.108712715855573,
+        "val_brier": 0.23259080453484007,
+        "quality_vs_frontier": 0.7954768928220256
+      },
+      {
+        "train_on": "union_matched_n",
+        "ridge_lam": 10.0,
+        "train_items": 2548,
+        "dense_share_of_train": 0.108712715855573,
+        "val_brier": 0.2321571062148189,
+        "quality_vs_frontier": 0.7940019665683382
+      },
+      {
+        "train_on": "union_matched_n",
+        "ridge_lam": 100.0,
+        "train_items": 2548,
+        "dense_share_of_train": 0.108712715855573,
+        "val_brier": 0.2354720902334022,
+        "quality_vs_frontier": 0.743362831858407
+      }
+    ],
+    "dense_best": {
+      "train_on": "dense",
+      "ridge_lam": 1.0,
+      "train_items": 2548,
+      "dense_share_of_train": 1.0,
+      "val_brier": 0.17711877780602434,
+      "quality_vs_frontier": 1.0329400196656833
+    },
+    "union_best": {
+      "train_on": "union",
+      "ridge_lam": 1.0,
+      "train_items": 23663,
+      "dense_share_of_train": 0.1076786544394202,
+      "val_brier": 0.21965521332887003,
+      "quality_vs_frontier": 0.8416912487708947
+    },
+    "union_matched_n_best": {
+      "train_on": "union_matched_n",
+      "ridge_lam": 1.0,
+      "train_items": 2548,
+      "dense_share_of_train": 0.108712715855573,
+      "val_brier": 0.23259080453484007,
+      "quality_vs_frontier": 0.7954768928220256
+    },
+    "gap_points": 0.19124877089478853,
+    "gap_at_matched_n": 0.23746312684365767,
+    "columns": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "unsloth/Mistral-Nemo-Instruct-2407-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "google/gemma-4-31B-turbo-TEE",
+      "Qwen/Qwen3-32B-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE",
+      "moonshotai/Kimi-K3-TEE"
+    ],
+    "disjoint_from_chutes_proxies": true,
+    "replicates": true,
+    "reading": "On thirteen models sharing no column with the first pool, dense-core training retains 103.3% of frontier quality on 2,548 items against 84.2% on 23,663. The finding replicates \u2014 gap +19.1% against the original +12.2%. Held at the dense arm's own size, so that only the coverage differs, the unevenly covered arm retains 79.5% and the gap is +23.7% \u2014 the effect is coverage, not quantity."
+  }
+}

@@ -615,13 +615,47 @@ def test_cascade_pays_for_every_attempt(trained):
 
 
 @needs_cache
-def test_no_published_baseline_beats_us_at_matched_quality(trained):
-    """Compared on our own dial rather than a fixed bar, which is the fair test."""
+def test_matrix_factorisation_beats_us_in_the_aggressive_region(trained):
+    """Pinned because it is a real negative and must not quietly disappear.
+
+    Swept across its own dial and compared at matched quality, a RouteLLM-style
+    low-rank router is *better* than ours where savings are aggressive — 59.4%
+    against 55.8% at 95.5% of the best single model's quality. That is the honest
+    state of the comparison and the strongest argument that our estimator is not
+    where the advantage lives.
+
+    The assertion is bounded on both sides: if the margin grows past ten points we
+    should adopt their rule, and if it inverts the claim in the docs is stale.
+    """
     from rollingbench.experiments import baselines
 
     lm, tokens_in, X, train, test = trained
     r = baselines.run(lm, X, tokens_in, train, test, lam_cost=0.2)
-    assert r["beaten_by"] == [], r["reading"]
-    # Matrix factorisation ties; that is a finding, not a failure, and is pinned so a
-    # regression that broke it would be noticed.
-    assert any("matrix" in p for p in r["tied_with"]), r["reading"]
+    assert "matrix" in r["beaten_by"], r["reading"]
+    margin = r["best_by_family"]["matrix"]["margin_vs_us"]
+    assert 0.02 < margin < 0.10, f"margin moved to {margin:+.3f} — revisit the docs"
+
+
+@needs_cache
+def test_cascade_and_hybrid_have_no_useful_operating_point(trained):
+    """Neither ever both saves money and holds 95% quality on this pool.
+
+    A comparison is only meaningful where a strategy beats doing nothing; these two
+    never do, which is a stronger statement than losing on margin.
+    """
+    from rollingbench.experiments import baselines
+
+    lm, tokens_in, X, train, test = trained
+    r = baselines.run(lm, X, tokens_in, train, test, lam_cost=0.2)
+    assert set(r["families_with_no_useful_point"]) >= {"cascade", "hybrid"}, r["reading"]
+
+
+@needs_cache
+def test_all_six_published_families_are_compared(trained):
+    """The gap PUBLISHABILITY.md named was 'zero published baselines'."""
+    from rollingbench.experiments import baselines
+
+    lm, tokens_in, X, train, test = trained
+    r = baselines.run(lm, X, tokens_in, train, test, lam_cost=0.2)
+    for fam in ("cascade", "matrix", "hybrid", "classifier", "knn", "no-routing"):
+        assert fam in r["families_compared"], fam

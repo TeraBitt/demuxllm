@@ -1296,16 +1296,26 @@
         "mean_regret_reduction": -0.0004964166852199636,
         "sd_across_seeds": 0.0016022377396122149,
         "std_error": 0.0005664765853764014,
+        "n_seeds": 8,
+        "t": -0.8763233962973319,
+        "t_critical_two_sided": 2.364624251592784,
+        "p_value": 0.4099168528639365,
+        "test": "two-sided paired t against zero, df=7, alpha=0.05",
         "supported": false,
-        "reading": "component-wise \u03b3_q/\u03b3_t vs one shared \u03b3: reduces mean regret by -0.0005 \u00b1 0.0006 (SE over 8 seeds) \u2014 NOT distinguishable from noise"
+        "reading": "component-wise \u03b3_q/\u03b3_t vs one shared \u03b3: reduces mean regret by -0.0005 \u00b1 0.0006 (SE over 8 seeds), t = -0.88 against a critical 2.36, p = 0.410 \u2014 NOT distinguishable from noise"
       },
       "read_vs_learn": {
         "claim": "reading price live vs fitting it",
         "mean_regret_reduction": 0.0012268913148627825,
         "sd_across_seeds": 0.0008538651893574063,
         "std_error": 0.0003018869328068787,
+        "n_seeds": 8,
+        "t": 4.064075591001622,
+        "t_critical_two_sided": 2.364624251592784,
+        "p_value": 0.00478489042159215,
+        "test": "two-sided paired t against zero, df=7, alpha=0.05",
         "supported": true,
-        "reading": "reading price live vs fitting it: reduces mean regret by +0.0012 \u00b1 0.0003 (SE over 8 seeds) \u2014 supported"
+        "reading": "reading price live vs fitting it: reduces mean regret by +0.0012 \u00b1 0.0003 (SE over 8 seeds), t = +4.06 against a critical 2.36, p = 0.005 \u2014 supported"
       }
     },
     "high_drift": {
@@ -1375,16 +1385,26 @@
         "mean_regret_reduction": 0.0020634757013997806,
         "sd_across_seeds": 0.002866165738313435,
         "std_error": 0.0010133426147829888,
-        "supported": true,
-        "reading": "component-wise \u03b3_q/\u03b3_t vs one shared \u03b3: reduces mean regret by +0.0021 \u00b1 0.0010 (SE over 8 seeds) \u2014 supported"
+        "n_seeds": 8,
+        "t": 2.0363060541391342,
+        "t_critical_two_sided": 2.364624251592784,
+        "p_value": 0.08115407217745756,
+        "test": "two-sided paired t against zero, df=7, alpha=0.05",
+        "supported": false,
+        "reading": "component-wise \u03b3_q/\u03b3_t vs one shared \u03b3: reduces mean regret by +0.0021 \u00b1 0.0010 (SE over 8 seeds), t = +2.04 against a critical 2.36, p = 0.081 \u2014 NOT distinguishable from noise"
       },
       "read_vs_learn": {
         "claim": "reading price live vs fitting it",
         "mean_regret_reduction": -0.000710002342853025,
         "sd_across_seeds": 0.0028987725379482398,
         "std_error": 0.0010248708593502693,
+        "n_seeds": 8,
+        "t": -0.6927724955543575,
+        "t_critical_two_sided": 2.364624251592784,
+        "p_value": 0.5107745630296915,
+        "test": "two-sided paired t against zero, df=7, alpha=0.05",
         "supported": false,
-        "reading": "reading price live vs fitting it: reduces mean regret by -0.0007 \u00b1 0.0010 (SE over 8 seeds) \u2014 NOT distinguishable from noise"
+        "reading": "reading price live vs fitting it: reduces mean regret by -0.0007 \u00b1 0.0010 (SE over 8 seeds), t = -0.69 against a critical 2.36, p = 0.511 \u2014 NOT distinguishable from noise"
       }
     }
   },

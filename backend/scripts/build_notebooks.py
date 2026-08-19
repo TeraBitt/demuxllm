@@ -1928,6 +1928,270 @@ Everything else on `PUBLISHABILITY.md`'s watch-list is now measured rather than 
 ]
 
 
+# ================================================== 11 · the publishing pass ==
+N11 = [
+    ("md", """
+# 11 · The same list, re-run at n > 1
+
+Notebook 10 actioned `PUBLISHABILITY.md`'s watch-list and closed eight of ten items.
+Every one of them landed at **n = 1**: one replication, one split, one corrected family,
+one significance rule nobody checked.
+
+This notebook is what happened when each was re-run properly. Notebook 10 asked *is the
+effect there?* This asks *how big is it, how sure are we, and does it move when the
+mechanism says it should* — and that question changes two answers.
+
+**Three claims made earlier in this repository do not survive**, including one in
+notebook 10. All three are corrected at source; `PUBLISHING.md` carries the full write-up.
+"""),
+    ("code", PRELUDE),
+    ("md", """
+## 1. Coverage bias — from "it replicates" to "this is what causes it"
+
+Notebook 10 showed the effect survives on a disjoint pool. That rules out one
+alternative: that it belonged to those particular thirteen models. It leaves the boring
+one standing — maybe training on **more** items is simply worse, and coverage has nothing
+to do with it. The union arm differs from the dense arm in two ways at once.
+
+Start with pools that differ in how uneven their coverage is.
+"""),
+    ("code", """
+d = load("chutes/20_dose_response")
+dr = d["dose_response"]
+display(table([
+    {"pools": "control — all columns graded on the same tasks",
+     "n": dr["controls"]["n"],
+     "union arm trains on": f"{dr['controls']['mean_union_over_dense_train']:.2f}x",
+     "mean gap": pct(dr["controls"]["mean_gap"]),
+     "largest |gap|": pct(dr["controls"]["max_abs_gap"])},
+    {"pools": "mixed coverage", "n": dr["asymmetric"]["n"],
+     "union arm trains on": "~10x",
+     "mean gap": pct(dr["asymmetric"]["mean_gap"]),
+     "largest |gap|": f"positive in {dr['asymmetric']['replicated_in']} of {dr['asymmetric']['n']}"},
+]))
+md(dr["reading"])
+"""),
+    ("md", """
+The controls are the point: they **still** have a union arm training on more items than
+their dense arm, so "more data is worse" predicts an effect there and there is none.
+
+But that is a two-level contrast, not a dose. Real pools sit at either ~0.0 or ~0.85
+asymmetry and nothing between — one narrowly graded column is enough to collapse the
+intersection. Two more experiments separate quantity from coverage properly.
+
+### 1a. Hold the item count fixed
+
+Train the union arm on a random subset of the union items of **exactly the dense arm's
+size**. Only the coverage differs.
+"""),
+    ("code", """
+fr = d["first_replication"]
+display(table([
+    {"arm": "dense core", "train items": fr["dense_best"]["train_items"],
+     "fully observed": pct(fr["dense_best"]["dense_share_of_train"]),
+     "quality retained": pct(fr["dense_best"]["quality_vs_frontier"])},
+    {"arm": "union", "train items": fr["union_best"]["train_items"],
+     "fully observed": pct(fr["union_best"]["dense_share_of_train"]),
+     "quality retained": pct(fr["union_best"]["quality_vs_frontier"])},
+    {"arm": "union, size-matched", "train items": fr["union_matched_n_best"]["train_items"],
+     "fully observed": pct(fr["union_matched_n_best"]["dense_share_of_train"]),
+     "quality retained": pct(fr["union_matched_n_best"]["quality_vs_frontier"])},
+]))
+finding("correction",
+        f"The gap is {pct(fr['gap_at_matched_n'])} at equal n against "
+        f"{pct(fr['gap_points'])} with ten times the data. More data is not the cause — "
+        f"it is a partial compensation, buying back about a fifth of what uneven "
+        f"coverage costs. 'Ten times the data costs twelve points' was conflating two "
+        f"effects with opposite signs.")
+"""),
+    ("md", """
+### 1b. Manipulate nothing but the mask
+
+Thirteen columns all graded on the same 22 tasks — coverage uniform, effect absent — then
+remove whole tasks from six of them. Same models, same items, same prices, same code
+path. Whole tasks rather than random cells, because that is the shape real unevenness
+has, and because random removal would make the missingness independent of the features,
+which is the assumption under which the bias vanishes.
+"""),
+    ("code", """
+ms = d["mask_sweep"]
+display(table([{"removed": pct(r["target_fraction_removed"], 0),
+                "realised asymmetry": round(r["coverage_asymmetry"], 3),
+                "dense core": r["dense_core_items"],
+                "gap, size-matched": pct(r["gap_at_matched_n"]),
+                "gap, union keeps all": pct(r["gap_points"])} for r in ms["rows"]]))
+md(ms["reading"])
+"""),
+    ("code", """
+show("chutes_12_coverage_cause",
+     "Left: one point per 13-model pool, against how uneven its coverage is; squares are "
+     "the uniform-coverage controls. Right: one pool, coverage removed by whole tasks — "
+     "the purple line holds the training-set size fixed, so only coverage varies.")
+st = d["seed_stability"]
+finding("supported", st["reading"] + " Present where the asymmetry is, absent where it is "
+        "not, unchanged when the data volume is held fixed, monotone in a dose that "
+        "varies nothing else, and stable across splits. That is a causal claim.")
+"""),
+    ("md", """
+## 2. Error bars, on two instruments that answer different questions
+
+`PUBLISHABILITY.md` §6 asked for k-fold; notebook 10 answered with a bootstrap. They are
+not interchangeable:
+
+- the **bootstrap** holds the fitted router fixed and resamples evaluation items — *how
+  precisely do we know what this policy does on questions like these*;
+- **k-fold** refits on each of k disjoint training sets — *how much does the policy move
+  when its training data changes*.
+
+Here every dense item is held out exactly once, which also yields a pooled out-of-fold
+estimate over the whole core.
+"""),
+    ("code", """
+kf = load("chutes/21_kfold")
+display(table([{"k": k, "trains on": pct(kf["by_k"][str(k)]["train_frac"], 0),
+                "savings vs best single": pct(kf["by_k"][str(k)]["savings_vs_best_single"]["mean"]),
+                "fold sd": pct(kf["by_k"][str(k)]["savings_vs_best_single"]["sd"]),
+                "quality vs best single": pct(kf["by_k"][str(k)]["quality_vs_best_single"]["mean"]),
+                "pooled out-of-fold": pct(kf["by_k"][str(k)]["pooled_out_of_fold"]["savings_vs_best_single"])}
+               for k in kf["ks"]]))
+b = load("chutes/16_bootstrap")["savings_vs_best_single"]
+md(f"The bootstrap, for comparison: **{pct(b['mean'])}** "
+   f"(95% CI {pct(b['lo'])}–{pct(b['hi'])}). The level is not in doubt.")
+"""),
+    ("md", """
+What *is* in doubt is a conclusion. Notebook 10 read the bootstrap's quality interval
+containing 1.0 as support for "we match the best single model". The k-fold interval
+answers that question differently at different k.
+"""),
+    ("code", """
+par = kf["does_the_quality_interval_contain_parity"]
+qb = load("chutes/16_bootstrap")["quality_vs_best_single"]
+rows = [{"instrument": "bootstrap over items", "quality": pct(qb["mean"], 2),
+         "95% interval": f"[{pct(qb['lo'], 2)}, {pct(qb['hi'], 2)}]",
+         "contains parity": "yes" if par["bootstrap"] else "no"}]
+for k in kf["ks"]:
+    q = kf["by_k"][str(k)]["quality_vs_best_single"]
+    rows.append({"instrument": f"{k}-fold", "quality": pct(q["mean"], 2),
+                 "95% interval": f"[{pct(q['lo'], 2)}, {pct(q['hi'], 2)}]",
+                 "contains parity": "yes" if par["kfold_by_k"][str(k)] else "no"})
+display(table(rows))
+finding("correction", par["note"])
+"""),
+    ("md", """
+## 3. The published baseline that beat us — retracted
+
+Notebook 10 led with a negative result: a RouteLLM-style matrix factorisation delivering
+59.4% savings at 95.5% quality where our dial gives 55.8%, so **+3.6 points against us**.
+It was one split with no interval — the exact failure that notebook criticises everywhere
+else. With two instruments:
+"""),
+    ("code", """
+m = load("chutes/22_baseline_margins")
+rows = []
+for fam, s in m["across_splits"].items():
+    ib = m["item_bootstrap"].get(fam, {})
+    rows.append({"family": fam,
+                 "seed 0": pct(ib.get("margin_point_estimate", float("nan"))),
+                 "item bootstrap 95%": f"[{pct(ib['lo'])}, {pct(ib['hi'])}]" if ib else "—",
+                 "over 8 splits": f"{pct(s['mean'])} ± {pct(s['sd'])}",
+                 "beats us in": f"{s['beats_us_in']} of {s['n_splits_with_a_useful_point']}"})
+display(table(rows))
+finding("correction", m["reading"])
+"""),
+    ("code", """
+per_seed = m["per_seed"]
+for fam in ("cascade", "hybrid"):
+    n = sum(1 for r in per_seed if fam in r["no_useful_point"])
+    md(f"- **{fam}**: no operating point that both saves money and holds 95% quality, in "
+       f"**{n} of {len(per_seed)}** splits.")
+md("Those two survive intact, and the reason is structural rather than statistical: a "
+   "cascade pays for every attempt, and structure does not move with a seed.")
+"""),
+    ("md", """
+## 4. Fifteen claims — what a correction can and cannot fix
+
+`PUBLISHABILITY.md` §3 said fifteen claims were adjudicated with no correction, and that
+about one false positive was expected. That is wrong in both directions, and classifying
+each claim by what kind of inference backs it is what shows why.
+"""),
+    ("code", """
+a = load("chutes/23_multiplicity")
+kinds = {"census": "a count over the whole population — no null to correct",
+         "estimate": "a point estimate with no SE — needs an interval, not a correction",
+         "test": "a two-sided comparison with an SE — this is what a correction applies to"}
+display(table([{"kind": k, "claims": len(v), "which": ", ".join(v), "what it needs": kinds[k]}
+               for k, v in a["claims_by_kind"].items()]))
+md(f"So there were never fifteen tests. There are **{len(a['claims_by_kind']['test'])}** "
+   f"claims that are tests — but they rest on **{a['n_tests']} separate comparisons**, "
+   f"which the claim count hid.")
+"""),
+    ("code", """
+fam_rows = []
+for fam, keys in a["families"].items():
+    ps = [a["tests"][k]["p"] for k in keys]
+    fam_rows.append({"family": fam, "comparisons": len(keys),
+                     "clear alpha=0.05 uncorrected": sum(p <= a["alpha"] for p in ps),
+                     "survive Holm": sum(a["tests"][k]["holm_significant"] for k in keys)})
+display(table(fam_rows))
+display(table([{"test": k, "estimate": round(t["estimate"], 5), "se": round(t["se"], 5),
+                "n": t["n"], "p": round(t["p"], 4),
+                "Holm": "yes" if t["holm_significant"] else "no",
+                "BH": "yes" if t["bh_significant"] else "no"}
+               for k, t in list(a["tests"].items())[:6]]))
+finding("correction", a["reading"])
+"""),
+    ("md", """
+## 5. A significance rule that was wrong
+
+Building that ledger meant reading how each verdict was actually decided. One of them
+used `mean > 2 * se` — the normal approximation — on arms with **eight seeds**, where the
+two-sided critical value is t(0.975, 7) = 2.365, not 1.96. That gap is exactly wide
+enough to matter once.
+"""),
+    ("code", """
+rep = load("decomposition")["replication"]
+rows = []
+for regime, block in rep.items():
+    for key in ("decomposition", "read_vs_learn"):
+        v = block[key]
+        ratio = v["mean_regret_reduction"] / v["std_error"]
+        rows.append({"arm": f"{key}, {regime}",
+                     "mean": round(v["mean_regret_reduction"], 5),
+                     "SE": round(v["std_error"], 5),
+                     "mean/SE": round(ratio, 2),
+                     "old 2-SE rule": "supported" if ratio > 2 else "not supported",
+                     "t-test p": round(v["p_value"], 3),
+                     "verdict": "supported" if v["supported"] else "not supported"})
+display(table(rows))
+finding("correction",
+        "The high-drift gamma arm sits at 2.04 SE — over the normal critical value, under "
+        "the t one — and was written into an artifact as supported. Under the correct "
+        "test it is p = 0.081. Claim 11 moves from mixed to not supported: component-wise "
+        "gamma_q/gamma_t does not beat one shared gamma in either regime. Small-n is the "
+        "whole regime here, so the approximation that only bites at small n was the one "
+        "being used.")
+"""),
+    ("md", """
+## What is still open
+
+Three rows of `PUBLISHABILITY.md` §6 remain, and all three are blocked on **endpoint
+access** rather than on money or effort:
+
+- **Nine of thirteen slots are still stand-ins.** No endpoint we hold a key for serves
+  them, including all five Qwen slots. This is the binding constraint on the whole
+  package, and no amount of arithmetic reaches it.
+- **The graded set is 55 items on four of nine benchmarks.** About $25 of remaining
+  credit buys ~170 more on the four reachable slots; `arenahard` additionally needs a
+  judge model and `livecodebench` needs sandboxed execution of untrusted output.
+- **No latency in seconds.** The harness is written and exercised end to end —
+  `scripts/measure_latency.py`, about $1 to run — and is waiting for a key.
+
+Everything on that list that compute could close is now closed, and two of the things it
+closed were claims this repository had already published.
+"""),
+]
+
+
 NOTEBOOKS = {
     "01_data_and_pool.ipynb": ("01 · The data, and the pool", N1),
     "02_router_engine.ipynb": ("02 · The router engine, and what it saves", N2),
@@ -1939,6 +2203,7 @@ NOTEBOOKS = {
     "08_loss_and_scale.ipynb": ("08 · Loss, and what it buys", N8),
     "09_chutes_pool.ipynb": ("09 · The pool the product serves", N9),
     "10_rigor.ipynb": ("10 · Error bars, corrections, replication", N10),
+    "11_publishing.ipynb": ("11 · The same list, re-run at n > 1", N11),
 }
 
 

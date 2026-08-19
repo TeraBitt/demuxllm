@@ -1,0 +1,706 @@
+{
+ "n_items": 55,
+ "measured_slots": [
+  "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+  "moonshotai/Kimi-K2.6-TEE",
+  "moonshotai/Kimi-K3-TEE",
+  "zai-org/GLM-5.2-TEE"
+ ],
+ "n_train": 34,
+ "n_test": 19,
+ "per_model_accuracy": [
+  {
+   "slot": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+   "proxy_accuracy": 0.8182,
+   "real_accuracy": 0.8182,
+   "delta": 0.0
+  },
+  {
+   "slot": "moonshotai/Kimi-K2.6-TEE",
+   "proxy_accuracy": 0.7818,
+   "real_accuracy": 0.8909,
+   "delta": 0.1091
+  },
+  {
+   "slot": "moonshotai/Kimi-K3-TEE",
+   "proxy_accuracy": 0.8909,
+   "real_accuracy": 0.8727,
+   "delta": -0.0182
+  },
+  {
+   "slot": "zai-org/GLM-5.2-TEE",
+   "proxy_accuracy": 0.7273,
+   "real_accuracy": 0.8909,
+   "delta": 0.1636
+  }
+ ],
+ "arm_a_all_proxy": {
+  "arm": "A: all thirteen proxy-backed",
+  "sweep": [
+   {
+    "lam_cost": 0.0,
+    "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.002739,
+    "savings_vs_best_single_pct": 0.54,
+    "quality_vs_best_single_pct": 0.9412,
+    "savings_vs_frontier_pct": 0.54,
+    "quality_vs_frontier_pct": 0.9412,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1053,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.1579,
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.3684,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2632,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526,
+     "moonshotai/Kimi-K2.6-TEE": 0.0526
+    },
+    "dominated_models": {
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.002031,
+    "savings_vs_best_single_pct": 0.06,
+    "quality_vs_best_single_pct": 0.9333,
+    "savings_vs_frontier_pct": 0.66,
+    "quality_vs_frontier_pct": 0.8235,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.5263,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2105,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526
+    },
+    "dominated_models": {
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.002031,
+    "savings_vs_best_single_pct": 0.06,
+    "quality_vs_best_single_pct": 0.9333,
+    "savings_vs_frontier_pct": 0.66,
+    "quality_vs_frontier_pct": 0.8235,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.5263,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2105,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526
+    },
+    "dominated_models": {
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "best_single_model": "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.001876,
+    "savings_vs_best_single_pct": 0.13,
+    "quality_vs_best_single_pct": 0.9333,
+    "savings_vs_frontier_pct": 0.68,
+    "quality_vs_frontier_pct": 0.8235,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.5263,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-32B-TEE": 0.0526,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2105
+    },
+    "dominated_models": {
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "best_single_model": "deepseek-ai/DeepSeek-V3.2-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.001695,
+    "savings_vs_best_single_pct": -0.24,
+    "quality_vs_best_single_pct": 0.8235,
+    "savings_vs_frontier_pct": 0.72,
+    "quality_vs_frontier_pct": 0.8235,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.2105,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.4737,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-32B-TEE": 0.0526,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2105
+    },
+    "dominated_models": {
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "zai-org/GLM-5.1-TEE",
+      "moonshotai/Kimi-K2.6-TEE"
+     ]
+    }
+   }
+  ]
+ },
+ "arm_b_hybrid": {
+  "arm": "B: four slots measured",
+  "sweep": [
+   {
+    "lam_cost": 0.0,
+    "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.006968,
+    "savings_vs_best_single_pct": -0.17,
+    "quality_vs_best_single_pct": 1.0,
+    "savings_vs_frontier_pct": -0.17,
+    "quality_vs_frontier_pct": 1.0,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1053,
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.1053,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2105,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526,
+     "zai-org/GLM-5.2-TEE": 0.4211,
+     "moonshotai/Kimi-K3-TEE": 0.1053
+    },
+    "dominated_models": {
+     "Nemotron-3-Nano-Omni-30B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "deepseek-ai/DeepSeek-V3.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "moonshotai/Kimi-K3-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.05,
+    "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.004257,
+    "savings_vs_best_single_pct": 0.28,
+    "quality_vs_best_single_pct": 0.9412,
+    "savings_vs_frontier_pct": 0.28,
+    "quality_vs_frontier_pct": 0.9412,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.2632,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2632,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526,
+     "zai-org/GLM-5.2-TEE": 0.2105
+    },
+    "dominated_models": {
+     "Nemotron-3-Nano-Omni-30B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "deepseek-ai/DeepSeek-V3.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "moonshotai/Kimi-K3-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.1,
+    "best_single_model": "deepseek-ai/DeepSeek-V3.2-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.003404,
+    "savings_vs_best_single_pct": -1.49,
+    "quality_vs_best_single_pct": 0.9412,
+    "savings_vs_frontier_pct": 0.43,
+    "quality_vs_frontier_pct": 0.9412,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-32B-TEE": 0.0526,
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.3684,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2632,
+     "Qwen/Qwen3.5-397B-A17B-TEE": 0.0526,
+     "zai-org/GLM-5.2-TEE": 0.0526
+    },
+    "dominated_models": {
+     "Nemotron-3-Nano-Omni-30B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "deepseek-ai/DeepSeek-V3.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "moonshotai/Kimi-K3-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.2,
+    "best_single_model": "deepseek-ai/DeepSeek-V3.2-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.001933,
+    "savings_vs_best_single_pct": -0.41,
+    "quality_vs_best_single_pct": 0.9412,
+    "savings_vs_frontier_pct": 0.68,
+    "quality_vs_frontier_pct": 0.9412,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.1579,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.1579,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-32B-TEE": 0.2105,
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": 0.1053,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.3158
+    },
+    "dominated_models": {
+     "Nemotron-3-Nano-Omni-30B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "deepseek-ai/DeepSeek-V3.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "moonshotai/Kimi-K3-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ]
+    }
+   },
+   {
+    "lam_cost": 0.4,
+    "best_single_model": "deepseek-ai/DeepSeek-V3.2-TEE",
+    "frontier_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+    "router_cost_per_call": 0.001144,
+    "savings_vs_best_single_pct": 0.16,
+    "quality_vs_best_single_pct": 0.8824,
+    "savings_vs_frontier_pct": 0.81,
+    "quality_vs_frontier_pct": 0.8824,
+    "traffic_share": {
+     "Nemotron-3-Nano-Omni-30B-TEE": 0.2105,
+     "deepseek-ai/DeepSeek-V4-Flash-0731-TEE": 0.3684,
+     "google/gemma-4-31B-turbo-TEE": 0.0526,
+     "Qwen/Qwen3-32B-TEE": 0.1053,
+     "deepseek-ai/DeepSeek-V3.2-TEE": 0.2632
+    },
+    "dominated_models": {
+     "Nemotron-3-Nano-Omni-30B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3-32B-TEE": [
+      "Nemotron-3-Nano-Omni-30B-TEE",
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "deepseek-ai/DeepSeek-V3.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "Qwen/Qwen3.6-27B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE"
+     ],
+     "Qwen/Qwen3.5-397B-A17B-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE"
+     ],
+     "zai-org/GLM-5.1-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+      "deepseek-ai/DeepSeek-V3.2-TEE",
+      "Qwen/Qwen3.6-27B-TEE",
+      "Qwen/Qwen3.5-397B-A17B-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "moonshotai/Kimi-K2.6-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ],
+     "zai-org/GLM-5.2-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE"
+     ],
+     "moonshotai/Kimi-K3-TEE": [
+      "deepseek-ai/DeepSeek-V4-Flash-0731-TEE",
+      "moonshotai/Kimi-K2.6-TEE",
+      "zai-org/GLM-5.2-TEE"
+     ]
+    }
+   }
+  ]
+ },
+ "arm_c_shipped_router_vs_reality": {
+  "lam_cost": 0.2,
+  "n_test": 55,
+  "as the proxy predicted": {
+   "router_quality": 0.8545,
+   "router_cost_per_call": 0.006245,
+   "best_single_quality": 0.8909,
+   "best_single_model": "moonshotai/Kimi-K3-TEE"
+  },
+  "as it really is": {
+   "router_quality": 0.8545,
+   "router_cost_per_call": 0.008028,
+   "best_single_quality": 0.8909,
+   "best_single_model": "moonshotai/Kimi-K2.6-TEE"
+  },
+  "traffic_to_measured_slots": 0.2182
+ },
+ "caveat": "Nine of thirteen slots remain proxy-backed, and the item set is the subset gradeable without a judge. Read arm B as 'the frontier of the pool is measured', not as a de-proxied product."
+}

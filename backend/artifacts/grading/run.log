@@ -1,0 +1,15 @@
+slots=4  items queued=1,377  already graded=0 cells
+budget: 100,000,000 tokens / $33.00   already spent 0 tok / $0.00
+max_tokens=16384 temperature=0.6
+
+  items    12  cells     48  graded     44      181,784 tok  $  0.869     245s
+  items    24  cells     96  graded     83      482,713 tok  $  2.464     480s
+  items    36  cells    144  graded    125      728,003 tok  $  3.628     723s
+  items    48  cells    192  graded    156    1,130,373 tok  $  5.658    1012s
+  items    60  cells    240  graded    192    1,502,498 tok  $  7.710    1304s
+  items    72  cells    288  graded    232    1,838,511 tok  $  9.503    1642s
+  items    84  cells    336  graded    263    2,209,695 tok  $ 11.752    1952s
+slots=4  items queued=1,293  already graded=336 cells
+budget: 100,000,000 tokens / $32.00   already spent 2,209,695 tok / $11.75
+max_tokens=16384 temperature=0.6
+

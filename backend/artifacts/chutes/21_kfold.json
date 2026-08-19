@@ -1,0 +1,859 @@
+{
+  "by_k": {
+    "3": {
+      "k": 3,
+      "seed": 0,
+      "n_dense_items": 3541,
+      "train_frac": 0.6666666666666667,
+      "headline_protocol_train_frac": 0.65,
+      "folds": [
+        {
+          "fold": 0,
+          "n_test": 1181,
+          "n_train": 2360,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8293818797629128,
+          "router_cost_per_call": 0.005738657971210838,
+          "savings_vs_frontier": 0.7940202517996788,
+          "quality_vs_frontier": 0.9984709480122325,
+          "savings_vs_best_single": 0.195092302604159,
+          "quality_vs_best_single": 0.9949212798374809,
+          "oracle_quality": 0.9729043183742591,
+          "share_of_oracle_captured": 0.8524804177545692,
+          "val_brier": 0.1601589213241766
+        },
+        {
+          "fold": 1,
+          "n_test": 1180,
+          "n_train": 2361,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.826271186440678,
+          "router_cost_per_call": 0.004900840948983051,
+          "savings_vs_frontier": 0.8145814718944695,
+          "quality_vs_frontier": 0.9653465346534653,
+          "savings_vs_best_single": 0.24516805981125656,
+          "quality_vs_best_single": 0.9923664122137404,
+          "oracle_quality": 0.9673728813559322,
+          "share_of_oracle_captured": 0.8541392904073587,
+          "val_brier": 0.16116850498553711
+        },
+        {
+          "fold": 2,
+          "n_test": 1180,
+          "n_train": 2361,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8228813559322034,
+          "router_cost_per_call": 0.005415068688559322,
+          "savings_vs_frontier": 0.8103820978239604,
+          "quality_vs_frontier": 0.9867886178861789,
+          "savings_vs_best_single": 0.24969873673685217,
+          "quality_vs_best_single": 0.9908163265306121,
+          "oracle_quality": 0.9622881355932204,
+          "share_of_oracle_captured": 0.8551298987230295,
+          "val_brier": 0.1615913773088661
+        }
+      ],
+      "pooled_out_of_fold": {
+        "n_items": 3541,
+        "router_quality": 0.8261790454673821,
+        "router_cost_per_call": 0.005351631865659419,
+        "savings_vs_frontier": 0.8062162310578269,
+        "quality_vs_frontier": 0.9833613445378151,
+        "savings_vs_best_single": 0.2295952012848872,
+        "quality_vs_best_single": 0.9927044451985069,
+        "share_of_oracle_captured": 0.8539112667834209
+      },
+      "router_quality": {
+        "mean": 0.8261781407119314,
+        "sd": 0.0032512606246091346,
+        "se": 0.0018771161968237147,
+        "lo": 0.8181015615836109,
+        "hi": 0.8342547198402519,
+        "folds": [
+          0.8293818797629128,
+          0.826271186440678,
+          0.8228813559322034
+        ]
+      },
+      "router_cost_per_call": {
+        "mean": 0.00535152253625107,
+        "sd": 0.0004225079002676122,
+        "se": 0.00024393504995424948,
+        "lo": 0.0043019547276838465,
+        "hi": 0.006401090344818293,
+        "folds": [
+          0.005738657971210838,
+          0.004900840948983051,
+          0.005415068688559322
+        ]
+      },
+      "savings_vs_frontier": {
+        "mean": 0.8063279405060362,
+        "sd": 0.010863612963257871,
+        "se": 0.00627210986870884,
+        "lo": 0.7793412298581476,
+        "hi": 0.8333146511539248,
+        "folds": [
+          0.7940202517996788,
+          0.8145814718944695,
+          0.8103820978239604
+        ]
+      },
+      "quality_vs_frontier": {
+        "mean": 0.9835353668506256,
+        "sd": 0.01680013160114719,
+        "se": 0.00969956050234347,
+        "lo": 0.9418015263778474,
+        "hi": 1.0252692073234038,
+        "folds": [
+          0.9984709480122325,
+          0.9653465346534653,
+          0.9867886178861789
+        ]
+      },
+      "savings_vs_best_single": {
+        "mean": 0.22998636638408923,
+        "sd": 0.03030393577836732,
+        "se": 0.017495985479145503,
+        "lo": 0.15470721670258689,
+        "hi": 0.3052655160655916,
+        "folds": [
+          0.195092302604159,
+          0.24516805981125656,
+          0.24969873673685217
+        ]
+      },
+      "quality_vs_best_single": {
+        "mean": 0.9927013395272778,
+        "sd": 0.002072870628357749,
+        "se": 0.0011967724152776153,
+        "lo": 0.9875520434277947,
+        "hi": 0.9978506356267609,
+        "folds": [
+          0.9949212798374809,
+          0.9923664122137404,
+          0.9908163265306121
+        ]
+      },
+      "oracle_quality": {
+        "mean": 0.9675217784411373,
+        "sd": 0.005309657424598369,
+        "se": 0.003065532143396564,
+        "lo": 0.9543318581962174,
+        "hi": 0.9807116986860572,
+        "folds": [
+          0.9729043183742591,
+          0.9673728813559322,
+          0.9622881355932204
+        ]
+      },
+      "share_of_oracle_captured": {
+        "mean": 0.853916535628319,
+        "sd": 0.0013387128591475673,
+        "se": 0.0007729062295964616,
+        "lo": 0.8505909885297055,
+        "hi": 0.8572420827269326,
+        "folds": [
+          0.8524804177545692,
+          0.8541392904073587,
+          0.8551298987230295
+        ]
+      },
+      "val_brier": {
+        "mean": 0.16097293453952663,
+        "sd": 0.0007359812406119796,
+        "se": 0.0004249189673858412,
+        "lo": 0.15914465578458162,
+        "hi": 0.16280121329447164,
+        "folds": [
+          0.1601589213241766,
+          0.16116850498553711,
+          0.1615913773088661
+        ]
+      },
+      "reading": "3-fold over 3,541 dense items: 23.0% cheaper than the best single model (fold sd 3.0%) at 99.3% of its quality (fold sd 0.2%). Pooled over the out-of-fold predictions, where every item is held out exactly once, 23.0% at 99.3%. Each fold trains on 67% of the core against the headline protocol's 65%, so these are not a drop-in replacement for the headline \u2014 they are a statement about how much the policy moves when its training data does."
+    },
+    "5": {
+      "k": 5,
+      "seed": 0,
+      "n_dense_items": 3541,
+      "train_frac": 0.8,
+      "headline_protocol_train_frac": 0.65,
+      "folds": [
+        {
+          "fold": 0,
+          "n_test": 709,
+          "n_train": 2832,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8293370944992948,
+          "router_cost_per_call": 0.0057099125331452755,
+          "savings_vs_frontier": 0.7953769772274316,
+          "quality_vs_frontier": 0.9890664423885618,
+          "savings_vs_best_single": 0.2054205192183859,
+          "quality_vs_best_single": 0.9907329401853412,
+          "oracle_quality": 0.9724964739069112,
+          "share_of_oracle_captured": 0.8527918781725888,
+          "val_brier": 0.15528539369504601
+        },
+        {
+          "fold": 1,
+          "n_test": 708,
+          "n_train": 2833,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.815677966101695,
+          "router_cost_per_call": 0.005478298184322035,
+          "savings_vs_frontier": 0.7983226454775254,
+          "quality_vs_frontier": 0.9905660377358492,
+          "savings_vs_best_single": 0.19153536507307445,
+          "quality_vs_best_single": 0.9838160136286201,
+          "oracle_quality": 0.9759887005649718,
+          "share_of_oracle_captured": 0.8357452966714907,
+          "val_brier": 0.16513495505851838
+        },
+        {
+          "fold": 2,
+          "n_test": 708,
+          "n_train": 2833,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8269774011299436,
+          "router_cost_per_call": 0.005027374438983051,
+          "savings_vs_frontier": 0.8089040587274865,
+          "quality_vs_frontier": 0.954360228198859,
+          "savings_vs_best_single": 0.23791124257525664,
+          "quality_vs_best_single": 0.9865206402695873,
+          "oracle_quality": 0.9661016949152542,
+          "share_of_oracle_captured": 0.8559941520467838,
+          "val_brier": 0.15732396501676016
+        },
+        {
+          "fold": 3,
+          "n_test": 708,
+          "n_train": 2833,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.815677966101695,
+          "router_cost_per_call": 0.0053677398197740115,
+          "savings_vs_frontier": 0.814050410285959,
+          "quality_vs_frontier": 0.9746835443037976,
+          "savings_vs_best_single": 0.24313099659784287,
+          "quality_vs_best_single": 0.9888698630136987,
+          "oracle_quality": 0.9590395480225988,
+          "share_of_oracle_captured": 0.8505154639175259,
+          "val_brier": 0.1608624861319862
+        },
+        {
+          "fold": 4,
+          "n_test": 708,
+          "n_train": 2833,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.827683615819209,
+          "router_cost_per_call": 0.005556631590960452,
+          "savings_vs_frontier": 0.800402447910897,
+          "quality_vs_frontier": 0.9907016060862214,
+          "savings_vs_best_single": 0.21529065093091837,
+          "quality_vs_best_single": 0.9949066213921902,
+          "oracle_quality": 0.9639830508474576,
+          "share_of_oracle_captured": 0.8586080586080586,
+          "val_brier": 0.16298187478696985
+        }
+      ],
+      "pooled_out_of_fold": {
+        "n_items": 3541,
+        "router_quality": 0.8230725783676928,
+        "router_cost_per_call": 0.0054280709297091214,
+        "savings_vs_frontier": 0.8034483557073168,
+        "quality_vs_frontier": 0.9796638655462185,
+        "savings_vs_best_single": 0.21859126393802597,
+        "quality_vs_best_single": 0.988971835765185,
+        "share_of_oracle_captured": 0.8507005253940455
+      },
+      "router_quality": {
+        "mean": 0.8230708087303675,
+        "sd": 0.006802830936782658,
+        "se": 0.0030423184828169193,
+        "lo": 0.8146239784702978,
+        "hi": 0.8315176389904373,
+        "folds": [
+          0.8293370944992948,
+          0.815677966101695,
+          0.8269774011299436,
+          0.815677966101695,
+          0.827683615819209
+        ]
+      },
+      "router_cost_per_call": {
+        "mean": 0.005427991313436966,
+        "sd": 0.0002562629503884772,
+        "se": 0.00011460427543665824,
+        "lo": 0.005109798833866116,
+        "hi": 0.005746183793007815,
+        "folds": [
+          0.0057099125331452755,
+          0.005478298184322035,
+          0.005027374438983051,
+          0.0053677398197740115,
+          0.005556631590960452
+        ]
+      },
+      "savings_vs_frontier": {
+        "mean": 0.8034113079258599,
+        "sd": 0.007791967085914122,
+        "se": 0.003484673616508984,
+        "lo": 0.7937363029200917,
+        "hi": 0.8130863129316281,
+        "folds": [
+          0.7953769772274316,
+          0.7983226454775254,
+          0.8089040587274865,
+          0.814050410285959,
+          0.800402447910897
+        ]
+      },
+      "quality_vs_frontier": {
+        "mean": 0.9798755717426578,
+        "sd": 0.015763494941424715,
+        "se": 0.007049649250399945,
+        "lo": 0.9603026075880237,
+        "hi": 0.999448535897292,
+        "folds": [
+          0.9890664423885618,
+          0.9905660377358492,
+          0.954360228198859,
+          0.9746835443037976,
+          0.9907016060862214
+        ]
+      },
+      "savings_vs_best_single": {
+        "mean": 0.21865775487909564,
+        "sd": 0.02174754109327772,
+        "se": 0.009725796045607814,
+        "lo": 0.19165461605411577,
+        "hi": 0.2456608937040755,
+        "folds": [
+          0.2054205192183859,
+          0.19153536507307445,
+          0.23791124257525664,
+          0.24313099659784287,
+          0.21529065093091837
+        ]
+      },
+      "quality_vs_best_single": {
+        "mean": 0.9889692156978876,
+        "sd": 0.004210831111461681,
+        "se": 0.0018831409213998624,
+        "lo": 0.9837407783042693,
+        "hi": 0.994197653091506,
+        "folds": [
+          0.9907329401853412,
+          0.9838160136286201,
+          0.9865206402695873,
+          0.9888698630136987,
+          0.9949066213921902
+        ]
+      },
+      "oracle_quality": {
+        "mean": 0.9675218936514387,
+        "sd": 0.006762466788048496,
+        "se": 0.0030242670867322197,
+        "lo": 0.9591251821016702,
+        "hi": 0.9759186052012072,
+        "folds": [
+          0.9724964739069112,
+          0.9759887005649718,
+          0.9661016949152542,
+          0.9590395480225988,
+          0.9639830508474576
+        ]
+      },
+      "share_of_oracle_captured": {
+        "mean": 0.8507309698832894,
+        "sd": 0.008924878159854837,
+        "se": 0.00399132685126773,
+        "lo": 0.8396492699838426,
+        "hi": 0.8618126697827363,
+        "folds": [
+          0.8527918781725888,
+          0.8357452966714907,
+          0.8559941520467838,
+          0.8505154639175259,
+          0.8586080586080586
+        ]
+      },
+      "val_brier": {
+        "mean": 0.16031773493785612,
+        "sd": 0.00402762713686985,
+        "se": 0.0018012096132127668,
+        "lo": 0.15531677532381633,
+        "hi": 0.1653186945518959,
+        "folds": [
+          0.15528539369504601,
+          0.16513495505851838,
+          0.15732396501676016,
+          0.1608624861319862,
+          0.16298187478696985
+        ]
+      },
+      "reading": "5-fold over 3,541 dense items: 21.9% cheaper than the best single model (fold sd 2.2%) at 98.9% of its quality (fold sd 0.4%). Pooled over the out-of-fold predictions, where every item is held out exactly once, 21.9% at 98.9%. Each fold trains on 80% of the core against the headline protocol's 65%, so these are not a drop-in replacement for the headline \u2014 they are a statement about how much the policy moves when its training data does."
+    },
+    "10": {
+      "k": 10,
+      "seed": 0,
+      "n_dense_items": 3541,
+      "train_frac": 0.9,
+      "headline_protocol_train_frac": 0.65,
+      "folds": [
+        {
+          "fold": 0,
+          "n_test": 355,
+          "n_train": 3186,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8549295774647887,
+          "router_cost_per_call": 0.005812394852676056,
+          "savings_vs_frontier": 0.7843068482360888,
+          "quality_vs_frontier": 1.0033057851239668,
+          "savings_vs_best_single": 0.16365772222394925,
+          "quality_vs_best_single": 1.0150501672240801,
+          "oracle_quality": 0.971830985915493,
+          "share_of_oracle_captured": 0.8797101449275362,
+          "val_brier": 0.15139887540239208
+        },
+        {
+          "fold": 1,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8290960451977402,
+          "router_cost_per_call": 0.006038414141242938,
+          "savings_vs_frontier": 0.7907997539487979,
+          "quality_vs_frontier": 1.00513698630137,
+          "savings_vs_best_single": 0.1865318833367543,
+          "quality_vs_best_single": 0.9966044142614602,
+          "oracle_quality": 0.9731638418079096,
+          "share_of_oracle_captured": 0.8519593613933237,
+          "val_brier": 0.15900931557675624
+        },
+        {
+          "fold": 2,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8220338983050848,
+          "router_cost_per_call": 0.005665952685028248,
+          "savings_vs_frontier": 0.7966818265918894,
+          "quality_vs_frontier": 0.9831081081081082,
+          "savings_vs_best_single": 0.1812539156156553,
+          "quality_vs_best_single": 0.9781512605042016,
+          "oracle_quality": 0.9774011299435028,
+          "share_of_oracle_captured": 0.8410404624277457,
+          "val_brier": 0.16199252681276133
+        },
+        {
+          "fold": 3,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8347457627118644,
+          "router_cost_per_call": 0.005343004229661018,
+          "savings_vs_frontier": 0.7980718829650533,
+          "quality_vs_frontier": 1.0296167247386758,
+          "savings_vs_best_single": 0.19436856333098096,
+          "quality_vs_best_single": 1.0207253886010361,
+          "oracle_quality": 0.9745762711864406,
+          "share_of_oracle_captured": 0.8565217391304348,
+          "val_brier": 0.1670992321768351
+        },
+        {
+          "fold": 4,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8248587570621468,
+          "router_cost_per_call": 0.005103912166949153,
+          "savings_vs_frontier": 0.8096923484272552,
+          "quality_vs_frontier": 0.948051948051948,
+          "savings_vs_best_single": 0.2243523137302159,
+          "quality_vs_best_single": 0.9573770491803278,
+          "oracle_quality": 0.9731638418079096,
+          "share_of_oracle_captured": 0.8476052249637155,
+          "val_brier": 0.15817785125450695
+        },
+        {
+          "fold": 5,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8206214689265536,
+          "router_cost_per_call": 0.0052525511432203395,
+          "savings_vs_frontier": 0.7963887964551342,
+          "quality_vs_frontier": 0.9509001636661211,
+          "savings_vs_best_single": 0.20578078756702023,
+          "quality_vs_best_single": 1.0069324090121317,
+          "oracle_quality": 0.9590395480225988,
+          "share_of_oracle_captured": 0.8556701030927835,
+          "val_brier": 0.1550673835493554
+        },
+        {
+          "fold": 6,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8121468926553672,
+          "router_cost_per_call": 0.005114317414971752,
+          "savings_vs_frontier": 0.8202446446215732,
+          "quality_vs_frontier": 0.968013468013468,
+          "savings_vs_best_single": 0.25504826227972577,
+          "quality_vs_best_single": 0.9982638888888888,
+          "oracle_quality": 0.96045197740113,
+          "share_of_oracle_captured": 0.8455882352941176,
+          "val_brier": 0.16585892847503944
+        },
+        {
+          "fold": 7,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8107344632768362,
+          "router_cost_per_call": 0.0056834804019774005,
+          "savings_vs_frontier": 0.8059035670444323,
+          "quality_vs_frontier": 0.9712351945854484,
+          "savings_vs_best_single": 0.22343726697044697,
+          "quality_vs_best_single": 0.9695945945945946,
+          "oracle_quality": 0.9576271186440678,
+          "share_of_oracle_captured": 0.8466076696165192,
+          "val_brier": 0.15645953796121873
+        },
+        {
+          "fold": 8,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8573446327683616,
+          "router_cost_per_call": 0.005282034133898305,
+          "savings_vs_frontier": 0.8146031463148703,
+          "quality_vs_frontier": 1.0049668874172186,
+          "savings_vs_best_single": 0.25262289930125625,
+          "quality_vs_best_single": 1.003305785123967,
+          "oracle_quality": 0.9661016949152542,
+          "share_of_oracle_captured": 0.8874269005847953,
+          "val_brier": 0.155868257325491
+        },
+        {
+          "fold": 9,
+          "n_test": 354,
+          "n_train": 3187,
+          "frontier_model": "zai-org/GLM-5.2-TEE",
+          "best_single_model": "Qwen/Qwen3-235B-A22B-Thinking-2507-TEE",
+          "router_quality": 0.8135593220338984,
+          "router_cost_per_call": 0.005309349433615819,
+          "savings_vs_frontier": 0.8047167057429518,
+          "quality_vs_frontier": 0.9948186528497409,
+          "savings_vs_best_single": 0.2516602772117096,
+          "quality_vs_best_single": 1.005235602094241,
+          "oracle_quality": 0.961864406779661,
+          "share_of_oracle_captured": 0.8458149779735683,
+          "val_brier": 0.16815829892374107
+        }
+      ],
+      "pooled_out_of_fold": {
+        "n_items": 3541,
+        "router_quality": 0.8280146851171986,
+        "router_cost_per_call": 0.005460640425981362,
+        "savings_vs_frontier": 0.8022690070714955,
+        "quality_vs_frontier": 0.985546218487395,
+        "savings_vs_best_single": 0.21390265738777392,
+        "quality_vs_best_single": 0.9949100780454699,
+        "share_of_oracle_captured": 0.8558085230589609
+      },
+      "router_quality": {
+        "mean": 0.8280070820402642,
+        "sd": 0.016636216153654054,
+        "se": 0.005260833469243253,
+        "lo": 0.816106249925527,
+        "hi": 0.8399079141550013,
+        "folds": [
+          0.8549295774647887,
+          0.8290960451977402,
+          0.8220338983050848,
+          0.8347457627118644,
+          0.8248587570621468,
+          0.8206214689265536,
+          0.8121468926553672,
+          0.8107344632768362,
+          0.8573446327683616,
+          0.8135593220338984
+        ]
+      },
+      "router_cost_per_call": {
+        "mean": 0.0054605410603241035,
+        "sd": 0.0003177153858412392,
+        "se": 0.00010047042669375276,
+        "lo": 0.0052332611649294385,
+        "hi": 0.0056878209557187686,
+        "folds": [
+          0.005812394852676056,
+          0.006038414141242938,
+          0.005665952685028248,
+          0.005343004229661018,
+          0.005103912166949153,
+          0.0052525511432203395,
+          0.005114317414971752,
+          0.0056834804019774005,
+          0.005282034133898305,
+          0.005309349433615819
+        ]
+      },
+      "savings_vs_frontier": {
+        "mean": 0.8021409520348046,
+        "sd": 0.010989843987063633,
+        "se": 0.0034752938129027117,
+        "lo": 0.7942792912431185,
+        "hi": 0.8100026128264908,
+        "folds": [
+          0.7843068482360888,
+          0.7907997539487979,
+          0.7966818265918894,
+          0.7980718829650533,
+          0.8096923484272552,
+          0.7963887964551342,
+          0.8202446446215732,
+          0.8059035670444323,
+          0.8146031463148703,
+          0.8047167057429518
+        ]
+      },
+      "quality_vs_frontier": {
+        "mean": 0.9859153918856066,
+        "sd": 0.02630484534855015,
+        "se": 0.008318322479990424,
+        "lo": 0.967098039105031,
+        "hi": 1.0047327446661822,
+        "folds": [
+          1.0033057851239668,
+          1.00513698630137,
+          0.9831081081081082,
+          1.0296167247386758,
+          0.948051948051948,
+          0.9509001636661211,
+          0.968013468013468,
+          0.9712351945854484,
+          1.0049668874172186,
+          0.9948186528497409
+        ]
+      },
+      "savings_vs_best_single": {
+        "mean": 0.21387138915677148,
+        "sd": 0.03266862040442344,
+        "se": 0.010330724849342913,
+        "lo": 0.190501665941933,
+        "hi": 0.23724111237160997,
+        "folds": [
+          0.16365772222394925,
+          0.1865318833367543,
+          0.1812539156156553,
+          0.19436856333098096,
+          0.2243523137302159,
+          0.20578078756702023,
+          0.25504826227972577,
+          0.22343726697044697,
+          0.25262289930125625,
+          0.2516602772117096
+        ]
+      },
+      "quality_vs_best_single": {
+        "mean": 0.995124055948493,
+        "sd": 0.020379224491256915,
+        "se": 0.006444476634025804,
+        "lo": 0.9805456369703458,
+        "hi": 1.0097024749266401,
+        "folds": [
+          1.0150501672240801,
+          0.9966044142614602,
+          0.9781512605042016,
+          1.0207253886010361,
+          0.9573770491803278,
+          1.0069324090121317,
+          0.9982638888888888,
+          0.9695945945945946,
+          1.003305785123967,
+          1.005235602094241
+        ]
+      },
+      "oracle_quality": {
+        "mean": 0.9675220816423966,
+        "sd": 0.007329238126713831,
+        "se": 0.002317708599416149,
+        "lo": 0.9622790605329484,
+        "hi": 0.9727651027518448,
+        "folds": [
+          0.971830985915493,
+          0.9731638418079096,
+          0.9774011299435028,
+          0.9745762711864406,
+          0.9731638418079096,
+          0.9590395480225988,
+          0.96045197740113,
+          0.9576271186440678,
+          0.9661016949152542,
+          0.961864406779661
+        ]
+      },
+      "share_of_oracle_captured": {
+        "mean": 0.8557944819404539,
+        "sd": 0.015494521900946842,
+        "se": 0.004899798046235388,
+        "lo": 0.8447103686938979,
+        "hi": 0.8668785951870099,
+        "folds": [
+          0.8797101449275362,
+          0.8519593613933237,
+          0.8410404624277457,
+          0.8565217391304348,
+          0.8476052249637155,
+          0.8556701030927835,
+          0.8455882352941176,
+          0.8466076696165192,
+          0.8874269005847953,
+          0.8458149779735683
+        ]
+      },
+      "val_brier": {
+        "mean": 0.15990902074580976,
+        "sd": 0.0056508531568674695,
+        "se": 0.001786956669885396,
+        "lo": 0.1558666439154185,
+        "hi": 0.16395139757620103,
+        "folds": [
+          0.15139887540239208,
+          0.15900931557675624,
+          0.16199252681276133,
+          0.1670992321768351,
+          0.15817785125450695,
+          0.1550673835493554,
+          0.16585892847503944,
+          0.15645953796121873,
+          0.155868257325491,
+          0.16815829892374107
+        ]
+      },
+      "reading": "10-fold over 3,541 dense items: 21.4% cheaper than the best single model (fold sd 3.3%) at 99.5% of its quality (fold sd 2.0%). Pooled over the out-of-fold predictions, where every item is held out exactly once, 21.4% at 99.5%. Each fold trains on 90% of the core against the headline protocol's 65%, so these are not a drop-in replacement for the headline \u2014 they are a statement about how much the policy moves when its training data does."
+    }
+  },
+  "ks": [
+    3,
+    5,
+    10
+  ],
+  "against_the_bootstrap": {
+    "savings_vs_best_single": {
+      "bootstrap": {
+        "mean": 0.20179180461294632,
+        "lo": 0.1583619117393246,
+        "hi": 0.24576529951813106,
+        "width": 0.08740338777880646
+      },
+      "kfold_k5": {
+        "mean": 0.21865775487909564,
+        "lo": 0.19165461605411577,
+        "hi": 0.2456608937040755,
+        "width": 0.054006277649959744
+      }
+    },
+    "quality_vs_best_single": {
+      "bootstrap": {
+        "mean": 0.9937480942066674,
+        "lo": 0.9750338777190598,
+        "hi": 1.0132898245660258,
+        "width": 0.03825594684696598
+      },
+      "kfold_k5": {
+        "mean": 0.9889692156978876,
+        "lo": 0.9837407783042693,
+        "hi": 0.994197653091506,
+        "width": 0.01045687478723667
+      }
+    },
+    "savings_vs_frontier": {
+      "bootstrap": {
+        "mean": 0.7970543466756015,
+        "lo": 0.7846155737966863,
+        "hi": 0.8092628709423041,
+        "width": 0.024647297145617753
+      },
+      "kfold_k5": {
+        "mean": 0.8034113079258599,
+        "lo": 0.7937363029200917,
+        "hi": 0.8130863129316281,
+        "width": 0.019350010011536467
+      }
+    },
+    "quality_vs_frontier": {
+      "bootstrap": {
+        "mean": 0.9974455107429431,
+        "lo": 0.9722862562007586,
+        "hi": 1.023360070831099,
+        "width": 0.05107381463034044
+      },
+      "kfold_k5": {
+        "mean": 0.9798755717426578,
+        "lo": 0.9603026075880237,
+        "hi": 0.999448535897292,
+        "width": 0.03914592830926833
+      }
+    },
+    "share_of_oracle_captured": {
+      "bootstrap": {
+        "mean": 0.8514326001205238,
+        "lo": 0.8318754483523789,
+        "hi": 0.8696201116329768,
+        "width": 0.03774466328059789
+      },
+      "kfold_k5": {
+        "mean": 0.8507309698832894,
+        "lo": 0.8396492699838426,
+        "hi": 0.8618126697827363,
+        "width": 0.0221633997988937
+      }
+    },
+    "val_brier": {
+      "bootstrap": {
+        "mean": 0.16097669497272699,
+        "lo": 0.15544661818831526,
+        "hi": 0.16691510183341823,
+        "width": 0.011468483645102973
+      },
+      "kfold_k5": {
+        "mean": 0.16031773493785612,
+        "lo": 0.15531677532381633,
+        "hi": 0.1653186945518959,
+        "width": 0.010001919228079581
+      }
+    }
+  },
+  "does_the_quality_interval_contain_parity": {
+    "bootstrap": true,
+    "kfold_by_k": {
+      "3": false,
+      "5": false,
+      "10": true
+    },
+    "stable_across_k": false,
+    "note": "RIGOR.md \u00a71 reads the bootstrap interval containing 1.0 as support for 'we match the best single model'. The k-fold interval answers that question differently at different k, which is the clearest possible demonstration that a cross-validation spread is not a confidence interval: the folds share training items, so its width has no coverage guarantee and it must not be used to accept or reject a parity claim. The bootstrap interval is the one to quote."
+  },
+  "reading": "The two instruments agree on the level and differ on the width, which is what they should do: the bootstrap holds the policy fixed and asks how precisely its behaviour is known on these items, k-fold refits and asks how much the policy itself moves. Quote the bootstrap interval for a headline; quote the k-fold spread when the question is whether the number survives being retrained."
+}

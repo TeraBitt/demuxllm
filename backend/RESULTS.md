@@ -169,17 +169,28 @@ the best single model, for less quality. λ_c weights a cost *ratio*, and this p
 span three orders of magnitude where RouterBench's span one. Calibration is now a pipeline
 stage. → `04_calibration.json`
 
-**2. Ten times more training data made the router worse.** Training on all 23,795 graded
-items instead of the 2,302 fully-observed ones costs **twelve points** of quality retention
-and 24% of the Brier score. Columns graded on different task mixes have weights fitted over
-different regions of feature space and stop being comparable at the argmax.
+**2. Uneven coverage made the router worse — and it is the coverage, not the volume.**
+Training on all 23,795 graded items instead of the 2,302 fully-observed ones costs **twelve
+points** of quality retention and 24% of the Brier score. Columns graded on different task
+mixes have weights fitted over different regions of feature space and stop being comparable
+at the argmax.
+
+*Corrected framing.* This was originally reported as "ten times more training data made the
+router worse", which cannot distinguish the coverage from the volume — the union arm has
+both. A third arm holds the volume fixed, training on the same unevenly covered items cut
+to the dense arm's 2,302: it retains **85.9%**, so the gap is **+14.5 points at equal n**,
+*larger* than with ten times the data. More data was partly compensating for the damage,
+not causing it. `PUBLISHING.md` §1 runs this on two further pools and shows the effect can
+be dialled up and down by manipulating nothing but the observation mask.
 → `03_ablation.json`
 
 ![Coverage ablation](artifacts/figures/chutes_05_coverage.png)
 
 *Same held-out items in both arms; only the training set differs. The **orange** arm has
 ten times the data and loses to the **blue** one at every regularisation strength. More
-data is a liability when its coverage is uneven across the columns you are comparing.*
+data is a liability when its coverage is uneven across the columns you are comparing —
+and the size-matched third arm in `03_ablation.json` shows it is the unevenness doing the
+damage, not the size.*
 
 **3. 470 "measurements" were failed calls.** Zero tokens in, zero out, score exactly 0.0
 where every other cell averages 0.60. Left in, the cost lane learns the model was free; on
@@ -309,6 +320,26 @@ documents anticipates that.
 The one thing this cannot see is queueing, cold starts and load — which is what a real p99
 is largely made of. One timed run against the endpoint replaces the whole section.
 
+**That run now has a harness, and it is the cheapest open item in the package.**
+`scripts/measure_latency.py` probes each reachable slot at **concurrency 1** — measuring
+under parallelism is the exact defect that makes this corpus's wall-clock unusable — and
+streams the response so time-to-first-token and decode rate are separated rather than
+folded into one number. TTFT is regressed on input tokens, because prefill is linear in
+prompt length and a mean TTFT is only valid for the prompt mix that produced it. Load is a
+separate, labelled arm (`--load 1,2,4,8`), never averaged into the single-stream figure.
+It applies `latency.throughput_is_credible` to its own output, so a probe that was not
+actually isolated fails the same gate the corpus failed rather than shipping. Planned cost:
+**144 calls, about $1.**
+
+```bash
+make latency-plan                   # free and offline: what a real run would cost
+FIREWORKS_API_KEY=... make latency  # the run, then the analysis
+```
+
+Until then this section stands as written, in tokens. A dry run exists for exercising the
+code path and every record it produces is stamped `synthetic`, so it cannot be mistaken
+for a measurement — see `PUBLISHING.md` §6.
+
 ---
 
 ## 5. How this is getting better
@@ -400,14 +431,66 @@ enough to sit above the mid tier. The anchors stay, and are labelled everywhere.
 
 ### What closes this gap
 
-One graded run against the real Chutes endpoint. ~2,000 questions is enough — that is
-where the learning curve flattens — across the 13 models, on public benchmark items with
-known answers. Estimated cost is in the tens of dollars, dominated by Kimi K3's output
-price and by thinking tokens. Every number in this document then recomputes with **no code
-change**: the bindings live in one table and everything downstream reads through it.
+One graded run against the real endpoint. ~2,000 questions is enough — that is where the
+learning curve flattens — across the 13 models, on public benchmark items with known
+answers. The bindings live in one table and everything downstream reads through it.
 
 Until then, every artifact carries `proxy_backed: true` and every figure carries the
 caveat in its footer.
+
+### 7b. Part of it is now closed — and the assumption was worse than advertised
+
+**Four of the thirteen slots have been graded on the real checkpoints.** Full method and
+caveats in `GRADED_RUN.md`; the short version is that three claims made above are wrong.
+
+Fireworks serves the same open-weights checkpoints, so four slots could be measured
+directly — DeepSeek V4 Flash, Kimi K2.6, GLM 5.2 and Kimi K3. The other nine, including
+all five Qwen slots, are not available serverless anywhere we hold a key, so they remain
+proxy-backed. 55 items, paired against the same items the stand-ins answered.
+
+**Correction 1 — "estimated cost is in the tens of dollars" was low by an order of
+magnitude.** Measured from the corpus's own token counts at live prices, grading 2,000
+items × 13 models costs **~$256**, and the full dense core **~$504**, before the
+Arena-Hard judge (another $51–544) that the estimate omitted entirely.
+
+**Correction 2 — "no code change" was wrong.** Nothing in this package could *produce* a
+graded matrix: there was no chat client and no grader, and the 1.28 GB corpus archive
+contains zero `.py` files, so every grader had to be reimplemented and calibrated (99.95%
+agreement against 13,312 already-graded records).
+
+**Correction 3 — the bindings are wrong in the place nobody was checking.** Quality was
+roughly right; two of four errors resolve, both understating the real model:
+
+| slot | stood in by | proxy | real | error (95% CI) |
+|---|---|---|---|---|
+| DeepSeek V4 Flash | DeepSeek-R1-0528-Qwen3-8B | 0.818 | 0.818 | +0.000 [−0.091, +0.091] |
+| Kimi K2.6 | kimi-k2-0905 | 0.782 | 0.891 | **−0.109** [−0.200, −0.036] |
+| Kimi K3 | gpt-5 | 0.891 | 0.873 | +0.018 [−0.054, +0.091] |
+| GLM 5.2 | gemini-2.5-pro | 0.727 | 0.891 | **−0.164** [−0.255, −0.073] |
+
+But **token counts are wrong by up to 4×**, and cost is tokens × price:
+
+| slot | proxy tokens/call | real tokens/call | ratio |
+|---|---|---|---|
+| DeepSeek V4 Flash | 6,063 | 1,527 | **0.25×** |
+| Kimi K2.6 | 1,214 | 4,212 | **3.47×** |
+| GLM 5.2 | 5,350 | 3,535 | 0.66× |
+| Kimi K3 | 1,456 | 1,114 | 0.77× |
+
+The table above says quality and output-token counts are equally "real". They are equally
+*measured*, but only of the stand-in — and the stand-in was chosen for capability, which
+is the axis it got right. Nobody checked verbosity, and verbosity is what the bill is made
+of.
+
+**What that does to the shipped router.** Fitted on stand-in data with every graded item
+held out, then scored against what really happened on those 55 items: the routing
+decisions are unchanged (quality 0.8545 either way) but the realised bill is **28.6%
+higher than predicted**. Only 22% of traffic reaches a measured slot, so that is a floor,
+not an estimate.
+
+The §7 framing — one assumption, closable for tens of dollars — understated both the cost
+and the consequences. The consequence is not mainly in the quality lane. It is in the cost
+lane, which is the one the product sells.
 
 ---
 
@@ -605,3 +688,7 @@ roadmap and priced at tens of dollars.
 | latency signal and the λ_l sweep | `chutes/15_latency.json` | 09 |
 | tie rate, pool description | `overview.json` | 01 |
 | the website's figures | `src/lib/measured.ts` (generated) | — |
+| error bars on every headline | `chutes/16_bootstrap.json`, `chutes/21_kfold.json` | 10 |
+| per-domain SEs and the corrections | `chutes/17_domains.json`, `chutes/23_multiplicity.json` | 10 |
+| coverage bias, made causal | `chutes/20_dose_response.json` | — |
+| published-router baselines, with error bars | `chutes/19_baselines.json`, `chutes/22_baseline_margins.json` | 10 |

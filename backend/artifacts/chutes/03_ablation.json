@@ -5,6 +5,7 @@
       "ridge_lam": 1.0,
       "train_items": 2302,
       "train_cells": 29926,
+      "dense_share_of_train": 1.0,
       "val_brier": 0.16099728784904185,
       "quality_at_lam_cost_0": 0.8337368845843423,
       "quality_vs_frontier": 1.0033997085964061
@@ -14,6 +15,7 @@
       "ridge_lam": 10.0,
       "train_items": 2302,
       "train_cells": 29926,
+      "dense_share_of_train": 1.0,
       "val_brier": 0.16115914377543464,
       "quality_at_lam_cost_0": 0.8317191283292978,
       "quality_vs_frontier": 1.000971345313259
@@ -23,6 +25,7 @@
       "ridge_lam": 100.0,
       "train_items": 2302,
       "train_cells": 29926,
+      "dense_share_of_train": 1.0,
       "val_brier": 0.16359919641072057,
       "quality_at_lam_cost_0": 0.8297013720742534,
       "quality_vs_frontier": 0.9985429820301117
@@ -32,6 +35,7 @@
       "ridge_lam": 1000.0,
       "train_items": 2302,
       "train_cells": 29926,
+      "dense_share_of_train": 1.0,
       "val_brier": 0.1714768980641853,
       "quality_at_lam_cost_0": 0.8244552058111381,
       "quality_vs_frontier": 0.9922292374939291
@@ -41,6 +45,7 @@
       "ridge_lam": 1.0,
       "train_items": 23795,
       "train_cells": 167141,
+      "dense_share_of_train": 0.09674301323807523,
       "val_brier": 0.21144590297274676,
       "quality_at_lam_cost_0": 0.7320419693301049,
       "quality_vs_frontier": 0.8810101991257892
@@ -50,6 +55,7 @@
       "ridge_lam": 10.0,
       "train_items": 23795,
       "train_cells": 167141,
+      "dense_share_of_train": 0.09674301323807523,
       "val_brier": 0.2113849771289936,
       "quality_at_lam_cost_0": 0.7288135593220338,
       "quality_vs_frontier": 0.8771248178727536
@@ -59,6 +65,7 @@
       "ridge_lam": 100.0,
       "train_items": 23795,
       "train_cells": 167141,
+      "dense_share_of_train": 0.09674301323807523,
       "val_brier": 0.21243385009557006,
       "quality_at_lam_cost_0": 0.7276029055690073,
       "quality_vs_frontier": 0.8756677999028655
@@ -68,11 +75,55 @@
       "ridge_lam": 1000.0,
       "train_items": 23795,
       "train_cells": 167141,
+      "dense_share_of_train": 0.09674301323807523,
       "val_brier": 0.22097894797701792,
       "quality_at_lam_cost_0": 0.7029862792574657,
       "quality_vs_frontier": 0.8460417678484702
+    },
+    {
+      "train_on": "union_matched_n",
+      "ridge_lam": 1.0,
+      "train_items": 2302,
+      "train_cells": 16356,
+      "dense_share_of_train": 0.10208514335360556,
+      "val_brier": 0.2270964291864695,
+      "quality_at_lam_cost_0": 0.7134786117836965,
+      "quality_vs_frontier": 0.8586692569208354
+    },
+    {
+      "train_on": "union_matched_n",
+      "ridge_lam": 10.0,
+      "train_items": 2302,
+      "train_cells": 16356,
+      "dense_share_of_train": 0.10208514335360556,
+      "val_brier": 0.22656074532083237,
+      "quality_at_lam_cost_0": 0.7130750605326877,
+      "quality_vs_frontier": 0.8581835842642059
+    },
+    {
+      "train_on": "union_matched_n",
+      "ridge_lam": 100.0,
+      "train_items": 2302,
+      "train_cells": 16356,
+      "dense_share_of_train": 0.10208514335360556,
+      "val_brier": 0.23122388603965016,
+      "quality_at_lam_cost_0": 0.7009685230024213,
+      "quality_vs_frontier": 0.843613404565323
+    },
+    {
+      "train_on": "union_matched_n",
+      "ridge_lam": 1000.0,
+      "train_items": 2302,
+      "train_cells": 16356,
+      "dense_share_of_train": 0.10208514335360556,
+      "val_brier": 0.243762177956728,
+      "quality_at_lam_cost_0": 0.6150121065375302,
+      "quality_vs_frontier": 0.740165128703254
     }
   ],
   "frontier_model": "zai-org/GLM-5.2-TEE",
-  "reading": "dense-core training retains 100.3% of frontier quality on 2,302 items; the union arm has 10x the items and retains 88.1%. Uneven coverage across columns costs more than the extra data buys."
+  "gap_points": 0.122389509470617,
+  "gap_at_matched_n": 0.14473045167557075,
+  "cause": "coverage",
+  "reading": "dense-core training retains 100.3% of frontier quality on 2,302 items; the union arm has 10x the items and retains 88.1%, a gap of +12.2%. Held at the dense arm's own size, so that only the coverage differs, it retains 85.9% and the gap is +14.5% \u2014 larger, so the extra data was partly compensating and the cause is the uneven coverage, not the volume."
 }

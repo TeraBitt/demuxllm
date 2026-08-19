@@ -988,3 +988,64 @@ def chutes_baselines(base: dict) -> plt.Figure:
     fig.tight_layout(pad=1.5)
     _footnote(fig)
     return fig
+
+
+def chutes_dose_response(dose: dict, mask: dict) -> plt.Figure:
+    """The coverage-bias effect against the mechanism that is supposed to cause it.
+
+    Left: every pool's gap against how uneven its coverage is, with the control pools
+    — uniform coverage — sitting on zero. Right: the same gap with the amount of
+    training data held fixed, which is what separates "uneven data hurts" from "more
+    data hurts".
+    """
+    rows = dose["rows"]
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.4, 4.7))
+
+    a = np.array([r["coverage_asymmetry"] for r in rows])
+    g = 100 * np.array([r["gap_points"] for r in rows])
+    gm = 100 * np.array([r["gap_at_matched_n"] for r in rows])
+    ctrl = a < 0.2
+
+    ax1.scatter(a[~ctrl], g[~ctrl], s=34, color=C["orange"], zorder=3,
+                label="mixed coverage")
+    ax1.scatter(a[ctrl], g[ctrl], s=44, color=C["blue"], marker="s", zorder=3,
+                label="control — uniform coverage")
+    # No fitted line. Real pools sit at two levels of asymmetry and nothing between,
+    # so a regression through them would draw a continuum the data does not contain.
+    # The group means are what the panel actually shows.
+    for m, color in ((ctrl, C["blue"]), (~ctrl, C["orange"])):
+        if not m.any():
+            continue
+        lo, hi = a[m].min(), a[m].max()
+        pad = 0.035
+        ax1.plot([lo - pad, hi + pad], [g[m].mean()] * 2, "-", color=color,
+                 linewidth=2.2, alpha=0.55, zorder=2)
+        # Nudge clear of the zero rule when the mean sits on it.
+        dy = -11 if abs(g[m].mean()) < 1.0 else -3
+        ax1.annotate(f"mean {g[m].mean():+.1f}", (hi + pad, g[m].mean()), fontsize=7.5,
+                     color=color, xytext=(4, dy), textcoords="offset points")
+    ax1.axhline(0, color=C["grey"], ls=":", linewidth=1)
+    ax1.set_xlim(-0.09, 1.06)
+    _style(ax1, "Present where coverage is uneven, absent where it is not",
+           "coverage asymmetry  (1 − dense core / union)",
+           "quality retention lost by the union arm (points)")
+    ax1.legend(fontsize=8, frameon=False, loc="upper left")
+
+    mrows = mask["rows"]
+    mf = 100 * np.array([r["target_fraction_removed"] for r in mrows])
+    mg = 100 * np.array([r["gap_points"] for r in mrows])
+    mgm = 100 * np.array([r["gap_at_matched_n"] for r in mrows])
+    ax2.plot(mf, mgm, "-o", ms=5, color=C["purple"], linewidth=1.7,
+             label="coverage varied, training-set size held fixed")
+    ax2.plot(mf, mg, "-s", ms=5, color=C["orange"], linewidth=1.7,
+             label="coverage varied, union arm keeps every item")
+    ax2.axhline(0, color=C["grey"], ls=":", linewidth=1)
+    _style(ax2, "Same thirteen models; only the coverage mask changes",
+           "share of observations removed from 6 of 13 columns (%)",
+           "quality retention lost (points)")
+    ax2.legend(fontsize=8, frameon=False, loc="upper left")
+
+    fig.tight_layout(pad=1.5)
+    _footnote(fig, "LLMRouterBench, dense-vs-union ablation at lam_cost = 0. Left: one "
+                   "point per 13-model pool. Right: one pool, coverage removed by whole tasks.")
+    return fig
